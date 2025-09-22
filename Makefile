@@ -1,11 +1,11 @@
 NAME		= minishell
 CC			= cc
-CFLAGS		= -Wall -Werror -Wextra
+CFLAGS		= -Wall -Werror -Wextra -lreadline
 SRC_PATH	= src/
 SRC			= main.c
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 OBJS		= $(SRCS:.c=.o)
-INCLUDE	= -I./include -I./libft
+INCLUDE		= -I./include -I./libft
 
 # Libft
 LIBFT_PATH	= libft
