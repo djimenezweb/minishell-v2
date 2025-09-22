@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:51:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/22 12:25:08 by danielji         ###   ########.fr       */
+/*   Updated: 2025/09/22 12:42:04 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -68,6 +68,7 @@ void	**string_to_array(char **arr, char const *str, int count)
 	end = 0;
 	while (count--)
 	{
+		// TO DO: No contar espacios dentro de comillas
 		while (str[start] == SPACE)
 			start++;
 		end = start + 1;
