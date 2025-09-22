@@ -1,8 +1,9 @@
 NAME		= minishell
 CC			= cc
-CFLAGS		= -Wall -Werror -Wextra -lreadline
+CFLAGS		= -Wall -Werror -Wextra
 SRC_PATH	= src/
-SRC			= main.c
+SRC			=	main.c \
+				parser/parser.c
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 OBJS		= $(SRCS:.c=.o)
 INCLUDE		= -I./include -I./libft
@@ -21,7 +22,7 @@ $(LIBFT) :
 
 $(NAME) : $(OBJS)
 	@echo "=== Compiling ==="
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_COMP) -o $(NAME)
+	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_COMP) -o $(NAME) -lreadline
 
 %.o : %.c
 	@echo "=== Creating object files ==="
