@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/22 10:42:14 by danielji         ###   ########.fr       */
+/*   Updated: 2025/09/22 12:24:40 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -37,6 +37,9 @@
 
 
 int		count_substrings(char *str);
-void	split_by_metacharacter(char *line);
+int		count_substrings(char *str);
+void	free_array(char **arr, int i);
+void	**string_to_array(char **arr, char const *str, int count);
+char	**split_by_space(char *line);
 
 #endif
