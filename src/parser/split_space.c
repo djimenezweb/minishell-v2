@@ -6,13 +6,23 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:51:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/22 12:42:04 by danielji         ###   ########.fr       */
+/*   Updated: 2025/09/23 11:05:00 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "minishell.h"
 
-int	count_substrings(char *str)
+static void	free_array(char **arr, int i)
+{
+	while (i > 0)
+	{
+		i--;
+		free(arr[i]);
+	}
+	free(arr);
+}
+
+static int	count_substrings(char *str)
 {
 	int	i;
 	int	count;
@@ -47,32 +57,26 @@ int	count_substrings(char *str)
 	return (count);
 }
 
-void	free_array(char **arr, int i)
-{
-	while (i > 0)
-	{
-		i--;
-		free(arr[i]);
-	}
-	free(arr);
-}
-
-void	**string_to_array(char **arr, char const *str, int count)
+static void	**string_to_array(char **arr, char const *str, int count)
 {
 	int	i;
 	int	start;
 	int	end;
+	int	in_s_quote;
+	int	in_d_quote;
 
 	i = 0;
 	start = 0;
 	end = 0;
+	in_s_quote = 0;
+	in_d_quote = 0;
 	while (count--)
 	{
 		// TO DO: No contar espacios dentro de comillas
-		while (str[start] == SPACE)
+		while (str[start] && str[start] == SPACE && !in_s_quote && !in_d_quote)
 			start++;
 		end = start + 1;
-		while (str[end] && (str[end] != SPACE))
+		while (str[end] && (str[end] != SPACE) && !in_s_quote && !in_d_quote)
 			end++;
 		arr[i] = ft_substr(str, start, (end - start));
 		if (!arr[i])
@@ -107,5 +111,13 @@ char	**split_by_space(char *line)
 	}
 	string_to_array(arr, str, count);
 	free(str);
+	// print array
+	int i = 0;
+	while (arr[i])
+	{
+		ft_printf("%s\n", arr[i]);
+		i++;
+	}
+	// end print array
 	return (arr);
 }
