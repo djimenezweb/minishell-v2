@@ -1,57 +1,41 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   split_metacharacter.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/23 12:24:47 by danielji         ###   ########.fr       */
+/*   Created: 2025/09/22 09:51:26 by danielji          #+#    #+#             */
+/*   Updated: 2025/09/23 12:47:14 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "minishell.h"
 
-void	print_array(char **arr)
+static int	count_substrings(char **arr)
 {
-	int i;
+	int	i;
+	int	j;
+	int	count;
 
 	i = 0;
+	count = 0;
 	while (arr[i])
 	{
-		ft_printf(">%s<\n", arr[i]);
+		count++;
+		j = 0;
+		while (arr[i][j])
+		{
+
+		}
 		i++;
 	}
 }
 
-void	free_array(char **arr)
+char	**split_by_metacharacter(char **arr)
 {
-	int i;
+	int count;
 
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-}
-
-int	main(int argc, char *argv[])
-{
-	(void)argc;
-	(void)argv;
-	char *rl;
-	char **arr;
-	char **arr2;
-
-	rl = readline("MINISHELL 1.0 - $");
-	ft_printf("%s\n", rl);
-	arr = split_by_space(rl);
-	print_array(arr);
-	arr2 = split_by_metacharacter(arr);
-	print_array(arr2);
-	free(rl);
-	free_array(arr);
-	return (0);
+	count = count_substringss(arr);
+	
 }
