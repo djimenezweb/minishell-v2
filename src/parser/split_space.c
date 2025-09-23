@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:51:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/23 11:05:00 by danielji         ###   ########.fr       */
+/*   Updated: 2025/09/23 12:09:33 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -57,7 +57,7 @@ static int	count_substrings(char *str)
 	return (count);
 }
 
-static void	**string_to_array(char **arr, char const *str, int count)
+static void	**string_to_array(char **arr, char *str, int count)
 {
 	int	i;
 	int	start;
@@ -72,12 +72,20 @@ static void	**string_to_array(char **arr, char const *str, int count)
 	in_d_quote = 0;
 	while (count--)
 	{
-		// TO DO: No contar espacios dentro de comillas
-		while (str[start] && str[start] == SPACE && !in_s_quote && !in_d_quote)
+		// Skip leading spaces (only outside quotes)
+		while (str[start] == SPACE)
 			start++;
-		end = start + 1;
-		while (str[end] && (str[end] != SPACE) && !in_s_quote && !in_d_quote)
+		end = start;
+		while (str[end])
+		{
+			if (str[end] == SINGLE_QUOTE && !in_d_quote)
+				in_s_quote = !in_s_quote; // toggle
+			else if (str[end] == DOUBLE_QUOTE && !in_s_quote)
+				in_d_quote = !in_d_quote; // toggle;
+			else if (str[end] == SPACE && !in_s_quote && !in_d_quote)
+				break; // real delimiter
 			end++;
+		}
 		arr[i] = ft_substr(str, start, (end - start));
 		if (!arr[i])
 		{
@@ -88,6 +96,7 @@ static void	**string_to_array(char **arr, char const *str, int count)
 		i++;
 	}
 	arr[i] = (NULL);
+	return (NULL);
 }
 
 char	**split_by_space(char *line)
@@ -111,13 +120,5 @@ char	**split_by_space(char *line)
 	}
 	string_to_array(arr, str, count);
 	free(str);
-	// print array
-	int i = 0;
-	while (arr[i])
-	{
-		ft_printf("%s\n", arr[i]);
-		i++;
-	}
-	// end print array
 	return (arr);
 }
