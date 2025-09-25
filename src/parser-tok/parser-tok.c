@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:41:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/25 20:38:26 by danielji         ###   ########.fr       */
+/*   Updated: 2025/09/25 23:35:34 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -71,72 +71,75 @@ static void	add_token(t_token_array *arr, TokenType type, char *start, size_t le
 		t->value = NULL;	
 }
 
-t_token_array	tokenize(char *input)
+t_token_array	tokenize(char *str)
 {
-	char			*p;
+	int				i;
+	//char			*p;
 	char			quote;
-	char			*start;
+	int				start;
 	t_token_array	arr = {0};
-	
-	p = input;
-	while (*p)
+
+	i = 0;
+	//p = str;
+	while (str[i])
 	{
-		if (ft_isspace(*p))
+		if (ft_isspace(str[i]))
 		{
-			p++;
+			i++;
 			continue;
 		}
-		if (*p == PIPE)
+		if (str[i] == PIPE)
 		{
 			add_token(&arr, TOK_PIPE, NULL, 0);
-			p++;
+			i++;
 		}
-		else if (*p == LESS)
+		else if (str[i] == LESS)
 		{
-			if (*(p+1) == LESS)
+			if (str[i+1] == LESS)
 			{
 				add_token(&arr, TOK_HEREDOC, NULL, 0);
-				p += 2;
+				i += 2;
 			}
 			else
 			{
 				add_token(&arr, TOK_REDIRECT_IN, NULL, 0);
-				p++;
+				i++;
 			}
 		}
-		else if (*p == GREATER)
+		else if (str[i] == GREATER)
 		{
-			if (*(p+1) == GREATER)
+			if (str[i+1] == GREATER)
 			{
 				add_token(&arr, TOK_REDIRECT_OUT_APPEND, NULL, 0);
-				p += 2;
+				i += 2;
 			}
 			else
 			{
 				add_token(&arr, TOK_REDIRECT_OUT, NULL, 0);
-				p++;
+				i++;
 			}
 		}
-		else if (*p == DOUBLE_QUOTE || *p == SINGLE_QUOTE)
+		else if (str[i] == DOUBLE_QUOTE || str[i] == SINGLE_QUOTE)
 		{
 			// quoted string
-			quote = *p++;
-			start = p;
-			while (*p && *p != quote)
-				p++;
-			add_token(&arr, TOK_WORD, start, p - start);
-			if (*p == quote)
-				p++; // skip closing quote
+			quote = str[i];
+			i++;
+			start = i;
+			while (str[i] && str[i] != quote)
+				i++;
+			add_token(&arr, TOK_WORD, &str[start], i - start);
+			if (str[i] == quote)
+				i++; // skip closing quote
 		}
 		else
 		{
 			// plain word
-			start = p;
-			while (*p && !ft_isspace(*p) && *p != PIPE && *p != LESS && *p != GREATER)
+			start = i;
+			while (str[i] && !ft_isspace(str[i]) && str[i] != PIPE && str[i] != LESS && str[i] != GREATER)
 			{
-				p++;
+				i++;
 			}
-			add_token(&arr, TOK_WORD, start, p - start);
+			add_token(&arr, TOK_WORD, &str[start], i - start);
 		}
 	}
 	add_token(&arr, TOK_EOF, NULL, 0);

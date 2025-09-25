@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/25 20:19:25 by danielji         ###   ########.fr       */
+/*   Updated: 2025/09/25 23:25:57 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -66,6 +66,6 @@ void	free_array_n(char **arr, int n);
 
 // parser-tok
 void			free_tokens(t_token_array *arr);
-t_token_array	tokenize(char *input);
+t_token_array	tokenize(char *str);
 
 #endif
