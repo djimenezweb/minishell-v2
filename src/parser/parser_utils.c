@@ -6,13 +6,13 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 10:05:53 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/25 10:07:44 by danielji         ###   ########.fr       */
+/*   Updated: 2025/09/25 10:35:28 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "minishell.h"
 
-void	free_array(char **arr, int n)
+void	free_array_n(char **arr, int n)
 {
 	while (n > 0)
 	{

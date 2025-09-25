@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:51:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/25 10:07:44 by danielji         ###   ########.fr       */
+/*   Updated: 2025/09/25 10:41:31 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -79,7 +79,7 @@ static void	**string_to_array(char **arr, char *str, int count)
 		arr[i] = ft_substr(str, start, (end - start));
 		if (!arr[i])
 		{
-			free_array(arr, i);
+			free_array_n(arr, i);
 			return (NULL);
 		}
 		start = end;
@@ -99,9 +99,9 @@ char	**split_by_space(char *line)
 	str = ft_strtrim(line, " \n\t");
 	if (!str)
 		return (NULL);
-	ft_printf("Trimmed string  = >%s<\n", str);
+	//ft_printf("Trimmed string  = >%s<\n", str);
 	count = count_substrings(str);
-	ft_printf("Substring count = %d\n", count);
+	//ft_printf("Substring count = %d\n", count);
  	arr = malloc((count + 1) * sizeof(char *));
 	if (!arr)
 	{

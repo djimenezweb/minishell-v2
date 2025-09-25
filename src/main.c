@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/23 12:24:47 by danielji         ###   ########.fr       */
+/*   Updated: 2025/09/25 10:50:26 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -46,12 +46,13 @@ int	main(int argc, char *argv[])
 	char **arr2;
 
 	rl = readline("MINISHELL 1.0 - $");
-	ft_printf("%s\n", rl);
+	//ft_printf("%s\n", rl);
 	arr = split_by_space(rl);
 	print_array(arr);
 	arr2 = split_by_metacharacter(arr);
 	print_array(arr2);
 	free(rl);
 	free_array(arr);
+	ft_printf("=== END ===\n");
 	return (0);
 }
