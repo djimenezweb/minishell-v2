@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/09 11:36:44 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/25 23:54:40 by danielji         ###   ########.fr       */
+/*   Created: 2025/09/25 23:41:59 by danielji          #+#    #+#             */
+/*   Updated: 2025/09/25 23:53:57 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-/* Erases the data in the n bytes of the memory starting at the location
-pointed to by s, by writing zeros (bytes containing '\0') to that area. */
-void	ft_bzero(void *s, size_t n)
+/* Returns `1` if character is a space, horizontal tab (`\t`), newline (`\n`),
+vertical tab (`\v`), form-feed (`\f`), or carriage return (`\r`)*/
+int	ft_isspace(int c)
 {
-	unsigned char	*s_char;
-
-	s_char = (unsigned char *)s;
-	while (n > 0)
-	{
-		*s_char = '\0';
-		s_char++;
-		n--;
-	}
+	if (c == ' ' || (c >= 9 && c <= 13))
+		return (1);
+	return (0);
 }
