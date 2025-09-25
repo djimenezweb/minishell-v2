@@ -12,13 +12,6 @@
 
 #include "minishell.h"
 
-int	ft_isspace(char c)
-{
-	if ((c == SPACE) || (c >= 9 && c <= 12))
-		return (1);
-	return (0);
-}
-
 void	free_tokens(t_token_array *arr)
 {
 	size_t	i;
@@ -42,7 +35,8 @@ static void	add_token(t_token_array *arr, TokenType type, char *start, size_t le
 	
 	// allocate new array, 1 bigger
 	new_tokens = malloc((arr->count + 1) * sizeof(t_token));
-	if (!new_tokens) {
+	if (!new_tokens)
+	{
 		// to do: handle error
 		exit(1);
 	}
@@ -68,25 +62,23 @@ static void	add_token(t_token_array *arr, TokenType type, char *start, size_t le
 		t->value = ft_substr(start, 0, len);
 	//t->value = strndup(start, len);
 	else
-		t->value = NULL;	
+		t->value = NULL;
 }
 
 t_token_array	tokenize(char *str)
 {
 	int				i;
-	//char			*p;
 	char			quote;
 	int				start;
 	t_token_array	arr = {0};
 
 	i = 0;
-	//p = str;
 	while (str[i])
 	{
 		if (ft_isspace(str[i]))
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		if (str[i] == PIPE)
 		{
@@ -95,7 +87,7 @@ t_token_array	tokenize(char *str)
 		}
 		else if (str[i] == LESS)
 		{
-			if (str[i+1] == LESS)
+			if (str[i + 1] == LESS)
 			{
 				add_token(&arr, TOK_HEREDOC, NULL, 0);
 				i += 2;
@@ -108,7 +100,7 @@ t_token_array	tokenize(char *str)
 		}
 		else if (str[i] == GREATER)
 		{
-			if (str[i+1] == GREATER)
+			if (str[i + 1] == GREATER)
 			{
 				add_token(&arr, TOK_REDIRECT_OUT_APPEND, NULL, 0);
 				i += 2;
