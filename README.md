@@ -13,29 +13,22 @@
 Tu shell deberá:
 - Mostrar una entrada mientras espera un comando nuevo.
 - Tener un historial funcional.
-- Buscar y ejecutar el ejecutable correcto (basado en la variable `PATH` o mediante el uso de rutas relativas
-o absolutas).
-- Evita utilizar más de una variable global para indicar la recepción de una señal. Piensa en lo que implica:
-Esta aproximación evita que tu gestor de señales acceda a tus estructuras de datos principales.
+- Buscar y ejecutar el ejecutable correcto (basado en la variable `PATH` o mediante el uso de rutas relativas o absolutas).
+- Evita utilizar más de una variable global para indicar la recepción de una señal. Piensa en lo que implica: Esta aproximación evita que tu gestor de señales acceda a tus estructuras de datos principales.
 
 ¡Cuidado! Esta variable global no puede proporcionar ninguna otra información o datos que el número de una señal recibida. Por lo tanto está prohibido utilizar estructuras de tipo "norm" en global.
 
-- No interpretar comillas sin cerrar o caracteres especiales no especificados en el enunciado como `\`
-(barra invertida) o `;` (punto y coma).
+- No interpretar comillas sin cerrar o caracteres especiales no especificados en el enunciado como `\` (barra invertida) o `;` (punto y coma).
 - Gestionar que la `'` evite que el shell interprete los metacaracteres en la secuencia entrecomillada.
-- Gestionar que la `"` evite que el shell interprete los metacaracteres en la secuencia entrecomillada
-exceptuando `$` (signo de dólar).
+- Gestionar que la `"` evite que el shell interprete los metacaracteres en la secuencia entrecomillada exceptuando `$` (signo de dólar).
 - Implementar redirecciones:
   - `<` debe redirigir input.
   - `>` debe redirigir output.
   - `>>` debe redirigir el output en modo append.
-  - `<<` debe recibir un delimitador, después leer del input de la fuente actual hasta que una línea que
-contenga solo el delimitador aparezca. Sin embargo, no necesita actualizar el historial.
-- Implementar pipes (carácter `|` ). El output de cada comando en la pipeline se conecta a través de un pipe
-al input del siguiente comando.
+  - `<<` debe recibir un delimitador, después leer del input de la fuente actual hasta que una línea que contenga solo el delimitador aparezca. Sin embargo, no necesita actualizar el historial.
+- Implementar pipes (carácter `|` ). El output de cada comando en la pipeline se conecta a través de un pipe al input del siguiente comando.
 - Gestionar las variables de entorno ( `$` seguidos de caracteres) que deberán expandirse a sus valores.
-- Gestionar `$?` , que deberá expandirse al estado de salida del comando más reciente ejecutado en la
-pipeline.
+- Gestionar `$?` , que deberá expandirse al estado de salida del comando más reciente ejecutado en la pipeline.
 - Gestionar `Ctrl`+`C` , `Ctrl`+`D` y `Ctrl`+`\` , que deberán funcionar como en Bash.
 - Cuando sea interactivo:
   - `Ctrl`+`C` imprime una nueva entrada en una línea nueva.
