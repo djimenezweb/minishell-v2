@@ -6,21 +6,11 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:51:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/23 12:09:33 by danielji         ###   ########.fr       */
+/*   Updated: 2025/09/25 10:07:44 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "minishell.h"
-
-static void	free_array(char **arr, int i)
-{
-	while (i > 0)
-	{
-		i--;
-		free(arr[i]);
-	}
-	free(arr);
-}
 
 static int	count_substrings(char *str)
 {

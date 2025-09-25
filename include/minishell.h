@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/23 11:00:24 by danielji         ###   ########.fr       */
+/*   Updated: 2025/09/25 10:09:12 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -23,6 +23,7 @@
 # define PIPE 124
 # define TILDE 126
 
+// Libft
 # include "libft.h"
 
 // malloc, free
@@ -35,6 +36,9 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+// parser
 char	**split_by_space(char *line);
+char	**split_by_metacharacter(char **arr);
+void	free_array(char **arr, int n);
 
 #endif
