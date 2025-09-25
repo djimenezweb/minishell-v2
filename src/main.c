@@ -6,53 +6,35 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/25 10:50:26 by danielji         ###   ########.fr       */
+/*   Updated: 2025/09/25 20:34:36 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "minishell.h"
 
-void	print_array(char **arr)
+int main()
 {
-	int i;
+	char			*line;
+	t_token_array	tokens;
 
-	i = 0;
-	while (arr[i])
-	{
-		ft_printf(">%s<\n", arr[i]);
-		i++;
+	line = readline("->");
+	tokens = tokenize(line);
+	//char *cmd = "cat << EOF | grep foo >> out.txt";
+	//t_token_array tokens = tokenize(cmd);
+
+	for (size_t i = 0; i < tokens.count; i++) {
+		t_token *t = &tokens.tokens[i];
+		switch (t->type) {
+			case TOK_WORD: ft_printf("WORD(%s)\n", t->value); break;
+			case TOK_PIPE: ft_printf("PIPE\n"); break;
+			case TOK_REDIRECT_IN: ft_printf("REDIRECT_IN\n"); break;
+			case TOK_REDIRECT_OUT: ft_printf("REDIRECT_OUT\n"); break;
+			case TOK_REDIRECT_OUT_APPEND: ft_printf("REDIRECT_OUT_APPEND\n"); break;
+			case TOK_HEREDOC: ft_printf("HEREDOC\n"); break;
+			case TOK_EOF: ft_printf("EOF\n"); break;
+		}
 	}
-}
-
-void	free_array(char **arr)
-{
-	int i;
-
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-}
-
-int	main(int argc, char *argv[])
-{
-	(void)argc;
-	(void)argv;
-	char *rl;
-	char **arr;
-	char **arr2;
-
-	rl = readline("MINISHELL 1.0 - $");
-	//ft_printf("%s\n", rl);
-	arr = split_by_space(rl);
-	print_array(arr);
-	arr2 = split_by_metacharacter(arr);
-	print_array(arr2);
-	free(rl);
-	free_array(arr);
-	ft_printf("=== END ===\n");
-	return (0);
+	free(line);
+	free_tokens(&tokens);
+	return 0;
 }
