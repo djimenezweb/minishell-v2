@@ -6,70 +6,39 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:41:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/26 11:58:57 by danielji         ###   ########.fr       */
+/*   Updated: 2025/09/26 13:34:42 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "minishell.h"
 
-/* void	free_tokens(t_token_array *arr)
+/* Allocates memory and returns a new node.
+The `content` variable is initialized with the given parameter `content`.
+The variable `next` is initialized to `NULL`. */
+t_token	*ft_new_token(t_token_type type, char *string, int start, size_t len)
 {
-	size_t	i;
+	t_token	*node;
 
-	i = 0;
-	while (i < arr->count)
-	{
-		free(arr->tokens[i].value);
-		i++;
-	}
-	free(arr->tokens);
-	arr->tokens = NULL;
-	arr->count = 0;
-} */
-
-/* static void	add_token(t_token_array *arr, t_token_type type, char *start, size_t len)
-{
-	size_t	i;
-	t_token	*new_tokens;
-	t_token	*t;
-	
-	// allocate new array, 1 bigger
-	new_tokens = malloc((arr->count + 1) * sizeof(t_token));
-	if (!new_tokens)
-	{
-		// to do: handle error
-		exit(1);
-	}
-
-	// copy old tokens (if any)
-	i = 0;
-	while (i < arr->count)
-	{
-		new_tokens[i] = arr->tokens[i];
-		i++;
-	}
-
-	// free old array
-	free(arr->tokens);
-
-	// assign new array
-	arr->tokens = new_tokens;
-
-	// add the new token
-	t = &arr->tokens[arr->count++];
-	t->type = type;
+	ft_printf("New token: %s\n", string);
+	node = (t_token *)malloc(sizeof(t_token));
+	if (!node)
+		return (NULL);
+	node->type = type;
 	if (type == TOK_WORD)
-		t->value = ft_substr(start, 0, len);
-	//t->value = strndup(start, len);
+		node->value = ft_substr(string, start, len);
 	else
-		t->value = NULL;
-} */
+		node->value = NULL;
+	node->next = NULL;
+	return (node);
+}
 
 t_token	*tokenize(char *str)
 {
-	int				i;
-	char			quote;
-	int				start;
+	int		i;
+	char	quote;
+	int		start;
+	t_token	*node;
+	t_token	*list;
 
 	i = 0;
 	while (str[i])
@@ -81,19 +50,22 @@ t_token	*tokenize(char *str)
 		}
 		if (str[i] == PIPE)
 		{
-			ft_add_new_token(TOK_PIPE, NULL, 0, 0);
+			node = ft_new_token(TOK_PIPE, NULL, 0, 0);
+			ft_toklstadd_back(&list, node);
 			i++;
 		}
 		else if (str[i] == LESS)
 		{
 			if (str[i + 1] == LESS)
 			{
-				ft_add_new_token(TOK_HEREDOC, NULL, 0, 0);
+				node = ft_new_token(TOK_HEREDOC, NULL, 0, 0);
+				ft_toklstadd_back(&list, node);
 				i += 2;
 			}
 			else
 			{
-				ft_add_new_token(TOK_REDIR_IN, NULL, 0, 0);
+				node = ft_new_token(TOK_REDIR_IN, NULL, 0, 0);
+				ft_toklstadd_back(&list, node);
 				i++;
 			}
 		}
@@ -101,12 +73,14 @@ t_token	*tokenize(char *str)
 		{
 			if (str[i + 1] == GREATER)
 			{
-				ft_add_new_token(TOK_REDIR_OUT_APPEND, NULL, 0, 0);
+				node = ft_new_token(TOK_APPEND, NULL, 0, 0);
+				ft_toklstadd_back(&list, node);
 				i += 2;
 			}
 			else
 			{
-				ft_add_new_token(TOK_REDIR_OUT, NULL, 0, 0);
+				node = ft_new_token(TOK_REDIR_OUT, NULL, 0, 0);
+				ft_toklstadd_back(&list, node);
 				i++;
 			}
 		}
@@ -118,7 +92,7 @@ t_token	*tokenize(char *str)
 			start = i;
 			while (str[i] && str[i] != quote)
 				i++;
-			ft_add_new_token(TOK_WORD, str, start, i - start);
+			ft_toklstadd_back(&list, ft_new_token(TOK_WORD, str, start, i - start));
 			if (str[i] == quote)
 				i++; // skip closing quote
 		}
@@ -130,9 +104,9 @@ t_token	*tokenize(char *str)
 			{
 				i++;
 			}
-			ft_add_new_token(TOK_WORD, str, start, i - start);
+			ft_toklstadd_back(&list, ft_new_token(TOK_WORD, str, start, i - start));
 		}
 	}
-	ft_add_new_token(TOK_EOF, NULL, 0, 0);
-	return ();
+	ft_toklstadd_back(&list, ft_new_token(TOK_EOF, NULL, 0, 0));
+	return (list);
 }

@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/26 11:55:29 by danielji         ###   ########.fr       */
+/*   Updated: 2025/09/26 13:00:30 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -44,7 +44,7 @@ typedef enum e_token_type {
 	TOK_PIPE,
 	TOK_REDIR_IN,
 	TOK_REDIR_OUT,
-	TOK_REDIR_OUT_APPEND,
+	TOK_APPEND,
 	TOK_HEREDOC,
 	TOK_EOF
 } t_token_type;
@@ -68,11 +68,11 @@ void	free_array_n(char **arr, int n);
 // parser-tok
 //void	free_tokens(t_token_array *arr);
 t_token	*tokenize(char *str);
-t_token	*ft_add_new_token(t_token_type type, char *string, int start, size_t len);
-int		ft_lstsize(t_token *lst);
-t_token	*ft_lstlast(t_token *lst);
-void	ft_lstadd_back(t_token **lst, t_token *new);
+t_token	*ft_new_token(t_token_type type, char *string, int start, size_t len);
+int		ft_toklstsize(t_token *lst);
+t_token	*ft_toklstlast(t_token *lst);
+void	ft_toklstadd_back(t_token **lst, t_token *new);
 void	ft_free_node(t_token *node);
-void	ft_clear_list(t_token **lst);
+void	ft_clear_toklist(t_token **lst);
 
 #endif
