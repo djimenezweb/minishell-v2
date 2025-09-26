@@ -6,13 +6,13 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:41:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/25 23:35:34 by danielji         ###   ########.fr       */
+/*   Updated: 2025/09/26 11:58:57 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "minishell.h"
 
-void	free_tokens(t_token_array *arr)
+/* void	free_tokens(t_token_array *arr)
 {
 	size_t	i;
 
@@ -25,9 +25,9 @@ void	free_tokens(t_token_array *arr)
 	free(arr->tokens);
 	arr->tokens = NULL;
 	arr->count = 0;
-}
+} */
 
-static void	add_token(t_token_array *arr, TokenType type, char *start, size_t len)
+/* static void	add_token(t_token_array *arr, t_token_type type, char *start, size_t len)
 {
 	size_t	i;
 	t_token	*new_tokens;
@@ -63,14 +63,13 @@ static void	add_token(t_token_array *arr, TokenType type, char *start, size_t le
 	//t->value = strndup(start, len);
 	else
 		t->value = NULL;
-}
+} */
 
-t_token_array	tokenize(char *str)
+t_token	*tokenize(char *str)
 {
 	int				i;
 	char			quote;
 	int				start;
-	t_token_array	arr = {0};
 
 	i = 0;
 	while (str[i])
@@ -82,19 +81,19 @@ t_token_array	tokenize(char *str)
 		}
 		if (str[i] == PIPE)
 		{
-			add_token(&arr, TOK_PIPE, NULL, 0);
+			ft_add_new_token(TOK_PIPE, NULL, 0, 0);
 			i++;
 		}
 		else if (str[i] == LESS)
 		{
 			if (str[i + 1] == LESS)
 			{
-				add_token(&arr, TOK_HEREDOC, NULL, 0);
+				ft_add_new_token(TOK_HEREDOC, NULL, 0, 0);
 				i += 2;
 			}
 			else
 			{
-				add_token(&arr, TOK_REDIRECT_IN, NULL, 0);
+				ft_add_new_token(TOK_REDIR_IN, NULL, 0, 0);
 				i++;
 			}
 		}
@@ -102,12 +101,12 @@ t_token_array	tokenize(char *str)
 		{
 			if (str[i + 1] == GREATER)
 			{
-				add_token(&arr, TOK_REDIRECT_OUT_APPEND, NULL, 0);
+				ft_add_new_token(TOK_REDIR_OUT_APPEND, NULL, 0, 0);
 				i += 2;
 			}
 			else
 			{
-				add_token(&arr, TOK_REDIRECT_OUT, NULL, 0);
+				ft_add_new_token(TOK_REDIR_OUT, NULL, 0, 0);
 				i++;
 			}
 		}
@@ -119,7 +118,7 @@ t_token_array	tokenize(char *str)
 			start = i;
 			while (str[i] && str[i] != quote)
 				i++;
-			add_token(&arr, TOK_WORD, &str[start], i - start);
+			ft_add_new_token(TOK_WORD, str, start, i - start);
 			if (str[i] == quote)
 				i++; // skip closing quote
 		}
@@ -131,9 +130,9 @@ t_token_array	tokenize(char *str)
 			{
 				i++;
 			}
-			add_token(&arr, TOK_WORD, &str[start], i - start);
+			ft_add_new_token(TOK_WORD, str, start, i - start);
 		}
 	}
-	add_token(&arr, TOK_EOF, NULL, 0);
-	return (arr);
+	ft_add_new_token(TOK_EOF, NULL, 0, 0);
+	return ();
 }
