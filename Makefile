@@ -4,6 +4,7 @@ CFLAGS		= -Wall -Werror -Wextra
 SRC_PATH	= src/
 SRC			=	main.c \
 				parser-tok/parser-tok.c \
+				parser-tok/parser-list.c \
 				parser/split_space.c \
 				parser/split_metacharacter.c \
 				parser/parser_utils.c
@@ -50,4 +51,7 @@ run : all
 	@$(MAKE) clean
 	./$(NAME) M
 
-.PHONY : all clean fclean re run
+debug : CFLAGS += -g -fsanitize=address
+debug : fclean $(LIBFT) $(NAME)
+
+.PHONY : all clean fclean re run debug
