@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/26 13:34:15 by danielji         ###   ########.fr       */
+/*   Updated: 2025/09/29 11:55:40 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -34,9 +34,13 @@ int main()
 			case TOK_HEREDOC: ft_printf("HEREDOC\n"); break;
 			case TOK_EOF: ft_printf("EOF\n"); break;
 		}
+		printf("%s\n", current -> value);
 		current = current->next;
 	}
 	// PRINT LIST END
+
+	int size= ft_toklstsize(token_list);
+	ft_printf("Size = %d\n", size);
 
 	free(line);
 	ft_clear_toklist(&token_list);

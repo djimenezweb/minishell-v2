@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:24:38 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/26 13:05:30 by danielji         ###   ########.fr       */
+/*   Updated: 2025/09/29 12:36:49 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -27,29 +27,42 @@ int	ft_toklstsize(t_token *lst)
 }
 
 /* Returns the last node of the list. */
-t_token	*ft_toklstlast(t_token *lst)
+/* t_token	*ft_toklstlast(t_token *lst)
 {
-	if (!lst)
-		return (NULL);
+	if (!lst->next)
+		return (lst);
 	while (lst->next)
 		lst = lst->next;
 	return (lst);
-}
+} */
 
-/* Adds the node `new` at the end of the list */
+/* Adds the node `new` at the beginning of the list `lst`
+if it's empty or at the end of the list */
 void	ft_toklstadd_back(t_token **lst, t_token *new)
 {
 	t_token	*last;
 
-	if (!lst || !new)
-		return ;
-	if (*lst)
+	if (*lst == NULL)
+		*lst = new;
+	else
 	{
-		last = ft_toklstlast(*lst);
+		last = *lst;
+		while (last->next)
+		{
+			last = last->next;
+		}
 		last->next = new;
 	}
-	else
+}
+
+/* Adds the node `new` at the beginning of the list `lst`.*/
+void	ft_toklstadd_front(t_token **lst, t_token *new)
+{
+	if (lst && new)
+	{
+		new->next = *lst;
 		*lst = new;
+	}
 }
 
 /* Takes a node as parameter and frees its content.

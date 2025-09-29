@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:41:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/26 13:34:42 by danielji         ###   ########.fr       */
+/*   Updated: 2025/09/29 12:34:28 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -19,7 +19,7 @@ t_token	*ft_new_token(t_token_type type, char *string, int start, size_t len)
 {
 	t_token	*node;
 
-	ft_printf("New token: %s\n", string);
+	ft_printf("New Token - type: %d - str: %s\n", type, string);
 	node = (t_token *)malloc(sizeof(t_token));
 	if (!node)
 		return (NULL);
@@ -27,7 +27,7 @@ t_token	*ft_new_token(t_token_type type, char *string, int start, size_t len)
 	if (type == TOK_WORD)
 		node->value = ft_substr(string, start, len);
 	else
-		node->value = NULL;
+		node->value = ft_strdup("prueba");
 	node->next = NULL;
 	return (node);
 }
@@ -41,8 +41,11 @@ t_token	*tokenize(char *str)
 	t_token	*list;
 
 	i = 0;
+	list = NULL;
+	ft_printf("Tokenizing string: %s\n", str);
 	while (str[i])
 	{
+		ft_printf("str[i]: %c\n", str[i]);
 		if (ft_isspace(str[i]))
 		{
 			i++;
@@ -92,7 +95,8 @@ t_token	*tokenize(char *str)
 			start = i;
 			while (str[i] && str[i] != quote)
 				i++;
-			ft_toklstadd_back(&list, ft_new_token(TOK_WORD, str, start, i - start));
+			node = ft_new_token(TOK_WORD, str, start, i - start);
+			ft_toklstadd_back(&list, node);
 			if (str[i] == quote)
 				i++; // skip closing quote
 		}
@@ -104,9 +108,11 @@ t_token	*tokenize(char *str)
 			{
 				i++;
 			}
-			ft_toklstadd_back(&list, ft_new_token(TOK_WORD, str, start, i - start));
+			node = ft_new_token(TOK_WORD, str, start, i - start);
+			ft_toklstadd_back(&list, node);
 		}
 	}
-	ft_toklstadd_back(&list, ft_new_token(TOK_EOF, NULL, 0, 0));
+	node = ft_new_token(TOK_EOF, NULL, 0, 0);
+	ft_toklstadd_back(&list, node);
 	return (list);
 }

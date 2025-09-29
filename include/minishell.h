@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/26 13:00:30 by danielji         ###   ########.fr       */
+/*   Updated: 2025/09/29 12:11:50 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -29,7 +29,7 @@
 // malloc, free
 # include <stdlib.h>
 
-// readline
+// readline, printf
 # include <stdio.h>
 
 // readline
@@ -42,9 +42,9 @@
 typedef enum e_token_type {
 	TOK_WORD,
 	TOK_PIPE,
+	TOK_APPEND,
 	TOK_REDIR_IN,
 	TOK_REDIR_OUT,
-	TOK_APPEND,
 	TOK_HEREDOC,
 	TOK_EOF
 } t_token_type;
@@ -70,8 +70,9 @@ void	free_array_n(char **arr, int n);
 t_token	*tokenize(char *str);
 t_token	*ft_new_token(t_token_type type, char *string, int start, size_t len);
 int		ft_toklstsize(t_token *lst);
-t_token	*ft_toklstlast(t_token *lst);
+//t_token	*ft_toklstlast(t_token *lst);
 void	ft_toklstadd_back(t_token **lst, t_token *new);
+void	ft_toklstadd_front(t_token **lst, t_token *new);
 void	ft_free_node(t_token *node);
 void	ft_clear_toklist(t_token **lst);
 
