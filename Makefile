@@ -3,11 +3,9 @@ CC			= cc
 CFLAGS		= -Wall -Werror -Wextra
 SRC_PATH	= src/
 SRC			=	main.c \
-				parser-tok/parser-tok.c \
 				parser-tok/parser-list.c \
-				parser/split_space.c \
-				parser/split_metacharacter.c \
-				parser/parser_utils.c
+				parser-tok/parser-tok.c \
+				parser-tok/parser-utils.c
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 OBJS		= $(SRCS:.c=.o)
 INCLUDE		= -I./include -I./libft

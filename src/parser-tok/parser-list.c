@@ -26,19 +26,9 @@ int	ft_toklstsize(t_token *lst)
 	return (size);
 }
 
-/* Returns the last node of the list. */
-/* t_token	*ft_toklstlast(t_token *lst)
-{
-	if (!lst->next)
-		return (lst);
-	while (lst->next)
-		lst = lst->next;
-	return (lst);
-} */
-
 /* Adds the node `new` at the beginning of the list `lst`
 if it's empty or at the end of the list */
-void	ft_toklstadd_back(t_token **lst, t_token *new)
+void	ft_toklstadd(t_token **lst, t_token *new)
 {
 	t_token	*last;
 

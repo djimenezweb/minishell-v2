@@ -55,28 +55,21 @@ typedef struct s_token {
 	struct s_token	*next;
 }					t_token;
 
-/* typedef struct s_token_array {
-	t_token		*tokens;
-	size_t		count;
-}				t_token_array; */
-
-// parser
-char	**split_by_space(char *line);
-char	**split_by_metacharacter(char **arr);
-void	free_array_n(char **arr, int n);
-
-// parser-tok
-t_token	*tokenize(char *str);
-t_token	*ft_new_basic_token(t_token_type type, int *i);
-t_token	*ft_new_word_token(char *str, int start, int len);
-t_token	*ft_new_redir_token(t_token_type type, char next_char, int *i);
-t_token	*tokenize(char *str);
-
 // parser-list
 int		ft_toklstsize(t_token *lst);
-void	ft_toklstadd_back(t_token **lst, t_token *new);
+void	ft_toklstadd(t_token **lst, t_token *new);
 void	ft_toklstadd_front(t_token **lst, t_token *new);
 void	ft_free_node(t_token *node);
 void	ft_clear_toklist(t_token **lst);
+
+// parser-tok
+t_token	*ft_new_token(t_token_type type, int *i);
+t_token	*ft_new_redir_token(t_token_type type, char next_char, int *i);
+t_token	*ft_new_word_token(char *str, int start, int len);
+t_token	*ft_parse_word(char *str, int *i);
+t_token	*tokenize(char *str);
+
+// parser-utils
+int	ft_ismetachar(char c);
 
 #endif
