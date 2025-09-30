@@ -12,7 +12,8 @@
 
 #include "minishell.h"
 
-/* Allocates memory for a new node, initializes `type` and returns node */
+/* Allocates memory for a new node, initializes `type` and returns node.
+Advances `*i` 1 character if it's passed as an argument. */
 t_token	*ft_new_token(t_token_type type, int *i)
 {
 	t_token	*node;
@@ -29,7 +30,8 @@ t_token	*ft_new_token(t_token_type type, int *i)
 }
 
 /* Returns new `TOK_HEREDOC` (`<<`), `TOK_REDIR_IN` (`<`),
-`TOK_APPEND` (`>>`) or `TOK_REDIR_OUT` (`>`) token */
+`TOK_APPEND` (`>>`) or `TOK_REDIR_OUT` (`>`) token.
+Advances `*i` 1 or 2 characters accordingly. */
 t_token	*ft_new_redir_token(t_token_type type, char next_char, int *i)
 {
 	t_token	*node;
@@ -72,8 +74,8 @@ t_token	*ft_new_word_token(char *str, int start, int len)
 	return (node);
 }
 
-/* Parses a possibly quoted word from a string starting at position *i,
-creates a new word token from it, advances *i past the parsed word,
+/* Parses a possibly quoted word from a string starting at position `*i`,
+creates a new word token from it, advances `*i` past the parsed word,
 and returns the token. */
 t_token	*ft_parse_word(char *str, int *i)
 {
