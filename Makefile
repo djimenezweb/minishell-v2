@@ -49,7 +49,7 @@ re : fclean all
 
 run : all
 	@$(MAKE) clean
-	./$(NAME) M
+	./$(NAME)
 
 debug : CFLAGS += -g -fsanitize=address
 debug : fclean $(LIBFT) $(NAME)

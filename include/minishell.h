@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/29 12:11:50 by danielji         ###   ########.fr       */
+/*   Updated: 2025/09/30 11:16:59 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -66,11 +66,14 @@ char	**split_by_metacharacter(char **arr);
 void	free_array_n(char **arr, int n);
 
 // parser-tok
-//void	free_tokens(t_token_array *arr);
 t_token	*tokenize(char *str);
-t_token	*ft_new_token(t_token_type type, char *string, int start, size_t len);
+t_token	*ft_new_basic_token(t_token_type type, int *i);
+t_token	*ft_new_word_token(char *str, int start, int len);
+t_token	*ft_new_redir_token(t_token_type type, char next_char, int *i);
+t_token	*tokenize(char *str);
+
+// parser-list
 int		ft_toklstsize(t_token *lst);
-//t_token	*ft_toklstlast(t_token *lst);
 void	ft_toklstadd_back(t_token **lst, t_token *new);
 void	ft_toklstadd_front(t_token **lst, t_token *new);
 void	ft_free_node(t_token *node);

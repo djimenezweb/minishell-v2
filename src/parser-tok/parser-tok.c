@@ -6,29 +6,65 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:41:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/29 12:34:28 by danielji         ###   ########.fr       */
+/*   Updated: 2025/09/30 11:15:08 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "minishell.h"
 
-/* Allocates memory and returns a new node.
-The `content` variable is initialized with the given parameter `content`.
-The variable `next` is initialized to `NULL`. */
-t_token	*ft_new_token(t_token_type type, char *string, int start, size_t len)
+t_token	*ft_new_basic_token(t_token_type type, int *i)
 {
 	t_token	*node;
 
-	ft_printf("New Token - type: %d - str: %s\n", type, string);
 	node = (t_token *)malloc(sizeof(t_token));
 	if (!node)
 		return (NULL);
 	node->type = type;
-	if (type == TOK_WORD)
-		node->value = ft_substr(string, start, len);
-	else
-		node->value = ft_strdup("prueba");
+	node->value = NULL;
 	node->next = NULL;
+	if (i != NULL)
+		*i = (*i) + 1;
+	return (node);
+}
+
+t_token	*ft_new_word_token(char *str, int start, int len)
+{
+	t_token	*node;
+
+	node = (t_token *)malloc(sizeof(t_token));
+	if (!node)
+		return (NULL);
+	node->type = TOK_WORD;
+	node->value = ft_substr(str, start, len);
+	node->next = NULL;
+	return (node);
+}
+
+t_token	*ft_new_redir_token(t_token_type type, char next_char, int *i)
+{
+	t_token	*node;
+
+	node = NULL;
+	if (type == LESS)
+	{
+		if (next_char == LESS)
+		{
+			node = ft_new_basic_token(TOK_HEREDOC, i);
+			*i = (*i) + 1;
+		}
+		else
+			node = ft_new_basic_token(TOK_REDIR_IN, i);
+	}
+	else if (type == GREATER)
+	{
+		if (next_char == GREATER)
+		{
+			node = ft_new_basic_token(TOK_APPEND, i);
+			*i = (*i) + 1;
+		}
+		else
+			node = ft_new_basic_token(TOK_REDIR_OUT, i);
+	}
 	return (node);
 }
 
@@ -41,52 +77,21 @@ t_token	*tokenize(char *str)
 	t_token	*list;
 
 	i = 0;
+	node = NULL;
 	list = NULL;
-	ft_printf("Tokenizing string: %s\n", str);
 	while (str[i])
 	{
-		ft_printf("str[i]: %c\n", str[i]);
 		if (ft_isspace(str[i]))
 		{
 			i++;
 			continue ;
 		}
 		if (str[i] == PIPE)
-		{
-			node = ft_new_token(TOK_PIPE, NULL, 0, 0);
-			ft_toklstadd_back(&list, node);
-			i++;
-		}
+			node = ft_new_basic_token(TOK_PIPE, &i);
 		else if (str[i] == LESS)
-		{
-			if (str[i + 1] == LESS)
-			{
-				node = ft_new_token(TOK_HEREDOC, NULL, 0, 0);
-				ft_toklstadd_back(&list, node);
-				i += 2;
-			}
-			else
-			{
-				node = ft_new_token(TOK_REDIR_IN, NULL, 0, 0);
-				ft_toklstadd_back(&list, node);
-				i++;
-			}
-		}
+			node = ft_new_redir_token(LESS, str[i + 1], &i);
 		else if (str[i] == GREATER)
-		{
-			if (str[i + 1] == GREATER)
-			{
-				node = ft_new_token(TOK_APPEND, NULL, 0, 0);
-				ft_toklstadd_back(&list, node);
-				i += 2;
-			}
-			else
-			{
-				node = ft_new_token(TOK_REDIR_OUT, NULL, 0, 0);
-				ft_toklstadd_back(&list, node);
-				i++;
-			}
-		}
+			node = ft_new_redir_token(GREATER, str[i + 1], &i);
 		else if (str[i] == DOUBLE_QUOTE || str[i] == SINGLE_QUOTE)
 		{
 			// quoted string
@@ -95,8 +100,7 @@ t_token	*tokenize(char *str)
 			start = i;
 			while (str[i] && str[i] != quote)
 				i++;
-			node = ft_new_token(TOK_WORD, str, start, i - start);
-			ft_toklstadd_back(&list, node);
+			node = ft_new_word_token(str, start, i - start);
 			if (str[i] == quote)
 				i++; // skip closing quote
 		}
@@ -108,11 +112,11 @@ t_token	*tokenize(char *str)
 			{
 				i++;
 			}
-			node = ft_new_token(TOK_WORD, str, start, i - start);
-			ft_toklstadd_back(&list, node);
+			node = ft_new_word_token(str, start, i - start);
 		}
+		ft_toklstadd_back(&list, node);
 	}
-	node = ft_new_token(TOK_EOF, NULL, 0, 0);
+	node = ft_new_basic_token(TOK_EOF, NULL);
 	ft_toklstadd_back(&list, node);
 	return (list);
 }
