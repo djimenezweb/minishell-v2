@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parser-tok.c                                       :+:      :+:    :+:   */
@@ -8,9 +8,16 @@
 /*   Created: 2025/09/25 19:41:33 by danielji          #+#    #+#             */
 /*   Updated: 2025/09/30 11:15:08 by danielji         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_ismetachar(char c)
+{
+	if (c == PIPE || c == LESS || c == GREATER)
+		return (1);
+	return (0);
+}
 
 t_token	*ft_new_basic_token(t_token_type type, int *i)
 {
@@ -37,6 +44,36 @@ t_token	*ft_new_word_token(char *str, int start, int len)
 	node->type = TOK_WORD;
 	node->value = ft_substr(str, start, len);
 	node->next = NULL;
+	return (node);
+}
+
+t_token	*ft_new_unquoted_string(char *str, int *i)
+{
+	int		start;
+	t_token	*node;
+
+	start = *i;
+	while (str[*i] && !ft_isspace(str[*i]) && !ft_ismetachar(str[*i]))
+		*i = (*i) + 1;
+	node = ft_new_word_token(str, start, *i - start);
+	return (node);
+}
+
+/* Skips starting and closing quotes and returns new word token */
+t_token	*ft_new_quoted_string(char *str, int *i)
+{
+	char	quote;
+	int		start;
+	t_token	*node;
+
+	quote = str[*i];
+	*i = (*i) + 1;
+	start = *i;
+	while (str[*i] && str[*i] != quote)
+		*i = (*i) + 1;
+	node = ft_new_word_token(str, start, *i - start);
+	if (str[*i] == quote)
+		*i = (*i) + 1;
 	return (node);
 }
 
@@ -71,8 +108,6 @@ t_token	*ft_new_redir_token(t_token_type type, char next_char, int *i)
 t_token	*tokenize(char *str)
 {
 	int		i;
-	char	quote;
-	int		start;
 	t_token	*node;
 	t_token	*list;
 
@@ -93,27 +128,9 @@ t_token	*tokenize(char *str)
 		else if (str[i] == GREATER)
 			node = ft_new_redir_token(GREATER, str[i + 1], &i);
 		else if (str[i] == DOUBLE_QUOTE || str[i] == SINGLE_QUOTE)
-		{
-			// quoted string
-			quote = str[i];
-			i++;
-			start = i;
-			while (str[i] && str[i] != quote)
-				i++;
-			node = ft_new_word_token(str, start, i - start);
-			if (str[i] == quote)
-				i++; // skip closing quote
-		}
+			node = ft_new_quoted_string(str, &i);
 		else
-		{
-			// plain word
-			start = i;
-			while (str[i] && !ft_isspace(str[i]) && str[i] != PIPE && str[i] != LESS && str[i] != GREATER)
-			{
-				i++;
-			}
-			node = ft_new_word_token(str, start, i - start);
-		}
+			node = ft_new_unquoted_string(str, &i);
 		ft_toklstadd_back(&list, node);
 	}
 	node = ft_new_basic_token(TOK_EOF, NULL);
