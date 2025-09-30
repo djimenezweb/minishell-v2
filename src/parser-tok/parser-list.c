@@ -38,20 +38,8 @@ void	ft_toklstadd(t_token **lst, t_token *new)
 	{
 		last = *lst;
 		while (last->next)
-		{
 			last = last->next;
-		}
 		last->next = new;
-	}
-}
-
-/* Adds the node `new` at the beginning of the list `lst`.*/
-void	ft_toklstadd_front(t_token **lst, t_token *new)
-{
-	if (lst && new)
-	{
-		new->next = *lst;
-		*lst = new;
 	}
 }
 
