@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/25 10:29:44 by danielji         ###   ########.fr       */
+/*   Updated: 2025/09/30 11:16:59 by danielji         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -29,16 +29,38 @@
 // malloc, free
 # include <stdlib.h>
 
-// readline
+// readline, printf
 # include <stdio.h>
 
 // readline
 # include <readline/readline.h>
 # include <readline/history.h>
 
-// parser
-char	**split_by_space(char *line);
-char	**split_by_metacharacter(char **arr);
-void	free_array_n(char **arr, int n);
+#include <string.h>
+#include <ctype.h>
+
+typedef enum e_token_type {
+	TOK_WORD,
+	TOK_PIPE,
+	TOK_APPEND,
+	TOK_REDIR_IN,
+	TOK_REDIR_OUT,
+	TOK_HEREDOC,
+	TOK_EOF
+} t_token_type;
+
+typedef struct s_token {
+	t_token_type	type;
+	char			*value;
+	struct s_token	*next;
+}					t_token;
+
+// lexer
+t_token	*lexer(char *str);
+int		ft_ismetachar(char c);
+int		ft_toklstsize(t_token *lst);
+void	ft_toklstadd(t_token **lst, t_token *new);
+void	ft_free_node(t_token *node);
+void	ft_clear_toklist(t_token **lst);
 
 #endif

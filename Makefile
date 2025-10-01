@@ -3,9 +3,7 @@ CC			= cc
 CFLAGS		= -Wall -Werror -Wextra
 SRC_PATH	= src/
 SRC			=	main.c \
-				parser/split_space.c \
-				parser/split_metacharacter.c \
-				parser/parser_utils.c
+				lexer/lexer.c lexer/lexer-utils.c
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 OBJS		= $(SRCS:.c=.o)
 INCLUDE		= -I./include -I./libft
@@ -47,6 +45,9 @@ re : fclean all
 
 run : all
 	@$(MAKE) clean
-	./$(NAME) M
+	./$(NAME)
 
-.PHONY : all clean fclean re run
+debug : CFLAGS += -g -fsanitize=address
+debug : fclean $(LIBFT) $(NAME)
+
+.PHONY : all clean fclean re run debug
