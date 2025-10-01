@@ -12,6 +12,14 @@
 
 #include "minishell.h"
 
+/* Returns `1` if a character is `|`, `<`, or `>` */
+int	ft_ismetachar(char c)
+{
+	if (c == PIPE || c == LESS || c == GREATER)
+		return (1);
+	return (0);
+}
+
 /* Counts the number of nodes in the list `lst`. */
 int	ft_toklstsize(t_token *lst)
 {
@@ -53,6 +61,7 @@ void	ft_free_node(t_token *node)
 		node->value = NULL;
 	}
 	free(node);
+	node = NULL;
 }
 
 /* Deletes and frees the given node and all its successors.

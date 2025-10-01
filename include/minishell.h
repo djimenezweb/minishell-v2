@@ -51,25 +51,16 @@ typedef enum e_token_type {
 
 typedef struct s_token {
 	t_token_type	type;
-	char			*value;   // only used for TOK_WORD
+	char			*value;
 	struct s_token	*next;
 }					t_token;
 
-// parser-list
+// lexer
+t_token	*lexer(char *str);
+int		ft_ismetachar(char c);
 int		ft_toklstsize(t_token *lst);
 void	ft_toklstadd(t_token **lst, t_token *new);
-void	ft_toklstadd_front(t_token **lst, t_token *new);
 void	ft_free_node(t_token *node);
 void	ft_clear_toklist(t_token **lst);
-
-// parser-tok
-t_token	*ft_new_token(t_token_type type, int *i);
-t_token	*ft_new_redir_token(t_token_type type, char next_char, int *i);
-t_token	*ft_new_word_token(char *str, int start, int len);
-t_token	*ft_parse_word(char *str, int *i);
-t_token	*tokenize(char *str);
-
-// parser-utils
-int	ft_ismetachar(char c);
 
 #endif

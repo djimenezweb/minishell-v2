@@ -14,7 +14,7 @@
 
 /* Allocates memory for a new node, initializes `type` and returns node.
 Advances `*i` 1 character if it's passed as an argument. */
-t_token	*ft_new_token(t_token_type type, int *i)
+static t_token	*ft_new_token(t_token_type type, int *i)
 {
 	t_token	*node;
 
@@ -32,7 +32,7 @@ t_token	*ft_new_token(t_token_type type, int *i)
 /* Returns new `TOK_HEREDOC` (`<<`), `TOK_REDIR_IN` (`<`),
 `TOK_APPEND` (`>>`) or `TOK_REDIR_OUT` (`>`) token.
 Advances `*i` 1 or 2 characters accordingly. */
-t_token	*ft_new_redir_token(t_token_type type, char next_char, int *i)
+static t_token	*ft_new_redir_token(t_token_type type, char next_char, int *i)
 {
 	t_token	*node;
 
@@ -61,7 +61,7 @@ t_token	*ft_new_redir_token(t_token_type type, char next_char, int *i)
 }
 
 /* Initializes `value` to substring and returns new `TOK_WORD` token*/
-t_token	*ft_new_word_token(char *str, int start, int len)
+static t_token	*ft_new_word_token(char *str, int start, int len)
 {
 	t_token	*node;
 
@@ -77,7 +77,7 @@ t_token	*ft_new_word_token(char *str, int start, int len)
 /* Parses a possibly quoted word from a string starting at position `*i`,
 creates a new word token from it, advances `*i` past the parsed word,
 and returns the token. */
-t_token	*ft_parse_word(char *str, int *i)
+static t_token	*ft_parse_word(char *str, int *i)
 {
 	char	quote;
 	int		start;
@@ -106,7 +106,7 @@ t_token	*ft_parse_word(char *str, int *i)
 
 /* Returns a `t_token` list containing tokens that represent the passed string.
 List ends with `TOK_EOF` token */
-t_token	*tokenize(char *str)
+t_token	*lexer(char *str)
 {
 	int		i;
 	t_token	*node;
