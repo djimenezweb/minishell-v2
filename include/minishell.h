@@ -39,7 +39,8 @@
 //#include <string.h>
 //#include <ctype.h>
 
-typedef enum e_lex_type {
+typedef enum e_lex_type
+{
 	TOK_WORD,
 	TOK_PIPE,
 	TOK_APPEND,
@@ -47,9 +48,10 @@ typedef enum e_lex_type {
 	TOK_REDIR_OUT,
 	TOK_HEREDOC,
 	TOK_EOF
-} t_lex_type;
+}	t_lex_type;
 
-typedef struct s_lextoken {
+typedef struct s_lextoken
+{
 	t_lex_type			type;
 	char				*value;
 	struct s_lextoken	*next;
