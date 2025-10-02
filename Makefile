@@ -15,33 +15,33 @@ LIBFT		= $(LIBFT_PATH)/$(LIBFT_NAME)
 LIBFT_COMP	= $(LIBFT) -I./$(LIBFT_PATH)/
 
 all : $(LIBFT) $(NAME)
+	@echo "===          Done           ==="
 
 $(LIBFT) :
-	@echo "=== Making Libft ==="
+	@echo "===      Making Libft       ==="
 	@$(MAKE) -sC $(LIBFT_PATH)
 
 $(NAME) : $(OBJS)
-	@echo "=== Compiling ==="
+	@echo "===        Compiling        ==="
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_COMP) -o $(NAME) -lreadline
 
 %.o : %.c
-	@echo "=== Creating object files ==="
 	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE)
 
 clean :
-	@echo "=== Removing .o files ==="
+	@echo "===    Removing .o files    ==="
 	@rm -f $(OBJS)
 	@echo "=== Removing Libft .o files ==="
 	@$(MAKE) clean -sC $(LIBFT_PATH)
 
 fclean : clean
-	@echo "=== Removing minishell executable ==="
+	@echo "===   Removing executable   ==="
 	@rm -f $(NAME)
-	@echo "=== Removing Libft ==="
+	@echo "===     Removing Libft      ==="
 	@rm -f $(LIBFT)
 
 re : fclean all
-	@echo "=== Rebuilding ==="
+	@echo "===       Rebuilding        ==="
 
 run : all
 	@$(MAKE) clean
