@@ -38,7 +38,7 @@ void	ft_lexlist_add(t_lextoken **lst, t_lextoken *new)
 }
 
 /* Takes a node as parameter and frees its content.
-Free the node itself but does NOT free the next node. */
+Frees the node itself but does NOT free the next node. */
 void	ft_lexnode_free(t_lextoken *node)
 {
 	if (node->value)
