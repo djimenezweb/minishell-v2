@@ -6,16 +6,16 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/30 10:25:24 by danielji         ###   ########.fr       */
+/*   Updated: 2025/10/02 10:32:31 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /* FOR TEST PURPOSES ONLY */
-static void	print_lex_list(t_token *list)
+static void	print_lex_list(t_lextoken *list)
 {
-	t_token	*curr;
+	t_lextoken	*curr;
 
 	curr = list;
 	while (curr)
@@ -41,13 +41,13 @@ static void	print_lex_list(t_token *list)
 // Command example: cat << EOF | grep foo >> out.txt
 int	main(void)
 {
-	char	*line;
-	t_token	*token_list;
+	char		*line;
+	t_lextoken	*token_list;
 
 	line = readline("$ ");
 	token_list = lexer(line);
 	print_lex_list(token_list);
 	free(line);
-	ft_clear_toklist(&token_list);
+	ft_lexlist_clear(&token_list);
 	return (0);
 }

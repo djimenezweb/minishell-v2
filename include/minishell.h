@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/30 11:16:59 by danielji         ###   ########.fr       */
+/*   Updated: 2025/10/02 10:30:55 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-#include <string.h>
-#include <ctype.h>
+//#include <string.h>
+//#include <ctype.h>
 
-typedef enum e_token_type {
+typedef enum e_lex_type {
 	TOK_WORD,
 	TOK_PIPE,
 	TOK_APPEND,
@@ -47,20 +47,19 @@ typedef enum e_token_type {
 	TOK_REDIR_OUT,
 	TOK_HEREDOC,
 	TOK_EOF
-} t_token_type;
+} t_lex_type;
 
-typedef struct s_token {
-	t_token_type	type;
-	char			*value;
-	struct s_token	*next;
-}					t_token;
+typedef struct s_lextoken {
+	t_lex_type			type;
+	char				*value;
+	struct s_lextoken	*next;
+}						t_lextoken;
 
 // lexer
-t_token	*lexer(char *str);
-int		ft_ismetachar(char c);
-int		ft_toklstsize(t_token *lst);
-void	ft_toklstadd(t_token **lst, t_token *new);
-void	ft_free_node(t_token *node);
-void	ft_clear_toklist(t_token **lst);
+t_lextoken	*lexer(char *str);
+int			ft_ismetachar(char c);
+void		ft_lexlist_add(t_lextoken **lst, t_lextoken *new);
+void		ft_lexnode_free(t_lextoken *node);
+void		ft_lexlist_clear(t_lextoken **lst);
 
 #endif
