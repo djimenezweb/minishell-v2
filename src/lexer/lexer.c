@@ -88,11 +88,11 @@ static t_lextoken	*ft_parse_word(char *str, int *i)
 	if (str[*i] == DOUBLE_QUOTE || str[*i] == SINGLE_QUOTE)
 	{
 		quote = str[*i];
-		(*i)++;
 		start = *i;
+		(*i)++;
 		while (str[*i] && str[*i] != quote)
 			(*i)++;
-		node = ft_new_word_token(str, start, *i - start);
+		node = ft_new_word_token(str, start, *i - start + 1);
 		if (str[*i] == quote)
 			(*i)++;
 	}
