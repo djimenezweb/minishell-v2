@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/02 10:30:55 by danielji         ###   ########.fr       */
+/*   Updated: 2025/10/03 10:39:34 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ typedef struct s_lextoken
 	char				*value;
 	struct s_lextoken	*next;
 }						t_lextoken;
+
+// quote_validation
+int	quote_validation(char *str);
 
 // lexer
 t_lextoken	*lexer(char *str);

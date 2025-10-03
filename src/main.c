@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/02 10:32:31 by danielji         ###   ########.fr       */
+/*   Updated: 2025/10/03 11:34:14 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ int	main(void)
 	t_lextoken	*token_list;
 
 	line = readline("$ ");
+	if (!quote_validation(line))
+	{
+		free(line);
+		return (1);
+	}
 	token_list = lexer(line);
 	print_lex_list(token_list);
 	free(line);
