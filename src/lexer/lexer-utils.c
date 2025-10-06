@@ -12,14 +12,6 @@
 
 #include "minishell.h"
 
-/* Returns `1` if a character is `|`, `<`, or `>` */
-int	ft_ismetachar(char c)
-{
-	if (c == PIPE || c == LESS || c == GREATER)
-		return (1);
-	return (0);
-}
-
 /* Adds the node `new` at the beginning of the list `lst`
 if it's empty or at the end of the list */
 void	ft_lexlist_add(t_lextoken **lst, t_lextoken *new)
