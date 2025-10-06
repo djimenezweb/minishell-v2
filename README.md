@@ -7,6 +7,7 @@
 - Otras minishells: [A. Pérez y M. Bueno](https://github.com/madebypixel02/minishell) | [J. Castro y M. Parra](https://github.com/lvzrr/minishell) | [D. Jiménez e I. Sainz](https://github.com/BishopVK/minishell)
 - Guías 42: [42 Cursus Guide](https://42-cursus.gitbook.io/guide/3-rank-03/minishell)
 - 42 Evaluation Sheets Hub: [Minishell](https://42sheets.eina.cc/Cursus/Minishell/)
+- Cómo se usa Bash original (curso de Mouredev): https://github.com/mouredev/hello-bash-shell
 
 ## Requisitos
 
