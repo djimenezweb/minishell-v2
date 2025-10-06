@@ -46,9 +46,11 @@ static t_lextoken	*ft_new_word_token(char *str, int start, int len)
 	return (node);
 }
 
+// TO DO: Should we consider different space types????
 /* Parses a quoted word from a string starting at position `*i`,
 creates a new word token from it, advances `*i` past the parsed word,
-and returns the token. */
+and returns the token. A quote indicates the end of a word
+only if it's not adjacent to ` ` (space), `<`, `|`, or `>`.*/
 t_lextoken	*ft_parse_quoted_word(char *str, int *i)
 {
 	char		quote;
@@ -58,10 +60,8 @@ t_lextoken	*ft_parse_quoted_word(char *str, int *i)
 	quote = str[*i];
 	start = *i;
 	(*i)++;
-	while (str[*i])
+	while (str[*i] && !(str[*i] == quote && (is_in_set(str[*i + 1], " <|>"))))
 	{
-		if (str[*i] == quote && (is_in_set(str[*i + 1], " <|>")))
-			break ;
 		(*i)++;
 	}
 	node = ft_new_word_token(str, start, *i - start + 1);
