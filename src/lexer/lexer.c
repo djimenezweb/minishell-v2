@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:41:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/02 10:32:40 by danielji         ###   ########.fr       */
+/*   Updated: 2025/10/06 11:13:39 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,50 +62,6 @@ static t_lextoken	*ft_new_redir_token(t_lex_type type, char next_c, int *i)
 	return (node);
 }
 
-/* Initializes `value` to substring and returns new `TOK_WORD` token*/
-static t_lextoken	*ft_new_word_token(char *str, int start, int len)
-{
-	t_lextoken	*node;
-
-	node = (t_lextoken *)malloc(sizeof(t_lextoken));
-	if (!node)
-		return (NULL);
-	node->type = TOK_WORD;
-	node->value = ft_substr(str, start, len);
-	node->next = NULL;
-	return (node);
-}
-
-/* Parses a possibly quoted word from a string starting at position `*i`,
-creates a new word token from it, advances `*i` past the parsed word,
-and returns the token. */
-static t_lextoken	*ft_parse_word(char *str, int *i)
-{
-	char		quote;
-	int			start;
-	t_lextoken	*node;
-
-	if (str[*i] == DOUBLE_QUOTE || str[*i] == SINGLE_QUOTE)
-	{
-		quote = str[*i];
-		start = *i;
-		(*i)++;
-		while (str[*i] && str[*i] != quote)
-			(*i)++;
-		node = ft_new_word_token(str, start, *i - start + 1);
-		if (str[*i] == quote)
-			(*i)++;
-	}
-	else
-	{
-		start = *i;
-		while (str[*i] && !ft_isspace(str[*i]) && !ft_ismetachar(str[*i]))
-			(*i)++;
-		node = ft_new_word_token(str, start, *i - start);
-	}
-	return (node);
-}
-
 /* Returns a `t_token` list containing tokens that represent the
 passed string. List ends with `TOK_EOF` token */
 t_lextoken	*lexer(char *str)
@@ -126,6 +82,8 @@ t_lextoken	*lexer(char *str)
 			node = ft_new_redir_token(LESS, str[i + 1], &i);
 		else if (str[i] == GREATER)
 			node = ft_new_redir_token(GREATER, str[i + 1], &i);
+		else if (str[i] == DOUBLE_QUOTE || str[i] == SINGLE_QUOTE)
+			node = ft_parse_quoted_word(str, &i);
 		else
 			node = ft_parse_word(str, &i);
 		ft_lexlist_add(&list, node);

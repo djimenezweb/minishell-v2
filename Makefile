@@ -3,7 +3,7 @@ CC			= cc
 CFLAGS		= -Wall -Werror -Wextra
 SRC_PATH	= src/
 SRC			=	main.c \
-				lexer/lexer.c lexer/lexer-utils.c \
+				lexer/lexer.c lexer/lexer-utils.c lexer/lexer-word-utils.c\
 				quote_validation.c
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 OBJS		= $(SRCS:.c=.o)
