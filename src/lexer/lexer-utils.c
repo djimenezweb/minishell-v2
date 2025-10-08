@@ -12,6 +12,16 @@
 
 #include "minishell.h"
 
+/* Adds the node `new` after the node `prev` */
+void	ft_lexlist_insert(t_lextoken *prev, t_lextoken *new)
+{
+	t_lextoken	*temp;
+
+	temp = prev->next;
+	prev->next = new;
+	new->next = temp;
+}
+
 /* Adds the node `new` at the beginning of the list `lst`
 if it's empty or at the end of the list */
 void	ft_lexlist_add(t_lextoken **lst, t_lextoken *new)

@@ -14,7 +14,7 @@
 
 /* Allocates memory for a new node, initializes `type` and returns node.
 Advances `*i` 1 character if it's passed as an argument. */
-static t_lextoken	*ft_new_token(t_lex_type type, int *i)
+t_lextoken	*ft_new_token(t_lex_type type, int *i)
 {
 	t_lextoken	*node;
 
