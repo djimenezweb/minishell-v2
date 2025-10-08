@@ -53,17 +53,6 @@ int	main(void)
 	}
 	token_list = lexer(line);
 	print_lex_list(token_list);
-
-	t_lextoken	*curr = token_list;
-	while (curr)//HERE STARTS A TEST
-	{
-		if (curr->type == TOK_REDIR_IN)
-		{
-			ft_lexlist_insert(curr, ft_new_token(TOK_PIPE, NULL));
-		}
-		curr = curr->next;
-	}//HERE ENDS A TEST
-	print_lex_list(token_list);
 	free(line);
 	ft_lexlist_clear(&token_list);
 	return (0);
