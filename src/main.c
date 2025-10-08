@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-/* FOR TEST PURPOSES ONLY */
+/*BELOW FOR TEST PURPOSES ONLY */
 static void	print_lex_list(t_lextoken *list)
 {
 	t_lextoken	*curr;
@@ -37,6 +37,7 @@ static void	print_lex_list(t_lextoken *list)
 		curr = curr->next;
 	}
 }
+/*ABOVE FOR TEST PURPOSES ONLY */
 
 // Command example: cat << EOF | grep foo >> out.txt
 int	main(void)
@@ -54,14 +55,14 @@ int	main(void)
 	print_lex_list(token_list);
 
 	t_lextoken	*curr = token_list;
-	while (curr)
+	while (curr)//HERE STARTS A TEST
 	{
 		if (curr->type == TOK_REDIR_IN)
 		{
 			ft_lexlist_insert(curr, ft_new_token(TOK_PIPE, NULL));
 		}
 		curr = curr->next;
-	}
+	}//HERE ENDS A TEST
 	print_lex_list(token_list);
 	free(line);
 	ft_lexlist_clear(&token_list);
