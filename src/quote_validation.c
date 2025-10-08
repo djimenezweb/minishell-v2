@@ -12,8 +12,8 @@
 
 #include "minishell.h"
 
-/* Checks if a string is correctly quoted.
-Returns `1` if it's valid, `0` if it's not */
+/* Checks if a string is correctly quoted. Finds opening and closing
+quotation pairs. Returns `1` if it's valid, `0` if it's not */
 int	quote_validation(char *str)
 {
 	int		i;
@@ -21,7 +21,7 @@ int	quote_validation(char *str)
 	int		quote_count;
 
 	i = 0;
-	quote = '\0';
+	quote = 0;
 	quote_count = 0;
 	while (str[i])
 	{
@@ -32,21 +32,13 @@ int	quote_validation(char *str)
 			i++;
 		}
 		if (quote && str[i] == quote)
+		{
 			quote_count++;
+			quote = 0;
+		}
 		i++;
 	}
 	if (quote_count % 2 == 0)
 		return (1);
 	return (0);
 }
-
-/* int	main(int c, char *v[])
-{
-	int result = quote_validation(v[1]);
-	printf(">%s<\n", v[1]);
-	if (result)
-		printf("OK\n");
-	else
-		printf("Not valid\n");
-	return (0);
-} */
