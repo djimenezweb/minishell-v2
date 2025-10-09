@@ -2,28 +2,20 @@
 
 //header file.h here
 
-char	*remove_quotation(char *quote_string)
+/*some type*/	find_expansions(t_lextoken **word)
 {
-	size_t	new_len;
-	char	*new_string;
+	int	i;
 
-	new_len = ft_strlen(quote_string) - 2;
-	if (!ft_strchr(quote_sring, '$'))
+	while (ft_strchr(word, DOLLAR))
 	{
-		//new_string = ft_substr(quote_string + 1, stop at new_len);	
-		return (new_string);
-	}
-	else
-
-}
-
-
-{
-	while (current->type)
-			if (current->value[0] == DOLLAR)
-			{
+		i = 0;
+		while (word->value[i])
+		{
+			if (word->value[i] == DOLLAR)
 				//EXPAND $ENV_VAR
-			}
+			++i;
+		}
+	}
 }
 
 void	check_token_words(t_lextoken **token_list)
@@ -36,7 +28,7 @@ void	check_token_words(t_lextoken **token_list)
 	while (current->next)
 	{
 		if (current->type == TOK_WORD)
-			find_expansions(current->value);//HOW RETURNS VALUE?
+			find_expansions(&current);//HOW RETURNS VALUE?
 		else if (current->type == TOK_SINGLE_QUOTE)
 			current->type = TOK_WORD;
 		current = current->next;
