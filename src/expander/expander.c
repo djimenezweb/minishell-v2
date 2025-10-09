@@ -2,19 +2,33 @@
 
 //header file.h here
 
-/*some type*/	find_expansions(t_lextoken **word)
+int	count_new_len(char *str)
 {
 	int	i;
 
+	i = 0;
+	while (str[i])
+	{
+		if (!new_len && word->value[i] == DOLLAR)
+		{
+			new_len = i;
+			while (/*end of $VAR*/)
+				++i;
+			++i;
+			if (new_len)
+				++new_len;
+		}
+	}
+}
+
+/*some type*/	find_expansions(t_lextoken **word)
+{
+	int	new_len;
+
 	while (ft_strchr(word, DOLLAR))
 	{
-		i = 0;
-		while (word->value[i])
-		{
-			if (word->value[i] == DOLLAR)
+		new_len = count_new_len(word->value);
 				//EXPAND $ENV_VAR
-			++i;
-		}
 	}
 }
 
