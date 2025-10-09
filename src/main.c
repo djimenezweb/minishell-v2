@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/03 11:34:14 by danielji         ###   ########.fr       */
+/*   Updated: 2025/10/09 18:49:52 by danielji         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
@@ -22,6 +22,8 @@ static void	print_lex_list(t_lextoken *list)
 	{
 		if (curr->type == TOK_WORD)
 			ft_printf("WORD(%s)\n", curr->value);
+		if (curr->type == TOK_SINGLE_QUOTE)
+			ft_printf("SQUOTED_WORD(%s)\n", curr->value);
 		else if (curr->type == TOK_PIPE)
 			ft_printf("PIPE\n");
 		else if (curr->type == TOK_REDIR_IN)
@@ -73,7 +75,7 @@ int	main(void)
 			free(line);
 			return (1);
 		}
-		printf("VARIABLE NAME = >%s<\n", get_variable_name(line));
+		//printf("VARIABLE NAME = >%s<\n", get_variable_name(line));
 		token_list = lexer(line);
 		print_lex_list(token_list);
 		free(line);
