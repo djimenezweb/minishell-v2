@@ -17,7 +17,16 @@ char	*remove_quotation(char *quote_string)
 
 }
 
-void	find_words_to_expand(t_lextoken **token_list)
+//function
+{
+	while (current->type)
+			if (current->value[0] == DOLLAR)
+			{
+				//EXPAND $ENV_VAR
+			}
+}
+
+void	check_token_words(t_lextoken **token_list)
 {
 	t_lextoken	*current;
 	t_lextoken	*new_token;
@@ -27,19 +36,9 @@ void	find_words_to_expand(t_lextoken **token_list)
 	while (current->next)
 	{
 		if (current->type == TOK_WORD)
-		{
-			if (current->value[0] == DOLLAR)
-			{
-				//EXPAND $ENV_VAR
-			}
-			if (current->value[0] == DOUBLE QUOTE
-				||current->value[0] == QUOTE)
-			{
-				new_string = remove_quotation(&current->value);
-				free(current->value);
-				current->value = new_string;
-			}
-		}
+			find_expansions(current->value);//HOW RETURNS VALUE?
+		else if (current->type == TOK_QUOTE)
+			current->type = TOK_WORD;
 		current = current->next;
 	}
 }
