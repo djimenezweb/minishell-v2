@@ -17,7 +17,7 @@ char	*remove_quotation(char *quote_string)
 
 }
 
-//function
+
 {
 	while (current->type)
 			if (current->value[0] == DOLLAR)
@@ -37,7 +37,7 @@ void	check_token_words(t_lextoken **token_list)
 	{
 		if (current->type == TOK_WORD)
 			find_expansions(current->value);//HOW RETURNS VALUE?
-		else if (current->type == TOK_QUOTE)
+		else if (current->type == TOK_SINGLE_QUOTE)
 			current->type = TOK_WORD;
 		current = current->next;
 	}
