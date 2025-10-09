@@ -37,6 +37,22 @@ static void	print_lex_list(t_lextoken *list)
 		curr = curr->next;
 	}
 }
+
+void	print_array_of_strings(char **arr)
+{
+	int i = 0;
+	while (1)
+	{
+		if (arr[i] == NULL)
+		{
+			printf("%d) >NULL<\n", i);
+			break ;
+		}
+		printf("%d) >%s<\n", i, arr[i]);
+		i++;
+	}
+}
+
 /*ABOVE FOR TEST PURPOSES ONLY */
 
 // Command example: cat << EOF | grep foo >> out.txt
@@ -44,16 +60,24 @@ int	main(void)
 {
 	char		*line;
 	t_lextoken	*token_list;
+	//char		**arr;
 
-	line = readline("$ ");
-	if (!quote_validation(line))
+	while (1)
 	{
+		line = readline("$ ");
+		add_history(line);
+		//arr = history_tokenize(line);
+		//print_array_of_strings(arr);
+		if (!quote_validation(line))
+		{
+			free(line);
+			return (1);
+		}
+		printf("VARIABLE NAME = >%s<\n", get_variable_name(line));
+		token_list = lexer(line);
+		print_lex_list(token_list);
 		free(line);
-		return (1);
+		ft_lexlist_clear(&token_list);
 	}
-	token_list = lexer(line);
-	print_lex_list(token_list);
-	free(line);
-	ft_lexlist_clear(&token_list);
 	return (0);
 }

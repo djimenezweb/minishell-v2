@@ -71,5 +71,6 @@ void		ft_lexlist_insert(t_lextoken *prev, t_lextoken *new);
 t_lextoken	*ft_new_token(t_lex_type type, int *i);
 void		ft_lexnode_free(t_lextoken *node);
 void		ft_lexlist_clear(t_lextoken **lst);
+char		*get_variable_name(char *str);
 
 #endif
