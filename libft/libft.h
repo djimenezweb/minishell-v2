@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 13:11:38 by danielji          #+#    #+#             */
-/*   Updated: 2025/09/25 23:53:57 by danielji         ###   ########.fr       */
+/*   Updated: 2025/10/10 20:04:04 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <fcntl.h>
 # include <stdarg.h>
 # include <stdint.h>
+#include "libft_for_minishell.h"
 
 typedef struct s_list
 {
