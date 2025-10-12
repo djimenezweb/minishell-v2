@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/09 18:41:27 by danielji         ###   ########.fr       */
+/*   Updated: 2025/10/12 17:25:15 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -23,8 +23,9 @@
 # define PIPE 124
 # define TILDE 126
 
-// Libft
+// Libft and our headers
 # include "libft.h"
+# include "expander.h"
 
 // malloc, free
 # include <stdlib.h>
