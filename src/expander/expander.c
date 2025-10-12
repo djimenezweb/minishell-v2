@@ -1,6 +1,16 @@
-/*	*	add here a header or headers	*	*/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/12 19:52:08 by enrgil-p          #+#    #+#             */
+/*   Updated: 2025/10/12 19:52:29 by enrgil-p         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-//header file.h here
+#include "minishell.h"
 
 static void	update_expansion_data(t_expansion_data *exp_data)
 {
@@ -23,10 +33,10 @@ static /*some type*/	manage_expansions_and_quotes(t_lextoken **word)
 
 	dollar_position = 0;
 	update_expansion_data(&expansion_data);
-	while (find_expansion_and_get_data(word, exp_data))
+	while (find_expansion_and_get_data(word->value, exp_data))
 	{
 		exp_data->expanded = getenv(exp_data->var_name);
-		new_value = //function that do three memcopies
+		new_value = resize(exp_data); 
 		free(word->value);
 		word->value = new_value;
 		update_expansion_data(&expansion_data);
