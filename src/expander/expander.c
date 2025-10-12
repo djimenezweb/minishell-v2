@@ -16,6 +16,7 @@ static void	update_expansion_data(t_expansion_data *exp_data)
 static /*some type*/	manage_expansions_and_quotes(t_lextoken **word) 
 					//This may work with a TOK_WORD,
 					//so it's not needed to change
+//ENRIQUE-12/10/2025: RETURN VALUE must be to be sure if some malloc fails
 {
 	char	*new_value;
 	t_expansion_data	expansion_data;
@@ -24,7 +25,7 @@ static /*some type*/	manage_expansions_and_quotes(t_lextoken **word)
 	update_expansion_data(&expansion_data);
 	while (find_expansion_and_get_data(word, exp_data))
 	{
-		enviroment_expanded = getenv(name_to_expand);
+		exp_data->expanded = getenv(exp_data->var_name);
 		new_value = //function that do three memcopies
 		free(word->value);
 		word->value = new_value;
