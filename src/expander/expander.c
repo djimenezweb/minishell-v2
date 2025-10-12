@@ -2,6 +2,20 @@
 
 //header file.h here
 
+static void	update_expansion_data(t_expansion_data *exp_data)
+{
+	exp_data->len_modified[0] = 0;
+	exp_data->len_modified[1] = 0;
+	exp_data->new_len = 0;
+	if (exp_data->var_name)
+		free(exp_data->var_name);
+	exp_data->var_name = NULL;
+	if (exp_data-expanded)
+		free(exp_data->expanded);
+	exp_data->expanded = NULL;
+	exp_data->quote_flag = 0;
+}
+
 int	count_new_len(char *str, char **name_to_expand, int dollar_position)
 {
 	int	i;
@@ -56,10 +70,12 @@ void	check_token_words(t_lextoken **token_list)
 	t_lextoken	*current;
 	t_lextoken	*new_token;
 	char	*new_string;
+	t_expansion_data	expansion_data;
 
 	current = *token_list;
 	while (current->next)
 	{
+		update_expansion_data(&expansion_data);
 		if (current->type == TOK_WORD)//ENRIQUE-10/10/25: Hey, a word
 					      //could have quotes inside,
 					      //a change here is needed
