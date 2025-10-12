@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 17:23:08 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/12 17:33:39 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/12 19:41:57 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@
 
 typedef struct s_expansion_data
 {
-	int	var_name_positions[2];
-	int	new_len;
-	char	*var_name;
+	int		dollar_position;
+	int		resize_len;
 	char	*expanded;
-	int	quote_flag;
 }	t_expansion_data;
+
+int	find_expansion_and_get_data(const char *str,
+		t_expansion_data *exp_data);
 
 #endif
