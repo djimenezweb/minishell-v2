@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 19:52:08 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/12 20:54:02 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/13 19:18:09 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void	update_expansion_data(t_expansion_data *exp_data)
 	exp_data->resize_len = 0;
 	exp_data->var_name_len = 0;
 	exp_data->third_start = 0;
+	exp_data->expanded_len = 0;
 	if (exp_data->var_name)
 		free(exp_data->var_name);
 	if (exp_data->expanded)
@@ -29,8 +30,7 @@ static char	*resize_expansions(char *old_str, t_expansion_data *ed)
 {
 	int	expanded_len;
 	char	*new_str;
-	int	third_src_start;
-	int	third_len_size;
+	int	loop_counter;
 
 	expanded_len = ft_strlen(ed->expanded);
 	if (expanded_len != 0)
@@ -40,6 +40,12 @@ static char	*resize_expansions(char *old_str, t_expansion_data *ed)
 		return (NULL);//Review other mallocs 
 			      //to be sure of the protection
 	new_str[ed->resize_len] = '\0';
+	loop_counter = 1;
+	while (loop_counter <= 3)
+	{
+		join_expansion(old_str, new_str, ed, loop_counter);
+		++loop_counter;
+	}
 	new_str = ft_memcpy(new_str, old_str, ed->dollar_position);
 	if (expanded_len != 0)
 		new_str = ft_memcpy((new_str + ed->dollar_position),
