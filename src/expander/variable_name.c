@@ -35,27 +35,18 @@ char	*get_variable_name(char *str)
 	return (var_name);
 }
 
-/* char	*get_variable_name(char *str)
+/* Returns the value of the given variable name, including
+the special parameter `$?`, or `NULL` if it doesn't exist.
+TO DO: 
+- `getenv` should be replaced by a custom function
+- `$?` should return the status of the last command,
+it currently returns a hardcoded value */
+char	*get_variable_value(char *name)
 {
-	int		i;
-	char	*var_name;
+	char	*value;
 
-	i = 0;
-	var_name = NULL;
-	if (str[i] != '$')
-		return (NULL);
-	i++;
-	if (str[i] == '{')
-	{
-		while (str[i] && str[i] != '}')
-			i++;
-		var_name = ft_substr(str, 2, i - 2);
-	}
-	else
-	{
-		while (str[i] && !is_delimiter(str[i]))
-			i++;
-		var_name = ft_substr(str, 1, i - 1);
-	}
-	return (var_name);
-} */
+	if (name[0] == '?')
+		return ("123");
+	value = getenv(name);
+	return (value);
+}
