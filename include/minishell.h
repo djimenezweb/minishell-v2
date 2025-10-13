@@ -43,7 +43,6 @@
 typedef enum e_lex_type
 {
 	TOK_WORD,
-	TOK_SINGLE_QUOTE,
 	TOK_PIPE,
 	TOK_APPEND,
 	TOK_REDIR_IN,
