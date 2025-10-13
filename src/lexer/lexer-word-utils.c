@@ -51,7 +51,7 @@ t_lextoken	*ft_new_word_token(char *str, int start, int len, t_lex_type type)
 creates a new word token from it, advances `*i` past the parsed word,
 and returns the token. A quote indicates the end of a word
 only if it's not adjacent to ` ` (space), `<`, `|`, or `>`.*/
-t_lextoken	*ft_parse_quoted_word(char *str, int *i)
+/* t_lextoken	*ft_parse_quoted_word(char *str, int *i)
 {
 	char		quote;
 	int			start;
@@ -71,7 +71,7 @@ t_lextoken	*ft_parse_quoted_word(char *str, int *i)
 	else
 		node = ft_new_word_token(str, start, *i - start - 1, TOK_WORD);
 	return (node);
-}
+} */
 
 /* Parses a word from a string starting at position `*i`,
 creates a new word token from it, advances `*i` past the parsed word,

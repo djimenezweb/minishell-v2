@@ -82,8 +82,6 @@ t_lextoken	*lexer(char *str)
 			node = ft_new_redir_token(LESS, str[i + 1], &i);
 		else if (str[i] == GREATER)
 			node = ft_new_redir_token(GREATER, str[i + 1], &i);
-		else if (str[i] == SINGLE_QUOTE || str[i] == DOUBLE_QUOTE)
-			node = ft_parse_quoted_word(str, &i);
 		else
 			node = ft_parse_word(str, &i);
 		ft_lexlist_add(&list, node);
