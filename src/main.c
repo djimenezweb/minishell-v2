@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/09 18:49:52 by danielji         ###   ########.fr       */
+/*   Updated: 2025/10/14 20:12:16 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -78,6 +78,9 @@ int	main(void)
 		//printf("VARIABLE NAME = >%s<\n", get_variable_name(line));
 		token_list = lexer(line);
 		print_lex_list(token_list);
+		printf("\n\n\n");//deubg
+		check_token_words(&token_list);
+		print_lex_list(token_list);//debug
 		free(line);
 		ft_lexlist_clear(&token_list);
 	}
