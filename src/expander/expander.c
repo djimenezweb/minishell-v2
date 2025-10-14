@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 19:52:08 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/13 19:18:09 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/14 20:03:28 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void	update_expansion_data(t_expansion_data *exp_data)
 	exp_data->dollar_position = 0;
 	exp_data->resize_len = 0;
 	exp_data->var_name_len = 0;
-	exp_data->third_start = 0;
 	exp_data->expanded_len = 0;
 	if (exp_data->var_name)
 		free(exp_data->var_name);
@@ -26,41 +25,12 @@ static void	update_expansion_data(t_expansion_data *exp_data)
 	exp_data->expanded = NULL;
 }
 
-static char	*resize_expansions(char *old_str, t_expansion_data *ed)
-{
-	int	expanded_len;
-	char	*new_str;
-	int	loop_counter;
-
-	expanded_len = ft_strlen(ed->expanded);
-	if (expanded_len != 0)
-		ed->resize_len += (expanded_len - 1);
-	new_str = (char *)malloc((ed->resize_len + 1) * sizeof(char));
-	if (!new_str)
-		return (NULL);//Review other mallocs 
-			      //to be sure of the protection
-	new_str[ed->resize_len] = '\0';
-	loop_counter = 1;
-	while (loop_counter <= 3)
-	{
-		join_expansion(old_str, new_str, ed, loop_counter);
-		++loop_counter;
-	}
-	new_str = ft_memcpy(new_str, old_str, ed->dollar_position);
-	if (expanded_len != 0)
-		new_str = ft_memcpy((new_str + ed->dollar_position),
-				ed->expanded, (expanded_len - 1));
-	third_src_start = ed->third_start;//THIS COULD BE A AUX FUNCTION
-	third_len_size = ft_strlen(old_str) -
-		(ed->dollar_position + ed->var_name_len);
-	new_str = ft_memcpy((new_str + (ed->dollar_position + expanded_len)),
-			(old_str + ed->third_start), third_len_size);
-}
-
-static /*some type*/	manage_expansions_and_quotes(t_lextoken **word) 
+static void	manage_expansions_and_quotes(t_lextoken **word) 
 					//This may work with a TOK_WORD,
 					//so it's not needed to change
 //ENRIQUE-12/10/2025: RETURN VALUE must be to be sure if some malloc fails
+//ENRIQUE-14/10/2025: Maybe just not return, and in case of malloc fail,
+//use an struct and free all at the scope where the fail has happened
 {
 	char	*new_value;
 	t_expansion_data	expansion_data;
@@ -87,13 +57,9 @@ void	check_token_words(t_lextoken **token_list)
 	current = *token_list;
 	while (current->next)
 	{
-		if (current->type == TOK_WORD)//ENRIQUE-10/10/25: Hey, a word
-					      //could have quotes inside,
-					      //a change here is needed
+		if (current->type == TOK_WORD)
 			manage_expansions_and_quotes(&current);
 		//HOW RETURNS VALUE?
-		else if (current->type == TOK_SINGLE_QUOTE)
-			current->type = TOK_WORD;
 		current = current->next;
 	}
 }

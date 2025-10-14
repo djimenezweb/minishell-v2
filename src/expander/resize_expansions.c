@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 19:16:07 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/14 19:51:32 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/14 20:02:04 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*resize_expansions(char *old_str, t_expansion_data *ed)
 	if (ed->expanded_len != 0)
 		ed->resize_len += (ed->expanded_len - 1);
 	new_str = (char *)malloc((ed->resize_len + 1) * sizeof(char));
-	if (!new_str)
+	if (!new_str)//Above line could be ft_calloc. Needed? Not sure
 		return (NULL);//Review other mallocs 
 			      //to be sure of the protection
 	new_str[ed->resize_len] = '\0';
@@ -61,4 +61,5 @@ char	*resize_expansions(char *old_str, t_expansion_data *ed)
 		join_expansion(old_str, &new_str, ed, loop_counter);
 		++loop_counter;
 	}
+	return (new_str);
 }
