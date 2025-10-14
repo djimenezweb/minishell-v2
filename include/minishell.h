@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/12 17:25:15 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/14 20:06:28 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -72,6 +72,5 @@ void		ft_lexlist_insert(t_lextoken *prev, t_lextoken *new);
 t_lextoken	*ft_new_token(t_lex_type type, int *i);
 void		ft_lexnode_free(t_lextoken *node);
 void		ft_lexlist_clear(t_lextoken **lst);
-char		*get_variable_name(char *str);
 
 #endif
