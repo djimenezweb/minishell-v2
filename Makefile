@@ -2,11 +2,11 @@ NAME		= minishell
 CC			= cc
 CFLAGS		= -Wall -Werror -Wextra
 SRC_PATH	= src/
-SRC			=	main.c quote_validation.c\
+SRC			=	main.c\
+				quote_validation.c\
 				lexer/lexer.c lexer/lexer-utils.c\
 				lexer/lexer-word-utils.c\
-				expander/variable_name.c\
-				expander/expander.c\
+				expander/variable_name.c expander/expander.c\
 				expander/resize_expansions.c\
 				expander/find_expansion_and_get_data.c\
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
