@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
@@ -8,25 +8,15 @@
 /*   Created: 2025/10/13 11:23:02 by danielji          #+#    #+#             */
 /*   Updated: 2025/10/13 11:23:02 by danielji         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
-//#include "minishell.h"
-//#include "../../include/minishell.h"
-#include <stdio.h>
-#include "libft.h"
+#include "environment.h"
 
-#define DEFAULT_PATH "COCO=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-
-typedef struct s_env_var
-{
-	char				*name;
-	char				*value;
-	struct s_env_var	*next;
-}						t_env_var;
-
+/* Iterates through the list and returns a `t_env_var` node whose name is
+the same as the passed parameter `name` */
 t_env_var	*ft_find_env_var(t_env_var *list, char *name)
 {
-	t_env_var *current;
+	t_env_var	*current;
 
 	current = list;
 	while (current)
@@ -38,21 +28,8 @@ t_env_var	*ft_find_env_var(t_env_var *list, char *name)
 	return (NULL);
 }
 
-void	ft_env_addback(t_env_var **lst, t_env_var *new)
-{
-	t_env_var	*last;
-
-	if (*lst == NULL)
-		*lst = new;
-	else
-	{
-		last = *lst;
-		while (last->next)
-			last = last->next;
-		last->next = new;
-	}
-}
-
+/* Initializes `name` and `value` from the passed string `str`.
+The string `str`must be formatted as `NAME=VALUE` */
 void	set_name_value(t_env_var *node, char *str)
 {
 	int	start;
@@ -71,28 +48,16 @@ void	set_name_value(t_env_var *node, char *str)
 	node->value = ft_substr(str, start, end);
 }
 
-t_env_var	*ft_new_node(char *str)
-{
-	t_env_var	*node;
-
-	if (!str)
-		return (NULL);
-	node = (t_env_var *)malloc(sizeof(t_env_var));
-	if (!node)
-		return (NULL);
-	set_name_value(node, str);
-	node->next = NULL;
-	return (node);
-}
-
+/* Sets default variable `PATH` if it's missing */
 void	set_default_env_vars(t_env_var **list)
 {
-	if (ft_find_env_var(*list, "COCO") == NULL)
+	if (ft_find_env_var(*list, "PATH") == NULL)
 	{
 		ft_env_addback(list, ft_new_node(DEFAULT_PATH));
 	}
 }
 
+/* Returns a list of environment variables based on passed `envp` */
 t_env_var	*set_env_vars(char *envp[])
 {
 	int			i;
@@ -106,23 +71,4 @@ t_env_var	*set_env_vars(char *envp[])
 		i++;
 	}
 	return (list);
-}
-
-int	main(int argc, char *argv[], char *envp[])
-{
-	t_env_var	*list;
-
-	list = set_env_vars(envp);
-	set_default_env_vars(&list);
-
-	// PRINT LIST START
-	t_env_var *current = list;
-	while (current)
-	{
-		printf("%s=%s\n", current->name, current->value);
-		current = current->next;
-	}
-	// PRINT LIST END
-
-	return (0);
 }
