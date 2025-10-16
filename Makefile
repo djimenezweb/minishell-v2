@@ -8,7 +8,7 @@ SRC			=	main.c\
 				lexer/lexer-word-utils.c\
 				expander/variable_name.c expander/expander.c\
 				expander/resize_expansions.c\
-				expander/find_expansion_and_get_data.c\
+				expander/find_expansion_and_get_data.c
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 OBJS		= $(SRCS:.c=.o)
 INCLUDE		= -I./include -I./libft
