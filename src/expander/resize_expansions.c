@@ -39,7 +39,7 @@ static void	join_expansion(char *old_str, char **new_str,
 				+ ed->var_name_len);
 	}
 	if (len != 0)
-		*new_str = ft_memcpy(dest, src, len);
+		*new_str = ft_memcpy(dst, src, len);
 }
 
 char	*resize_expansions(char *old_str, t_expansion_data *ed)
