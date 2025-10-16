@@ -48,8 +48,8 @@ int	find_expansion_and_get_data(const char *str, t_expansion_data *exp_data)
 		if (str[position] == DOLLAR && !quote_flag)
 		{
 			exp_data->dollar_position = position;
-			exp_data->expanded = get_variable_name(str[position]);
-			set_resize_data(exp_data, str);
+			exp_data->expanded = get_variable_name((char *)&str[position]);
+			set_resize_data(exp_data, (char *)str);
 			return (1);
 		}
 		++position;
