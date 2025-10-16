@@ -22,8 +22,6 @@ static void	print_lex_list(t_lextoken *list)
 	{
 		if (curr->type == TOK_WORD)
 			ft_printf("WORD(%s)\n", curr->value);
-		if (curr->type == TOK_SINGLE_QUOTE)
-			ft_printf("SQUOTED_WORD(%s)\n", curr->value);
 		else if (curr->type == TOK_PIPE)
 			ft_printf("PIPE\n");
 		else if (curr->type == TOK_REDIR_IN)
@@ -78,9 +76,9 @@ int	main(void)
 		//printf("VARIABLE NAME = >%s<\n", get_variable_name(line));
 		token_list = lexer(line);
 		print_lex_list(token_list);
-		printf("\n\n\n");//deubg
+		//printf("\n\n\n");//deubg
 		check_token_words(&token_list);
-		print_lex_list(token_list);//debug
+		//print_lex_list(token_list);//debug
 		free(line);
 		ft_lexlist_clear(&token_list);
 	}
