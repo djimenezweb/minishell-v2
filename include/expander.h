@@ -15,6 +15,8 @@
 
 # include "minishell.h"
 
+typedef struct s_lextoken t_lextoken;
+
 typedef struct s_expansion_data
 {
 	int		dollar_position;
