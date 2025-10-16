@@ -55,7 +55,7 @@ void	check_token_words(t_lextoken **token_list)
 	char	*new_string;
 
 	current = *token_list;
-	while (current->next)
+	while (current)
 	{
 		if (current->type == TOK_WORD)
 			manage_expansions_and_quotes(&current);
