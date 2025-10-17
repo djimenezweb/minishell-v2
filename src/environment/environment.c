@@ -12,9 +12,9 @@
 
 #include "environment.h"
 
-/* Iterates through the list and returns a `t_env_var` node whose name is
+/* Iterate through the list and return a `t_env_var` node whose name is
 the same as the passed parameter `name` */
-t_env_var	*ft_find_env_var(t_env_var *list, char *name)
+t_env_var	*find_env_var(t_env_var *list, char *name)
 {
 	t_env_var	*current;
 
@@ -28,8 +28,8 @@ t_env_var	*ft_find_env_var(t_env_var *list, char *name)
 	return (NULL);
 }
 
-/* Initializes `name` and `value` from the passed string `str`.
-The string `str`must be formatted as `NAME=VALUE` */
+/* Initialize `name` and `value` from the passed string `str`.
+The string `str` must be formatted as `NAME=VALUE` */
 void	set_name_value(t_env_var *node, char *str)
 {
 	int	start;
@@ -48,27 +48,28 @@ void	set_name_value(t_env_var *node, char *str)
 	node->value = ft_substr(str, start, end);
 }
 
-/* Sets default variable `PATH` if it's missing */
+/* Set default variable `PATH` if it's missing.
+TO DO: Add other variables */
 void	set_default_env_vars(t_env_var **list)
 {
-	if (ft_find_env_var(*list, "PATH") == NULL)
+	if (find_env_var(*list, "PATH") == NULL)
 	{
 		ft_env_addback(list, ft_new_node(DEFAULT_PATH));
 	}
 }
 
-/* Returns a list of environment variables based on passed `envp` */
+/* Return a list of environment variables based on passed `envp`.
+If `envp` is missing, set default variables.  */
 t_env_var	*set_env_vars(char *envp[])
 {
-	int			i;
 	t_env_var	*list;
 
-	i = 0;
 	list = NULL;
-	while (envp[i])
+	while (envp && *envp)
 	{
-		ft_env_addback(&list, ft_new_node(envp[i]));
-		i++;
+		ft_env_addback(&list, ft_new_node(*envp));
+		envp++;
 	}
+	set_default_env_vars(&list);
 	return (list);
 }

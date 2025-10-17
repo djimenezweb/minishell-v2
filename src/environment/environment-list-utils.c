@@ -12,9 +12,9 @@
 
 #include "environment.h"
 
-/* Allocates memory for a new `t_env_var` node and returns it.
-Initalizes `name` and `value` variables based on the passed parameter `str`.
-The variable `next` is initialized to `NULL`. */
+/* Allocate memory for a new `t_env_var` node and return it.
+Initalize `name` and `value` variables based on the passed parameter `str`.
+The variables `next` and `prev` are initialized to `NULL`. */
 t_env_var	*ft_new_node(char *str)
 {
 	t_env_var	*node;
@@ -26,10 +26,11 @@ t_env_var	*ft_new_node(char *str)
 		return (NULL);
 	set_name_value(node, str);
 	node->next = NULL;
+	node->prev = NULL;
 	return (node);
 }
 
-/* Adds the node `new` at the end of the list `lst` */
+/* Add the node `new` at the end of the list `lst` */
 void	ft_env_addback(t_env_var **lst, t_env_var *new)
 {
 	t_env_var	*last;
@@ -42,5 +43,44 @@ void	ft_env_addback(t_env_var **lst, t_env_var *new)
 		while (last->next)
 			last = last->next;
 		last->next = new;
+		new->prev = last;
 	}
+}
+
+/* Free the content of a node and the node itself */
+void	ft_envnode_free(t_env_var *node)
+{
+	if (node->value)
+	{
+		free(node->value);
+		node->value = NULL;
+	}
+	if (node->name)
+	{
+		free(node->name);
+		node->value = NULL;
+	}
+	node->next = NULL;
+	node->prev = NULL;
+	free(node);
+	node = NULL;
+}
+
+/* Delete and free the given node and all its successors.
+Set the list pointer to `NULL`.*/
+void	ft_envlist_clear(t_env_var **lst)
+{
+	t_env_var	*current;
+	t_env_var	*next;
+
+	if (!lst)
+		return ;
+	current = *lst;
+	while (current)
+	{
+		next = current->next;
+		ft_envnode_free(current);
+		current = next;
+	}
+	*lst = NULL;
 }
