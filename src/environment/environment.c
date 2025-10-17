@@ -28,6 +28,17 @@ t_env_var	*find_env_var(t_env_var *list, char *name)
 	return (NULL);
 }
 
+/* Return the value of the passed parameter `name` */
+char	*get_env_value(t_env_var *list, char *name)
+{
+	t_env_var	*node;
+
+	node = find_env_var(list, name);
+	if (!node)
+		return (NULL);
+	return (node->value);
+}
+
 /* Initialize `name` and `value` from the passed string `str`.
 The string `str` must be formatted as `NAME=VALUE` */
 void	set_name_value(t_env_var *node, char *str)
