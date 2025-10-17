@@ -4,7 +4,7 @@
 - GNU Bash manual: [HTML (one page)](https://www.gnu.org/software/bash/manual/bash.html) | [HTML](https://www.gnu.org/software/bash/manual/html_node/index.html) | [PDF](https://www.gnu.org/software/bash/manual/bash.pdf)
 - The Open Group: [Shell Command Language](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html)
 - Gustavo Junipero y Justin Ennen: [Writing Your Own Shell](https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/)
-- Otras minishells: [A. Pérez y M. Bueno](https://github.com/madebypixel02/minishell) | [J. Castro y M. Parra](https://github.com/lvzrr/minishell) | [D. Jiménez e I. Sainz](https://github.com/BishopVK/minishell)
+- Otras minishells: [A. Pérez y M. Bueno](https://github.com/madebypixel02/minishell) | [J. Castro y M. Parra](https://github.com/lvzrr/minishell) | [D. Jiménez e I. Sainz](https://github.com/BishopVK/minishell) | [Pablo y Dax](https://github.com/Pablosky91/42cursus/tree/main/Rank03/minishell)
 - Guías 42: [42 Cursus Guide](https://42-cursus.gitbook.io/guide/3-rank-03/minishell)
 - 42 Evaluation Sheets Hub: [Minishell](https://42sheets.eina.cc/Cursus/Minishell/)
 - Cómo se usa Bash original (curso de Mouredev): https://github.com/mouredev/hello-bash-shell
