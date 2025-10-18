@@ -6,23 +6,29 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 19:52:08 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/18 23:17:02 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/19 00:17:06 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	update_expansion_data(t_expansion_data *exp_data)
+static void	init_expansion_data(t_expansion_data *exp_data)
 {
 	exp_data->dollar_position = 0;
 	exp_data->resize_len = 0;
 	exp_data->var_name_len = 0;
 	exp_data->expanded_len = 0;
+	exp_data->var_name = NULL;
+	exp_data->expanded = NULL;
+}
+
+static void	update_expansion_data(t_expansion_data *exp_data)
+{
 	if (exp_data->var_name)
 		free(exp_data->var_name);
 	if (exp_data->expanded)
 		free(exp_data->expanded);
-	exp_data->expanded = NULL;
+	init_expansion_data(exp_data);
 }
 
 static void	manage_expansions_and_quotes(t_lextoken **word)
@@ -34,7 +40,7 @@ static void	manage_expansions_and_quotes(t_lextoken **word)
 	t_expansion_data	exp_data;
 	char				*new_value;
 
-	update_expansion_data(&exp_data);
+	init_expansion_data(&exp_data);
 	while (find_expansion_and_get_data((*word)->value, &exp_data))
 	{
 		exp_data.expanded = getenv(exp_data.var_name);
