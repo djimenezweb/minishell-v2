@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 19:52:08 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/14 20:03:28 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/18 21:28:43 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,16 @@ static void	manage_expansions_and_quotes(t_lextoken **word)
 //use an struct and free all at the scope where the fail has happened
 {
 	char	*new_value;
-	t_expansion_data	expansion_data;
+	t_expansion_data	exp_data;
 
-	dollar_position = 0;
-	update_expansion_data(&expansion_data);
+	update_expansion_data(&exp_data);
 	while (find_expansion_and_get_data(word->value, &exp_data))
 	{
 		exp_data.expanded = getenv(exp_data.var_name);
 		new_value = resize_expansions(word->value, &exp_data); 
 		free(word->value);
 		word->value = new_value;
-		update_expansion_data(&expansion_data);
+		update_expansion_data(&exp_data);
 	}
 	//AFTER THIS WHILE LOOP, REMOVE QUOTES (only the ones we must remove)
 }
@@ -51,8 +50,6 @@ static void	manage_expansions_and_quotes(t_lextoken **word)
 void	check_token_words(t_lextoken **token_list)
 {
 	t_lextoken	*current;//ENRIQUE says: WHY DO WE NEED CURRENT?
-	t_lextoken	*new_token;
-	char	*new_string;
 
 	current = *token_list;
 	while (current)
