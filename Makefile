@@ -1,6 +1,6 @@
 NAME		= minishell
 CC			= cc
-CFLAGS		= -Wall -Werror -Wextra
+CFLAGS		= -Wall -Werror -Wextra -g3
 SRC_PATH	= src/
 SRC			=	main.c\
 				quote_validation.c\
