@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 19:52:08 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/18 21:42:59 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/18 22:20:08 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ static void	update_expansion_data(t_expansion_data *exp_data)
 }
 
 static void	manage_expansions_and_quotes(t_lextoken **word) 
-					//This may work with a TOK_WORD,
-					//so it's not needed to change
+//This may work with a TOK_WORD, so it's not needed to change
 //ENRIQUE-12/10/2025: RETURN VALUE must be to be sure if some malloc fails
 //ENRIQUE-14/10/2025: Maybe just not return, and in case of malloc fail,
 //use an struct and free all at the scope where the fail has happened
@@ -57,7 +56,7 @@ void	check_token_words(t_lextoken **token_list)
 	{
 		if (current->type == TOK_WORD)
 			manage_expansions_and_quotes(&current);
-		//HOW RETURNS VALUE?
+		//HOW RETURNS VALUE? See comments below the function
 		current = current->next;
 	}
 }
