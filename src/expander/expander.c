@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 19:52:08 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/18 21:28:43 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/18 21:42:59 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,20 +36,21 @@ static void	manage_expansions_and_quotes(t_lextoken **word)
 	t_expansion_data	exp_data;
 
 	update_expansion_data(&exp_data);
-	while (find_expansion_and_get_data(word->value, &exp_data))
+	while (find_expansion_and_get_data((*word)->value, &exp_data))
 	{
 		exp_data.expanded = getenv(exp_data.var_name);
-		new_value = resize_expansions(word->value, &exp_data); 
-		free(word->value);
-		word->value = new_value;
+		new_value = resize_expansions((*word)->value, &exp_data); 
+		free((*word)->value);
+		(*word)->value = new_value;
 		update_expansion_data(&exp_data);
 	}
 	//AFTER THIS WHILE LOOP, REMOVE QUOTES (only the ones we must remove)
+	//ENRIQUE 18/10: Well... We must see carefully order of functions
 }
 
 void	check_token_words(t_lextoken **token_list)
 {
-	t_lextoken	*current;//ENRIQUE says: WHY DO WE NEED CURRENT?
+	t_lextoken	*current;
 
 	current = *token_list;
 	while (current)
