@@ -6,18 +6,11 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 19:53:52 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/18 22:30:05 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/18 22:59:41 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	update_quote_flag(int quote_flag)
-{
-	if (!quote_flag)
-		return (SINGLE_QUOTE);
-	return (0);
-}
 
 static void	set_resize_data(t_expansion_data *exp_data, char *str)
 {
@@ -35,23 +28,24 @@ static void	set_resize_data(t_expansion_data *exp_data, char *str)
  * from old token_word. Later we'll add expanded_var_len to resize*/
 int	find_expansion_and_get_data(char *str, t_expansion_data *exp_data)
 {
-	int	position;
+	int	index;
 	int	quote_flag;
 
-	position = 0;
+	index = 0;
 	quote_flag = 0;
-	while (str[position] != '\0')
+	while (str[index] != '\0')
 	{
-		if (str[position] == SINGLE_QUOTE)
-			quote_flag = update_quote_flag(quote_flag);
-		if (str[position] == DOLLAR && !quote_flag)
+		if (str[index] == SINGLE_QUOTE
+			|| str[index] == DOUBLE_QUOTE)
+			quote_flag = update_quote_flag(quote_flag, str[index]);
+		if (str[index] == DOLLAR && !quote_flag)
 		{
-			exp_data->dollar_position = position;
-			exp_data->var_name = get_variable_name(str + position);
+			exp_data->dollar_position = index;
+			exp_data->var_name = get_variable_name(str + index);
 			set_resize_data(exp_data, str);
 			return (1);
 		}
-		++position;
+		++index;
 	}
 	return (0);
 }
