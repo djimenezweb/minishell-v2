@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 19:53:52 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/19 16:50:41 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/19 20:23:17 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	find_expansion_and_get_data(char *str, t_expansion_data *exp_data)
 		if (str[index] == SINGLE_QUOTE
 			|| str[index] == DOUBLE_QUOTE)
 			quote_flag = update_quote_flag(quote_flag, str[index]);
-		if (str[index] == DOLLAR && !quote_flag)
+		if (str[index] == DOLLAR && quote_flag != SINGLE_QUOTE)
 		{
 			exp_data->dollar_position = index;
 			exp_data->var_name = get_variable_name(str + index);
