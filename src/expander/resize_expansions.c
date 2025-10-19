@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 19:16:07 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/19 00:22:40 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/19 16:52:06 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ static void	join_expansion(char *old_str, char **new_str,
 	if (loop_counter == 2)
 	{
 		src = ed->expanded;
-		printf("%s", ed->expanded);//DEBUG
-		dst = *new_str + ed->dollar_position;
+		dst = (*new_str) + ed->dollar_position;
 		len = ed->expanded_len;
 	}
 	if (loop_counter == 3)
@@ -40,10 +39,7 @@ static void	join_expansion(char *old_str, char **new_str,
 				+ ed->var_name_len);
 	}
 	if (len != 0)
-		*new_str = ft_memcpy(dst, src, len);
-	printf("-->");//DEBUG
-	printf("%s", *new_str);//DEBUG
-	printf("<--\n");//DEBUG
+		ft_memcpy(dst, src, len);
 }
 
 char	*resize_expansions(char *old_str, t_expansion_data *ed)
@@ -66,7 +62,5 @@ char	*resize_expansions(char *old_str, t_expansion_data *ed)
 		join_expansion(old_str, &new_str, ed, loop_counter);
 		++loop_counter;
 	}
-	printf("%s\n", new_str);//DEBUG
-	printf("debug\n");//DEBUG
 	return (new_str);
 }

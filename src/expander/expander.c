@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 19:52:08 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/19 00:17:06 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/19 16:50:26 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ static void	update_expansion_data(t_expansion_data *exp_data)
 {
 	if (exp_data->var_name)
 		free(exp_data->var_name);
-	if (exp_data->expanded)
-		free(exp_data->expanded);
+	//ENRIQUE 19/10: A problem used to happen here, because
+	//I considered the result of getenv() as a string we must free
+	//No, it's not malloc, we should not take care of it, just of var_name
 	init_expansion_data(exp_data);
 }
 
