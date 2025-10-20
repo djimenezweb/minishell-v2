@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "environment.h"
 
 /* FOR TEST PURPOSES ONLY */
 static void	print_lex_list(t_lextoken *list)
@@ -39,12 +40,26 @@ static void	print_lex_list(t_lextoken *list)
 }
 
 // Command example: cat << EOF | grep foo >> out.txt
-int	main(void)
+int	main(int argc, char *argv[], char *envp[])
 {
+	(void)argc;
+	(void)argv;
+
 	char		*line;
 	t_lextoken	*token_list;
 
+	//t_env_var	*path;
+	char		*path;
+
+	t_env_var	*env_list;
+	env_list = set_env_vars(envp);
+
+	path = get_env_value(env_list, "PATH");
+	printf("prueba env: PATH = %s\n", path);
+	ft_envlist_clear(&env_list);
+
 	line = readline("$ ");
+	// line = ft_strdup("hardcoded line"); 
 	if (!quote_validation(line))
 	{
 		free(line);
