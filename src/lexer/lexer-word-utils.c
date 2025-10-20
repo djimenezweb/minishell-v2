@@ -12,14 +12,6 @@
 
 #include "minishell.h"
 
-/* Returns `1` if a character is `|`, `<`, or `>` */
-/* int	ft_ismetachar(char c)
-{
-	if (c == PIPE || c == LESS || c == GREATER)
-		return (1);
-	return (0);
-} */
-
 /* Retuns `1` if character `c` is included in string `set` */
 int	is_in_set(char c, char *set)
 {
@@ -33,14 +25,14 @@ int	is_in_set(char c, char *set)
 }
 
 /* Initializes `value` to substring and returns new `TOK_WORD` token*/
-t_lextoken	*ft_new_word_token(char *str, int start, int len, t_lex_type type)
+t_lextoken	*ft_new_word_token(char *str, int start, int len)
 {
 	t_lextoken	*node;
 
 	node = (t_lextoken *)malloc(sizeof(t_lextoken));
 	if (!node)
 		return (NULL);
-	node->type = type;
+	node->type = TOK_WORD;
 	node->value = ft_substr(str, start, len);
 	node->next = NULL;
 	return (node);
@@ -51,27 +43,24 @@ t_lextoken	*ft_new_word_token(char *str, int start, int len, t_lex_type type)
 creates a new word token from it, advances `*i` past the parsed word,
 and returns the token. A quote indicates the end of a word
 only if it's not adjacent to ` ` (space), `<`, `|`, or `>`.*/
-/* t_lextoken	*ft_parse_quoted_word(char *str, int *i)
+t_lextoken	*ft_parse_quoted_word(char *str, int *i)
 {
 	char		quote;
 	int			start;
 	t_lextoken	*node;
 
 	quote = str[*i];
-	(*i)++;
 	start = *i;
+	(*i)++;
 	while (str[*i] && !(str[*i] == quote && (is_in_set(str[*i + 1], " <|>"))))
 	{
 		(*i)++;
 	}
+	node = ft_new_word_token(str, start, *i - start + 1);
 	if (str[*i] == quote)
 		(*i)++;
-	if (quote == SINGLE_QUOTE)
-		node = ft_new_word_token(str, start, *i - start - 1, TOK_SINGLE_QUOTE);
-	else
-		node = ft_new_word_token(str, start, *i - start - 1, TOK_WORD);
 	return (node);
-} */
+}
 
 /* Parses a word from a string starting at position `*i`,
 creates a new word token from it, advances `*i` past the parsed word,
@@ -84,6 +73,6 @@ t_lextoken	*ft_parse_word(char *str, int *i)
 	start = *i;
 	while (str[*i] && !ft_isspace(str[*i]) && !is_in_set(str[*i], "<|>"))
 		(*i)++;
-	node = ft_new_word_token(str, start, *i - start, TOK_WORD);
+	node = ft_new_word_token(str, start, *i - start);
 	return (node);
 }

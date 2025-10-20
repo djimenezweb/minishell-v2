@@ -64,12 +64,21 @@ int	main(void)
 
 	while (1)
 	{
+		line = readline("$ ");
+		add_history(line);
+		//arr = history_tokenize(line);
+		//print_array_of_strings(arr);
+		if (!quote_validation(line))
+		{
+			free(line);
+			return (1);
+		}
+		//printf("VARIABLE NAME = >%s<\n", get_variable_name(line));
+		token_list = lexer(line);
+		check_token_words(&token_list);
+		print_lex_list(token_list);
 		free(line);
-		return (1);
-	}
-	token_list = lexer(line);
-	print_lex_list(token_list);
-	free(line);
-	ft_lexlist_clear(&token_list);
+		ft_lexlist_clear(&token_list);
+	}	
 	return (0);
 }

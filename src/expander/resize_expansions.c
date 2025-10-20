@@ -33,13 +33,20 @@ static void	join_expansion(char *old_str, char **new_str,
 	}
 	if (loop_counter == 3)
 	{
+		printf("new_str len = %zu\n", ft_strlen(*new_str));
 		src = old_str + (ed->dollar_position + ed->var_name_len);
+		printf("src ==> %d -- %s\n", (int)ft_strlen(src), src);
 		dst = *new_str + (ed->dollar_position + ed->expanded_len);
+		printf("%i %i %i\n", ed->resize_len, ed->dollar_position, ed->var_name_len);
 		len = ed->resize_len - (ed->dollar_position
 				+ ed->var_name_len);
+		printf("Len es %d\n", len);
 	}
 	if (len != 0)
+	{
+		ft_printf("len at loop %i = %i\n", loop_counter, len);
 		ft_memcpy(dst, src, len);
+	}
 }
 
 char	*resize_expansions(char *old_str, t_expansion_data *ed)
