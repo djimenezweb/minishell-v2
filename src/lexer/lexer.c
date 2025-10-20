@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:41:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/06 11:13:39 by danielji         ###   ########.fr       */
+/*   Updated: 2025/10/09 18:35:32 by danielji         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
@@ -82,8 +82,6 @@ t_lextoken	*lexer(char *str)
 			node = ft_new_redir_token(LESS, str[i + 1], &i);
 		else if (str[i] == GREATER)
 			node = ft_new_redir_token(GREATER, str[i + 1], &i);
-		else if (str[i] == DOUBLE_QUOTE || str[i] == SINGLE_QUOTE)
-			node = ft_parse_quoted_word(str, &i);
 		else
 			node = ft_parse_word(str, &i);
 		ft_lexlist_add(&list, node);

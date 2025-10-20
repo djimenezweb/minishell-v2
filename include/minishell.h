@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/03 10:39:34 by danielji         ###   ########.fr       */
+/*   Updated: 2025/10/18 23:03:58 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -23,8 +23,9 @@
 # define PIPE 124
 # define TILDE 126
 
-// Libft
+// Libft and our headers
 # include "libft.h"
+# include "expander.h"
 
 // malloc, free
 # include <stdlib.h>
@@ -71,5 +72,8 @@ void		ft_lexlist_insert(t_lextoken *prev, t_lextoken *new);
 t_lextoken	*ft_new_token(t_lex_type type, int *i);
 void		ft_lexnode_free(t_lextoken *node);
 void		ft_lexlist_clear(t_lextoken **lst);
+
+//utils
+int	update_quote_flag(int quote_flag, int char_found);
 
 #endif

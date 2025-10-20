@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
@@ -6,13 +6,13 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/03 11:34:14 by danielji         ###   ########.fr       */
+/*   Updated: 2025/10/19 16:28:20 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
-/* FOR TEST PURPOSES ONLY */
+/*BELOW FOR TEST PURPOSES ONLY */
 static void	print_lex_list(t_lextoken *list)
 {
 	t_lextoken	*curr;
@@ -38,14 +38,31 @@ static void	print_lex_list(t_lextoken *list)
 	}
 }
 
+void	print_array_of_strings(char **arr)
+{
+	int i = 0;
+	while (1)
+	{
+		if (arr[i] == NULL)
+		{
+			printf("%d) >NULL<\n", i);
+			break ;
+		}
+		printf("%d) >%s<\n", i, arr[i]);
+		i++;
+	}
+}
+
+/*ABOVE FOR TEST PURPOSES ONLY */
+
 // Command example: cat << EOF | grep foo >> out.txt
 int	main(void)
 {
 	char		*line;
 	t_lextoken	*token_list;
+	//char		**arr;
 
-	line = readline("$ ");
-	if (!quote_validation(line))
+	while (1)
 	{
 		free(line);
 		return (1);
