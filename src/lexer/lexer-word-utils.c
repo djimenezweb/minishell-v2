@@ -34,6 +34,8 @@ t_lextoken	*ft_new_word_token(char *str, int start, int len)
 		return (NULL);
 	node->type = TOK_WORD;
 	node->value = ft_substr(str, start, len);
+	if (!node->value)
+		return (NULL);
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);
