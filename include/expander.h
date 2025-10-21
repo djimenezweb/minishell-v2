@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 17:23:08 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/18 22:30:42 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/21 19:22:42 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 # define EXPANDER_H
 
 # include "minishell.h"
-
-typedef struct s_lextoken t_lextoken;
 
 typedef struct s_expansion_data
 {
