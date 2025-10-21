@@ -60,7 +60,7 @@ t_lextoken	*ft_parse_quoted_word(char *str, int *i)
 		if (str[*i] == quote)
 		{
 			c = str[*i + 1];
-			if (c && ft_isspace(c) && is_in_set(c, "<|>"))
+			if (!(c && ft_isspace(c) && is_in_set(c, "<|>")))
 				break ;
 		}
 		(*i)++;
