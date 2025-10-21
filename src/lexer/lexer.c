@@ -26,6 +26,7 @@ t_lextoken	*ft_new_token(t_lex_type type, int *i)
 	node->type = type;
 	node->value = NULL;
 	node->next = NULL;
+	node->prev = NULL;
 	if (i != NULL)
 		(*i)++;
 	return (node);
