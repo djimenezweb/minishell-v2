@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 17:23:08 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/21 19:22:42 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/21 20:22:28 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,15 @@ typedef struct s_expansion_data
 	int		resize_len;
 	int		var_name_len;
 	int		expanded_len;
+	int		chars_after_var_name;
 	char	*var_name;
 	char	*expanded;
 }	t_expansion_data;
 
 void	check_token_words(t_lextoken **token_list);
-int	find_expansion_and_get_data(char *str, t_expansion_data *exp_data);
-char		*get_variable_name(char *str);
+int		find_expansion(char *str, t_expansion_data *exp_data);
+char	*get_variable_name(char *str);
 char	*resize_expansions(char *old_str, t_expansion_data *ed);
-int	update_quote_flag(int quote_flag, int char_found);
+int		update_quote_flag(int quote_flag, int char_found);
 
 #endif

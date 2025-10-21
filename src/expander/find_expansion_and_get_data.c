@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 19:53:52 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/19 20:23:17 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/21 20:32:24 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,15 @@ static void	set_resize_data(t_expansion_data *exp_data, char *str)
 	old_size = ft_strlen(str);
 	var_name_len = ft_strlen(exp_data->var_name);
 	exp_data->resize_len = old_size - var_name_len;
+	if (exp_data->resize_len <= exp_data->dollar_position)
+		exp_data->chars_after_var_name = 1;
 	exp_data->var_name_len = var_name_len + 1;//REVIEW THIS
 }
 
 /*Search $ that is not quoted. If finds it, gets data to know the var_name
  * and it's size. word_token_len - var_name = number of chars we'll maintain
  * from old token_word. Later we'll add expanded_var_len to resize*/
-int	find_expansion_and_get_data(char *str, t_expansion_data *exp_data)
+int	find_expansion(char *str, t_expansion_data *exp_data)
 {
 	int	index;
 	int	quote_flag;
@@ -42,6 +44,8 @@ int	find_expansion_and_get_data(char *str, t_expansion_data *exp_data)
 		{
 			exp_data->dollar_position = index;
 			exp_data->var_name = get_variable_name(str + index);
+			if (!exp_data->var_name)
+				return (-1)
 			set_resize_data(exp_data, str);
 			return (1);
 		}

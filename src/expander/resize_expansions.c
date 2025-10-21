@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 19:16:07 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/19 16:52:06 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/21 20:23:52 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	join_expansion(char *old_str, char **new_str,
 		dst = (*new_str) + ed->dollar_position;
 		len = ed->expanded_len;
 	}
-	if (loop_counter == 3)
+	if (loop_counter == 3 && !ed->chars_after_var_name)
 	{
 		printf("new_str len = %zu\n", ft_strlen(*new_str));
 		src = old_str + (ed->dollar_position + ed->var_name_len);
