@@ -24,7 +24,7 @@ typedef struct s_env_var
 t_env_var	*find_env_var(t_env_var *list, char *name);
 char		*get_env_value(t_env_var *list, char *name);
 void		set_name_value(t_env_var *node, char *str);
-void		set_default_env_vars(t_env_var **list);
+int			set_default_env_vars(t_env_var **list);
 t_env_var	*set_env_vars(char *envp[]);
 
 t_env_var	*ft_new_node(char *str);
