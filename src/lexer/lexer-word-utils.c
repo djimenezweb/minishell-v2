@@ -39,7 +39,6 @@ t_lextoken	*ft_new_word_token(char *str, int start, int len)
 	return (node);
 }
 
-// TO DO: Should we consider different space types????
 /* Parse a quoted word from a string starting at position `*i`,
 create a new word token from it, advance `*i` past the parsed word,
 and return the token.
@@ -72,7 +71,8 @@ t_lextoken	*ft_parse_quoted_word(char *str, int *i)
 }
 
 /* Parse a word from a string starting at position `*i`, create a new word
-token from it, advance `*i` past the parsed word, and return the token. */
+token from it, advance `*i` past the parsed word, and return the token.
+Return an `EOF` token if the word is made up only of space.*/
 t_lextoken	*ft_parse_word(char *str, int *i)
 {
 	int			start;
@@ -81,6 +81,9 @@ t_lextoken	*ft_parse_word(char *str, int *i)
 	start = *i;
 	while (str[*i] && !ft_isspace(str[*i]) && !is_in_set(str[*i], "<|>"))
 		(*i)++;
-	node = ft_new_word_token(str, start, *i - start);
+	if (start == *i)
+		node = ft_new_operator_token(TOK_EOF, NULL);
+	else
+		node = ft_new_word_token(str, start, *i - start);
 	return (node);
 }
