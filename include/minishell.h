@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/18 23:03:58 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/21 10:40:10 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -26,6 +26,7 @@
 // Libft and our headers
 # include "libft.h"
 # include "expander.h"
+# include "syntax.h"
 
 // malloc, free
 # include <stdlib.h>
@@ -56,10 +57,8 @@ typedef struct s_lextoken
 	t_lex_type			type;
 	char				*value;
 	struct s_lextoken	*next;
+	struct s_lextoken	*prev;
 }						t_lextoken;
-
-// quote_validation
-int	quote_validation(char *str);
 
 // lexer
 t_lextoken	*lexer(char *str);
