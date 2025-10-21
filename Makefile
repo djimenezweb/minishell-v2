@@ -3,13 +3,10 @@ CC			= cc
 CFLAGS		= -Wall -Werror -Wextra -g3
 SRC_PATH	= src/
 SRC			=	main.c\
-				quote_validation.c\
-				lexer/lexer.c lexer/lexer-utils.c\
-				lexer/lexer-word-utils.c\
-				expander/variable_name.c expander/expander.c\
-				expander/resize_expansions.c\
-				expander/find_expansion_and_get_data.c\
-				utils/upadte_quote_flag.c
+				environment/environment-list-utils.c environment/environment.c\
+				expander/expander.c expander/find_expansion_and_get_data.c expander/resize_expansions.c expander/update_quote_flag.c expander/variable_name.c\
+				lexer/lexer.c lexer/lexer-list-utils.c lexer/lexer-word-utils.c\
+				syntax/quote_validation.c syntax/syntax_validation.c
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 OBJS		= $(SRCS:.c=.o)
 INCLUDE		= -I./include -I./libft

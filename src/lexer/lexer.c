@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
@@ -8,12 +8,12 @@
 /*   Created: 2025/09/25 19:41:33 by danielji          #+#    #+#             */
 /*   Updated: 2025/10/09 18:35:32 by danielji         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Allocates memory for a new node, initializes `type` and returns node.
-Advances `*i` 1 character if it's passed as an argument. */
+/* Allocate memory for a new node, initialize `type` and return node.
+Advance `*i` 1 character if it's passed as an argument. */
 t_lextoken	*ft_new_token(t_lex_type type, int *i)
 {
 	t_lextoken	*node;
@@ -32,9 +32,9 @@ t_lextoken	*ft_new_token(t_lex_type type, int *i)
 	return (node);
 }
 
-/* Returns new `TOK_HEREDOC` (`<<`), `TOK_REDIR_IN` (`<`),
+/* Return new `TOK_HEREDOC` (`<<`), `TOK_REDIR_IN` (`<`),
 `TOK_APPEND` (`>>`) or `TOK_REDIR_OUT` (`>`) token.
-Advances `*i` 1 or 2 characters accordingly. */
+Advance `*i` 1 or 2 characters accordingly. */
 static t_lextoken	*ft_new_redir_token(t_lex_type type, char next_c, int *i)
 {
 	t_lextoken	*node;
@@ -63,7 +63,7 @@ static t_lextoken	*ft_new_redir_token(t_lex_type type, char next_c, int *i)
 	return (node);
 }
 
-/* Returns a `t_token` list containing tokens that represent the
+/* Return a `t_token` list containing tokens that represent the
 passed string. List ends with `TOK_EOF` token */
 t_lextoken	*lexer(char *str)
 {

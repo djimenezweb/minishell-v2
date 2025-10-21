@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/19 16:28:20 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/21 10:46:12 by danielji         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -60,21 +60,21 @@ int	main(void)
 {
 	char		*line;
 	t_lextoken	*token_list;
-	//char		**arr;
 
 	while (1)
 	{
 		line = readline("$ ");
 		add_history(line);
-		//arr = history_tokenize(line);
+		//char **arr = history_tokenize(line);
 		//print_array_of_strings(arr);
 		if (!quote_validation(line))
 		{
 			free(line);
 			return (1);
 		}
-		//printf("VARIABLE NAME = >%s<\n", get_variable_name(line));
 		token_list = lexer(line);
+		if (!syntax_validation(token_list))
+			return (1);
 		check_token_words(&token_list);
 		print_lex_list(token_list);
 		free(line);

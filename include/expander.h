@@ -31,5 +31,6 @@ void	check_token_words(t_lextoken **token_list);
 int	find_expansion_and_get_data(char *str, t_expansion_data *exp_data);
 char		*get_variable_name(char *str);
 char	*resize_expansions(char *old_str, t_expansion_data *ed);
+int	update_quote_flag(int quote_flag, int char_found);
 
 #endif

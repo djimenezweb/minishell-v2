@@ -12,8 +12,8 @@
 
 #include "minishell.h"
 
-/* Checks if a string is correctly quoted. Finds opening and closing
-quotation pairs. Returns `1` if it's valid, `0` if it's not */
+/* Check if a string is correctly quoted. Find opening and closing
+quotation pairs. Return `1` if it's valid, `0` if it's not */
 int	quote_validation(char *str)
 {
 	int		i;

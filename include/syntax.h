@@ -1,37 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   syntax.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/21 11:32:00 by danielji         ###   ########.fr       */
+/*   Created: 2025/10/21 10:38:39 by danielji          #+#    #+#             */
+/*   Updated: 2025/10/21 11:29:31 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef SYNTAX_H
+# define SYNTAX_H
 
-// Libft and our headers
-# include "libft.h"
-# include "macros.h"
-# include "environment.h"
-# include "expander.h"
 # include "lexer.h"
-# include "syntax.h"
 
-// malloc, free
-# include <stdlib.h>
-
-// readline, printf
-# include <stdio.h>
-
-// readline
-# include <readline/readline.h>
-# include <readline/history.h>
-
-//#include <string.h>
-//#include <ctype.h>
+int	quote_validation(char *str);
+int	pipe_validation(t_lextoken *node);
+int	syntax_validation(t_lextoken *node);
 
 #endif
