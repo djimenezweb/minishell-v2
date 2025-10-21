@@ -34,4 +34,15 @@
 //#include <string.h>
 //#include <ctype.h>
 
+typedef struct s_shell
+{
+	char		*line;
+	t_lextoken	*lex_list;
+	t_env_var	*env_list;
+}			t_shell;
+
+// DEBUG HELPERS
+void	print_lex_list(t_lextoken *list);
+void	print_array_of_strings(char **arr);
+
 #endif
