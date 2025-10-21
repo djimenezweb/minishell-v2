@@ -37,13 +37,16 @@ void	free_shell(t_shell *data)
 // Command example: cat << EOF | grep foo >> out.txt
 int	main(int argc, char **argv, char **envp)
 {
-	//char		*line;
 	t_shell		shell_data;
 
 	if (argc > 1)
 		return (1);
 	(void)argv;
 	init_shell(&shell_data, envp);
+	if (!shell_data.env_list)
+	{
+		return (1);
+	}
 	while (1)
 	{
 		// Use ft_strdup instead of readline to check memory leaks:
@@ -58,12 +61,17 @@ int	main(int argc, char **argv, char **envp)
 			return (1);
 		}
 		shell_data.lex_list = lexer(shell_data.line);
+		if (!shell_data.lex_list)
+		{
+			free_shell(&shell_data);
+			return (1);
+		}
 		if (!syntax_validation(shell_data.lex_list))
 		{
 			free_shell(&shell_data);
 			return (1);
 		}
-		check_token_words(&shell_data.lex_list);
+		//check_token_words(&shell_data.lex_list);
 		print_lex_list(shell_data.lex_list);
 		free_shell(&shell_data);
 	}
