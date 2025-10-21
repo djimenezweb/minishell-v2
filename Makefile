@@ -2,7 +2,7 @@ NAME		= minishell
 CC			= cc
 CFLAGS		= -Wall -Werror -Wextra -g3
 SRC_PATH	= src/
-SRC			=	main.c\
+SRC			=	main.c debug_helpers.c\
 				environment/environment-list-utils.c environment/environment.c\
 				expander/expander.c expander/find_expansion_and_get_data.c expander/resize_expansions.c expander/update_quote_flag.c expander/variable_name.c\
 				lexer/lexer.c lexer/lexer-list-utils.c lexer/lexer-word-utils.c\

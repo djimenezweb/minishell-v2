@@ -14,7 +14,7 @@
 
 /* Allocate memory for a new node, initialize `type` and return node.
 Advance `*i` 1 character if it's passed as an argument. */
-t_lextoken	*ft_new_token(t_lex_type type, int *i)
+t_lextoken	*ft_new_operator_token(t_lex_type type, int *i)
 {
 	t_lextoken	*node;
 
@@ -35,7 +35,7 @@ t_lextoken	*ft_new_token(t_lex_type type, int *i)
 /* Return new `TOK_HEREDOC` (`<<`), `TOK_REDIR_IN` (`<`),
 `TOK_APPEND` (`>>`) or `TOK_REDIR_OUT` (`>`) token.
 Advance `*i` 1 or 2 characters accordingly. */
-static t_lextoken	*ft_new_redir_token(t_lex_type type, char next_c, int *i)
+t_lextoken	*ft_new_redir_token(t_lex_type type, char next_c, int *i)
 {
 	t_lextoken	*node;
 
@@ -44,21 +44,21 @@ static t_lextoken	*ft_new_redir_token(t_lex_type type, char next_c, int *i)
 	{
 		if (next_c == LESS)
 		{
-			node = ft_new_token(TOK_HEREDOC, i);
+			node = ft_new_operator_token(TOK_HEREDOC, i);
 			(*i)++;
 		}
 		else
-			node = ft_new_token(TOK_REDIR_IN, i);
+			node = ft_new_operator_token(TOK_REDIR_IN, i);
 	}
 	else if (type == GREATER)
 	{
 		if (next_c == GREATER)
 		{
-			node = ft_new_token(TOK_APPEND, i);
+			node = ft_new_operator_token(TOK_APPEND, i);
 			(*i)++;
 		}
 		else
-			node = ft_new_token(TOK_REDIR_OUT, i);
+			node = ft_new_operator_token(TOK_REDIR_OUT, i);
 	}
 	return (node);
 }
@@ -78,7 +78,7 @@ t_lextoken	*lexer(char *str)
 		while (ft_isspace(str[i]))
 			i++;
 		if (str[i] == PIPE)
-			node = ft_new_token(TOK_PIPE, &i);
+			node = ft_new_operator_token(TOK_PIPE, &i);
 		else if (str[i] == LESS)
 			node = ft_new_redir_token(LESS, str[i + 1], &i);
 		else if (str[i] == GREATER)
@@ -89,6 +89,6 @@ t_lextoken	*lexer(char *str)
 			node = ft_parse_word(str, &i);
 		ft_lexlist_add(&list, node);
 	}
-	ft_lexlist_add(&list, ft_new_token(TOK_EOF, NULL));
+	ft_lexlist_add(&list, ft_new_operator_token(TOK_EOF, NULL));
 	return (list);
 }

@@ -33,12 +33,14 @@ typedef struct s_lextoken
 }						t_lextoken;
 
 t_lextoken	*lexer(char *str);
-int			is_in_set(char c, char *set);
+t_lextoken	*ft_new_operator_token(t_lex_type type, int *i);
+t_lextoken	*ft_new_redir_token(t_lex_type type, char next_c, int *i);
+t_lextoken	*ft_new_word_token(char *str, int start, int len);
 t_lextoken	*ft_parse_quoted_word(char *str, int *i);
 t_lextoken	*ft_parse_word(char *str, int *i);
-void		ft_lexlist_add(t_lextoken **lst, t_lextoken *new);
+int			is_in_set(char c, char *set);
 void		ft_lexlist_insert(t_lextoken *prev, t_lextoken *new);
-t_lextoken	*ft_new_token(t_lex_type type, int *i);
+void		ft_lexlist_add(t_lextoken **lst, t_lextoken *new);
 void		ft_lexnode_free(t_lextoken *node);
 void		ft_lexlist_clear(t_lextoken **lst);
 
