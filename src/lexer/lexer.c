@@ -87,8 +87,10 @@ t_lextoken	*lexer(char *str)
 			node = ft_parse_quoted_word(str, &i);
 		else
 			node = ft_parse_word(str, &i);
+		if (!node)
+			return (ft_lexlist_clear(&list), NULL);
 		ft_lexlist_add(&list, node);
 	}
-	ft_lexlist_add(&list, ft_new_operator_token(TOK_EOF, NULL));
+	//ft_lexlist_add(&list, ft_new_operator_token(TOK_EOF, NULL));
 	return (list);
 }
