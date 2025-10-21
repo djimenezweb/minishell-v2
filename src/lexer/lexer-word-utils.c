@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-/* Retuns `1` if character `c` is included in string `set` */
+/* Retun `1` if character `c` is included in string `set` */
 int	is_in_set(char c, char *set)
 {
 	while (*set)
@@ -24,7 +24,7 @@ int	is_in_set(char c, char *set)
 	return (0);
 }
 
-/* Initializes `value` to substring and returns new `TOK_WORD` token*/
+/* Initialize `value` to substring and return new `TOK_WORD` token*/
 t_lextoken	*ft_new_word_token(char *str, int start, int len)
 {
 	t_lextoken	*node;
@@ -35,16 +35,19 @@ t_lextoken	*ft_new_word_token(char *str, int start, int len)
 	node->type = TOK_WORD;
 	node->value = ft_substr(str, start, len);
 	node->next = NULL;
+	node->prev = NULL;
 	return (node);
 }
 
 // TO DO: Should we consider different space types????
-/* Parses a quoted word from a string starting at position `*i`,
-creates a new word token from it, advances `*i` past the parsed word,
-and returns the token. A quote indicates the end of a word
-only if it's not adjacent to ` ` (space), `<`, `|`, or `>`.*/
+/* Parse a quoted word from a string starting at position `*i`,
+create a new word token from it, advance `*i` past the parsed word,
+and return the token.
+A quote indicates the end of a word only if it's adjacent to ` ` (space),
+`<`, `|`, or `>`.*/
 t_lextoken	*ft_parse_quoted_word(char *str, int *i)
 {
+	char		c;
 	char		quote;
 	int			start;
 	t_lextoken	*node;
@@ -52,8 +55,14 @@ t_lextoken	*ft_parse_quoted_word(char *str, int *i)
 	quote = str[*i];
 	start = *i;
 	(*i)++;
-	while (str[*i] && !(str[*i] == quote && (is_in_set(str[*i + 1], " <|>"))))
+	while (str[*i])
 	{
+		if (str[*i] == quote)
+		{
+			c = str[*i + 1];
+			if (c && ft_isspace(c) && is_in_set(c, "<|>"))
+				break ;
+		}
 		(*i)++;
 	}
 	node = ft_new_word_token(str, start, *i - start + 1);
@@ -62,9 +71,8 @@ t_lextoken	*ft_parse_quoted_word(char *str, int *i)
 	return (node);
 }
 
-/* Parses a word from a string starting at position `*i`,
-creates a new word token from it, advances `*i` past the parsed word,
-and returns the token. */
+/* Parse a word from a string starting at position `*i`, create a new word
+token from it, advance `*i` past the parsed word, and return the token. */
 t_lextoken	*ft_parse_word(char *str, int *i)
 {
 	int			start;
