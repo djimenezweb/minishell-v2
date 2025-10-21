@@ -52,15 +52,23 @@ void	print_array_of_strings(char **arr)
 		i++;
 	}
 }
-
 /*ABOVE FOR TEST PURPOSES ONLY */
+static void	init_shell(t_shell *data, char **envp)
+{
+	data->line = NULL;
+	data->lex_list = NULL;
+	data->env_list = set_env_vars(envp);
+	//To be continued...
+}
 
 // Command example: cat << EOF | grep foo >> out.txt
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
 	char		*line;
+	t_shell		shell_data;
 	t_lextoken	*token_list;
 
+	init_shell(&shell_data, envp);
 	while (1)
 	{
 		line = readline("$ ");
@@ -72,7 +80,7 @@ int	main(void)
 			free(line);
 			return (1);
 		}
-		token_list = lexer(line);
+		shell.lex_list = lexer(line);
 		if (!syntax_validation(token_list))
 			return (1);
 		check_token_words(&token_list);
