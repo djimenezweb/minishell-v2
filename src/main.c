@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/21 10:46:12 by danielji         ###   ########.fr       */
+/*   Updated: 2025/10/22 19:33:07 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	free_shell(t_shell *data)
 	data->lex_list = NULL;
 	data->env_list = NULL;
 	data = NULL;
+	//ENRIQUE 22/10: May put here an exit? WHat exit status?
+	//Any status different to zero is fail status
 }
 
 // Command example: cat << EOF | grep foo >> out.txt
