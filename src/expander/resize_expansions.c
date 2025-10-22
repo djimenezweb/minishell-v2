@@ -19,7 +19,7 @@ static void	join_expansion(char *old_str, char **new_str,
 	char	*dst;
 	int		len;
 
-	if (loop_counter == 1 && ed->dollar_position != 0)
+	if (loop_counter == 1)
 	{
 		src = old_str;
 		dst = *new_str;
