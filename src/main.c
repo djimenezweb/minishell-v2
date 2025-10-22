@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/22 19:33:07 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/22 21:25:16 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ int	main(int argc, char **argv, char **envp)
 			free_shell(&shell_data);
 			return (1);
 		}
-		//check_token_words(&shell_data.lex_list);
+		expander(&shell_data);//ENRIQUE 22/10: Expected to exit
+				      //from free_shell scope inside here
 		print_lex_list(shell_data.lex_list);
 		free_shell(&shell_data);
 	}

@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 19:53:52 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/22 19:23:32 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/22 21:12:03 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,9 @@ static int	set_resize_data(t_expansion_data *exp_data, char *str)
 	if (!exp_data->malloc_fail)
 	{
 		old_size = ft_strlen(str);
-		var_name_len = ft_strlen(exp_data->var_name);
+		var_name_len = ft_strlen(exp_data->var_name) + 1;
 		exp_data->resize_len = old_size - var_name_len;
-		if (exp_data->resize_len <= exp_data->dollar_position)
-			exp_data->chars_after_var_name = 1;
-		exp_data->var_name_len = var_name_len + 1;//REVIEW THIS
+		exp_data->var_name_len = var_name_len;
 	}
 	return (1);
 }
@@ -41,8 +39,7 @@ int	find_expansion(char *str, t_expansion_data *exp_data)
 	quote_flag = 0;
 	while (str[index] != '\0')
 	{
-		if (str[index] == SINGLE_QUOTE
-			|| str[index] == DOUBLE_QUOTE)
+		if (str[index] == SINGLE_QUOTE || str[index] == DOUBLE_QUOTE)
 			quote_flag = update_quote_flag(quote_flag, str[index]);
 		if (str[index] == DOLLAR && quote_flag != SINGLE_QUOTE)
 		{

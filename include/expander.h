@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 17:23:08 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/22 20:05:48 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/22 21:12:24 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ typedef struct s_expansion_data
 	int		resize_len;
 	int		var_name_len;
 	int		expanded_len;
-	int		chars_after_var_name;
 	int		malloc_fail;
 	char	*var_name;
 	char	*expanded;
