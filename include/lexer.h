@@ -35,6 +35,7 @@ typedef struct s_lextoken
 t_lextoken	*ft_new_lex_token(t_lex_type type);
 t_lextoken	*ft_new_operator_token(char c, char next_c, int *i);
 t_lextoken	*ft_new_word_token(char *str, int *i);
+void		skip_spaces(char *str, int *i);
 t_lextoken	*lexer(char *str);
 void		ft_lexlist_insert(t_lextoken *prev, t_lextoken *new);
 void		ft_lexlist_add(t_lextoken **lst, t_lextoken *new);

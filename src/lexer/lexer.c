@@ -73,6 +73,20 @@ t_lextoken	*ft_new_word_token(char *str, int *i)
 	return (node);
 }
 
+/* Skip leading spaces.
+Skip trailing spaces by placing a `\0` before the spaces. */
+void	skip_spaces(char *str, int *i)
+{
+	size_t	len;
+
+	len = ft_strlen(str);
+	while (ft_isspace(str[*i]))
+		(*i)++;
+	while (len > 0 && ft_isspace(str[len - 1]))
+		len--;
+	str[len] = '\0';
+}
+
 /* Return a `t_token` list containing tokens that represent the
 passed string. List ends with `TOK_EOF` token. */
 t_lextoken	*lexer(char *str)
@@ -86,8 +100,7 @@ t_lextoken	*lexer(char *str)
 	node = NULL;
 	while (str[i])
 	{
-		while (ft_isspace(str[i]))
-			i++;
+		skip_spaces(str, &i);
 		if (str[i] == PIPE | str[i] == LESS | str[i] == GREATER)
 			node = ft_new_operator_token(str[i], str[i + 1], &i);
 		else
