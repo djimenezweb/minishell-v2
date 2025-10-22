@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/21 11:32:00 by danielji         ###   ########.fr       */
+/*   Updated: 2025/10/22 20:09:19 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_shell
 	t_env_var	*env_list;
 }			t_shell;
 
+void	free_shell(t_shell *data);
 // DEBUG HELPERS
 void	print_lex_list(t_lextoken *list);
 void	print_array_of_strings(char **arr);
