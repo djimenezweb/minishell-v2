@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 19:16:07 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/21 20:23:52 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/22 18:07:41 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static void	join_expansion(char *old_str, char **new_str,
 	char	*dst;
 	int		len;
 
-	if (loop_counter == 1)
+	len = 0;
+	if (loop_counter == 1 && ed->dollar_position != 0)
 	{
 		src = old_str;
 		dst = *new_str;
@@ -33,20 +34,12 @@ static void	join_expansion(char *old_str, char **new_str,
 	}
 	if (loop_counter == 3 && !ed->chars_after_var_name)
 	{
-		printf("new_str len = %zu\n", ft_strlen(*new_str));
 		src = old_str + (ed->dollar_position + ed->var_name_len);
-		printf("src ==> %d -- %s\n", (int)ft_strlen(src), src);
 		dst = *new_str + (ed->dollar_position + ed->expanded_len);
-		printf("%i %i %i\n", ed->resize_len, ed->dollar_position, ed->var_name_len);
-		len = ed->resize_len - (ed->dollar_position
-				+ ed->var_name_len);
-		printf("Len es %d\n", len);
+		len = ed->resize_len - (ed->dollar_position + ed->var_name_len);
 	}
 	if (len != 0)
-	{
-		ft_printf("len at loop %i = %i\n", loop_counter, len);
 		ft_memcpy(dst, src, len);
-	}
 }
 
 char	*resize_expansions(char *old_str, t_expansion_data *ed)
@@ -59,9 +52,8 @@ char	*resize_expansions(char *old_str, t_expansion_data *ed)
 	if (ed->expanded_len != 0)
 		ed->resize_len += (ed->expanded_len - 1);
 	new_str = (char *)malloc((ed->resize_len + 1) * sizeof(char));
-	if (!new_str)//Above line could be ft_calloc. Needed? Not sure
-		return (NULL);//Review other mallocs 
-			      //to be sure of the protection
+	if (!new_str)
+		return (NULL);//be prepared to protect this case
 	new_str[ed->resize_len] = '\0';
 	loop_counter = 1;
 	while (loop_counter <= 3)
