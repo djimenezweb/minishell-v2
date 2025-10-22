@@ -24,68 +24,29 @@ int	is_in_set(char c, char *set)
 	return (0);
 }
 
-/* Initialize `value` to substring and return new `TOK_WORD` token*/
-t_lextoken	*ft_new_word_token(char *str, int start, int len)
+/* Iterate over a string until a delimiter is reached (whitespace, `<`, `>`,
+or `|`). Delimiters are not taken into account if they are between single
+or double quotes. */
+char	*parse_word(char *str, int *i)
 {
-	t_lextoken	*node;
+	char	quote;
+	int		start;
 
-	node = (t_lextoken *)malloc(sizeof(t_lextoken));
-	if (!node)
-		return (NULL);
-	node->type = TOK_WORD;
-	node->value = ft_substr(str, start, len);
-	if (!node->value)
-		return (NULL);
-	node->next = NULL;
-	node->prev = NULL;
-	return (node);
-}
-
-/* Parse a quoted word from a string starting at position `*i`,
-create a new word token from it, advance `*i` past the parsed word,
-and return the token.
-A quote indicates the end of a word only if it's adjacent to ` ` (space),
-`<`, `|`, or `>`.*/
-t_lextoken	*ft_parse_quoted_word(char *str, int *i)
-{
-	char		c;
-	char		quote;
-	int			start;
-	t_lextoken	*node;
-
-	quote = str[*i];
+	quote = 0;
 	start = *i;
-	(*i)++;
 	while (str[*i])
 	{
-		if (str[*i] == quote)
+		if (!quote && (str[*i] == SINGLE_QUOTE || str[*i] == DOUBLE_QUOTE))
 		{
-			c = str[*i + 1];
-			if (!(c && ft_isspace(c) && is_in_set(c, "<|>")))
-				break ;
+			quote = str[*i];
 		}
+		else if (quote && (str[*i] == quote))
+		{
+			quote = 0;
+		}
+		else if (!quote && (is_in_set(str[*i], "<|>") || ft_isspace(str[*i])))
+			break ;
 		(*i)++;
 	}
-	node = ft_new_word_token(str, start, *i - start + 1);
-	if (str[*i] == quote)
-		(*i)++;
-	return (node);
-}
-
-/* Parse a word from a string starting at position `*i`, create a new word
-token from it, advance `*i` past the parsed word, and return the token.
-Return an `EOF` token if the word is made up only of space.*/
-t_lextoken	*ft_parse_word(char *str, int *i)
-{
-	int			start;
-	t_lextoken	*node;
-
-	start = *i;
-	while (str[*i] && !ft_isspace(str[*i]) && !is_in_set(str[*i], "<|>"))
-		(*i)++;
-	if (start == *i)
-		node = ft_new_operator_token(TOK_EOF, NULL);
-	else
-		node = ft_new_word_token(str, start, *i - start);
-	return (node);
+	return (ft_substr(str, start, *i - start));
 }
