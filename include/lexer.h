@@ -15,18 +15,25 @@
 
 typedef enum e_lex_type
 {
+	TOK_NULL,
 	TOK_WORD,
 	TOK_PIPE,
 	TOK_APPEND,
 	TOK_REDIR_IN,
 	TOK_REDIR_OUT,
 	TOK_HEREDOC,
+	TOK_COMMAND,
+	TOK_ARGUMENT,
+	TOK_INFILE,
+	TOK_OUTFILE,
+	TOK_DELIMITER,
 	TOK_EOF
 }	t_lex_type;
 
 typedef struct s_lextoken
 {
 	t_lex_type			type;
+	t_lex_type			word_type;
 	char				*value;
 	struct s_lextoken	*next;
 	struct s_lextoken	*prev;
@@ -43,5 +50,6 @@ void		ft_lexnode_free(t_lextoken *node);
 void		ft_lexlist_clear(t_lextoken **lst);
 int			is_in_set(char c, char *set);
 char		*parse_word(char *str, int *i);
+void		parse_word_types(t_lextoken *lst);
 
 #endif

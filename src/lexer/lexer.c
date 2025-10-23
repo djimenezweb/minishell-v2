@@ -22,6 +22,7 @@ t_lextoken	*ft_new_lex_token(t_lex_type type)
 	if (!node)
 		return (NULL);
 	node->type = type;
+	node->word_type = TOK_NULL;
 	node->value = NULL;
 	node->next = NULL;
 	node->prev = NULL;
@@ -110,5 +111,6 @@ t_lextoken	*lexer(char *str)
 		ft_lexlist_add(&list, node);
 	}
 	ft_lexlist_add(&list, ft_new_lex_token(TOK_EOF));
+	parse_word_types(list);
 	return (list);
 }
