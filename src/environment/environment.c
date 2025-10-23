@@ -14,6 +14,7 @@
 
 /* Iterate through the list and return a `t_env_var` node whose name is
 the same as the passed parameter `name` */
+/* TO DO: Should check i.e. `USER=` instead of just `USER`. */
 t_env_var	*find_env_var(t_env_var *list, char *name)
 {
 	t_env_var	*current;
