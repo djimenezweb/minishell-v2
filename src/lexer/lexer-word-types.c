@@ -22,8 +22,12 @@ static void	update_command_status(int *cmd_status, int pipe_status)
 
 static void	define_word(t_lextoken *lst, int *cmd_found)
 {
-	
-	if (lst->prev->type == TOK_REDIR_OUT
+	if (!lst->prev)
+	{
+		lst->word_type = TOK_COMMAND;
+		update_command_status(cmd_found, NOT_PIPE);
+	}
+	else if (lst->prev->type == TOK_REDIR_OUT
 		|| lst->prev->type == TOK_APPEND)
 		lst->word_type = TOK_OUTFILE;
 	else if (lst->prev->type == TOK_REDIR_IN)

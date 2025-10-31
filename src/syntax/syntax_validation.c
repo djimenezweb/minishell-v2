@@ -37,6 +37,7 @@ A syntax error occurs when:
 int	redir_validation(t_lextoken *node)
 {
 	// ¿Cuáles son los requisitos?
+	(void)node;
 	return (1);
 }
 
