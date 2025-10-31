@@ -22,7 +22,6 @@
 # include <fcntl.h>
 # include <stdarg.h>
 # include <stdint.h>
-#include "libft_for_minishell.h"
 
 typedef struct s_list
 {

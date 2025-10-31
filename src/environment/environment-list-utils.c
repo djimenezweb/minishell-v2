@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "environment.h"
+#include "minishell.h"
 
 /* Allocate memory for a new `t_env_var` node and return it.
 Initalize `name` and `value` variables based on the passed parameter `str`.
