@@ -11,7 +11,23 @@ void	print_lex_list(t_lextoken *list)
 	while (curr)
 	{
 		if (curr->type == TOK_WORD)
-			ft_printf("WORD(%s)\n", curr->value);
+		{
+			ft_printf("WORD(%s)", curr->value);
+			if (curr->word_type >= 0)
+			{
+				if (curr->word_type == TOK_COMMAND)
+					ft_printf(" COMMAND");
+				if (curr->word_type == TOK_ARGUMENT)
+					ft_printf(" ARGUMENT");
+				if (curr->word_type == TOK_INFILE)
+					ft_printf(" INFILE");
+				if (curr->word_type == TOK_OUTFILE)
+					ft_printf(" OUTFILE");
+				if (curr->word_type == TOK_DELIMITER)
+					ft_printf(" DELIMITER");
+			}
+			ft_printf("\n");
+		}
 		else if (curr->type == TOK_PIPE)
 			ft_printf("PIPE\n");
 		else if (curr->type == TOK_REDIR_IN)
