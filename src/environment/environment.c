@@ -14,7 +14,7 @@
 
 /* Iterate through the list and return a `t_env_var` node whose name is
 the same as the passed parameter `name` */
-/* TO DO: Should check i.e. `USER=` instead of just `USER`. */
+// TODO: Should check `USER=` instead of just `USER`.
 t_env_var	*find_env_var(t_env_var *list, char *name)
 {
 	t_env_var	*current;
@@ -62,11 +62,12 @@ void	set_name_value(t_env_var *node, char *str)
 }
 
 /* Set default variable `PATH` if it's missing.
-TO DO: Add other variables */
+TODO: Add other variables */
 int	set_default_env_vars(t_env_var **list)
 {
 	t_env_var	*node;
 
+	// TODO: Should we check "PATH" or "PATH=" ?
 	if (find_env_var(*list, "PATH") == NULL)
 	{
 		node = ft_new_node(DEFAULT_PATH);
