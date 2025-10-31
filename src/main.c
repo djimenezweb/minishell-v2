@@ -74,7 +74,7 @@ int	main(int argc, char **argv, char **envp)
 			free_shell(&shell_data);
 			return (1);
 		}
-		//expander(&shell_data);//ENRIQUE 22/10: Expected to exit
+		expander(&shell_data);//ENRIQUE 22/10: Expected to exit
 				      //from free_shell scope inside here
 		//print_lex_list(shell_data.lex_list);
 
