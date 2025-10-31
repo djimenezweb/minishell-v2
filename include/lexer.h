@@ -6,12 +6,17 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 11:26:17 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/21 11:28:25 by danielji         ###   ########.fr       */
+/*   Updated: 2025/10/31 17:39:42 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
+
+# define PIPE_FOUND 1
+# define NOT_PIPE 0
+# define CMD_FOUND 1
+# define NOT_CMD 0
 
 typedef enum e_lex_type
 {

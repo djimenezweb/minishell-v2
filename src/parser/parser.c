@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:01:58 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/31 14:05:09 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/10/31 18:53:28 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ t_cmd	*parser(t_lextoken *lex_list)
 		if (current->type == TOK_WORD)
 		{
 			node = ft_new_cmdnode();
-			if (!node)//ENRIQUE 31/10: means that a malloc fail, 
-				  //so would need to exit
+			if (!node)
 				return (ft_cmdlist_clear(&cmd_list), NULL);
 			node->cmd = current->value;
 			ft_cmdlist_add(&cmd_list, node);
