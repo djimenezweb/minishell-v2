@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 19:52:08 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/22 21:13:14 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/01 17:29:45 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	try_to_expand_current_word(t_lextoken **word, t_shell *data)
 		&& !exp_data.malloc_fail)
 	{
 		exp_data.expanded = getenv(exp_data.var_name);
-		printf("%s\n", exp_data.expanded);//debug
 		new_value = resize_expansions((*word)->value, &exp_data);
 		if (!new_value)
 		{
