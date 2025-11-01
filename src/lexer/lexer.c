@@ -102,7 +102,7 @@ t_lextoken	*lexer(char *str)
 	while (str[i])
 	{
 		skip_spaces(str, &i);
-		if (str[i] == PIPE | str[i] == LESS | str[i] == GREATER)
+		if (str[i] == PIPE || str[i] == LESS || str[i] == GREATER)
 			node = ft_new_operator_token(str[i], str[i + 1], &i);
 		else
 			node = ft_new_word_token(str, &i);
