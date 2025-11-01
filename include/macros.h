@@ -18,6 +18,7 @@
 # define DOLLAR 36
 # define SINGLE_QUOTE 39
 # define LESS 60
+# define EQUALS 61
 # define GREATER 62
 # define BACKSLASH 92
 # define PIPE 124
