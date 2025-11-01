@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:23:02 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/13 11:23:02 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/01 18:55:04 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ t_env_var	*set_env_vars(char *envp[])
 		envp++;
 	}
 	if (set_default_env_vars(&list) < 0)
-		return (ft_envlist_clear(&list), NULL);
+		return (ft_envlist_clear(&list), NULL);//ENRIQUE 1/11:
+		//env_list_clear() returns void, sets lst NULL. 
+		//Cause is malloc error, but when is called exit_fail later?
 	return (list);
 }
