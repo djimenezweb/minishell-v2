@@ -13,18 +13,17 @@
 #include "minishell.h"
 
 /* Iterate through the list and return a `t_env_var` node whose name is
-the same as the passed parameter `name` */
-// TODO: Should check `USER=` instead of just `USER`.
+the same as the passed parameter `name` followed by `\0` */
 t_env_var	*find_env_var(t_env_var *list, char *name)
 {
-	t_env_var	*current;
+	size_t		len;
 
-	current = list;
-	while (current)
+	len = ft_strlen(name);
+	while (list)
 	{
-		if (ft_strnstr(current->name, name, ft_strlen(name)) != NULL)
-			return (current);
-		current = current->next;
+		if (ft_strncmp(list->name, name, len + 1) == 0)
+			return (list);
+		list = list->next;
 	}
 	return (NULL);
 }
@@ -50,7 +49,7 @@ void	set_name_value(t_env_var *node, char *str)
 
 	start = 0;
 	end = 0;
-	while (str[end] && str[end] != '=')
+	while (str[end] && str[end] != EQUALS)
 		end++;
 	node->name = ft_substr(str, 0, end);
 	start = end++;
@@ -67,7 +66,6 @@ int	set_default_env_vars(t_env_var **list)
 {
 	t_env_var	*node;
 
-	// TODO: Should we check "PATH" or "PATH=" ?
 	if (find_env_var(*list, "PATH") == NULL)
 	{
 		node = ft_new_node(DEFAULT_PATH);
@@ -79,7 +77,8 @@ int	set_default_env_vars(t_env_var **list)
 }
 
 /* Return a list of environment variables based on passed `envp`.
-If `envp` is missing, set default variables.  */
+If `envp` is missing, set default variables.
+Return `NULL` if memory allocation fails. */
 t_env_var	*set_env_vars(char *envp[])
 {
 	t_env_var	*list;
