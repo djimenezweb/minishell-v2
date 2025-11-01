@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/01 19:55:35 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/01 21:09:32 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_shell
 	t_lextoken	*lex_list;
 	t_env_var	*env_list;
 	//Should include here exit status, updated after every execution
-	t_cmd		*cmd_list;
 }			t_shell;
 
 void	free_shell(t_shell *data);

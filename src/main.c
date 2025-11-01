@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/01 19:57:41 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/01 21:10:08 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static void	init_shell(t_shell *data, char **envp)
 	data->env_list = set_env_vars(envp);//ENRIQUE 1/11: If a malloc error
 					    //happens inside, how we stop,
 					    //clean and exit?
-	data->cmd_list = NULL;
 	//To be continued...
 }
 
@@ -32,12 +31,9 @@ void	free_shell(t_shell *data)
 		ft_lexlist_clear(&(data->lex_list));
 	if (data->env_list)
 		ft_envlist_clear(&(data->env_list));
-	if (data->cmd_list)
-		ft_cmdlist_clear(&(data->cmd_list));
 	data->line = NULL;
 	data->lex_list = NULL;
 	data->env_list = NULL;
-	data->cmd_list = NULL;
 	data = NULL;
 	//ENRIQUE 22/10: May put here an exit? WHat exit status?
 	//Any status different to zero is fail status
