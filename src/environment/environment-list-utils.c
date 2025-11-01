@@ -58,7 +58,7 @@ void	ft_envnode_free(t_env_var *node)
 	if (node->name)
 	{
 		free(node->name);
-		node->value = NULL;
+		node->name = NULL;
 	}
 	node->next = NULL;
 	node->prev = NULL;
