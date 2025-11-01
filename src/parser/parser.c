@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:01:58 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/01 21:13:33 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/01 21:57:38 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_cmd	*parser(t_shell *data)
 	t_cmd		*cmd_list;
 	t_lextoken	*current;
 	int		*words_per_cmd;
+//	int		i;
 
 	node = NULL;
 	cmd_list = NULL;

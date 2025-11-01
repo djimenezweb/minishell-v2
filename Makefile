@@ -8,6 +8,7 @@ SRC			=	main.c debug_helpers.c\
 				lexer/lexer.c lexer/lexer-list-utils.c lexer/lexer-word-utils.c lexer/lexer-word-types.c\
 				parser/parser.c parser/parser-list-utils.c\
 				parser/set_words_per_cmd.c\
+				parser/parser_utils.c\
 				syntax/quote_validation.c syntax/syntax_validation.c
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 OBJS		= $(SRCS:.c=.o)
