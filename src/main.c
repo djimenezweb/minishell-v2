@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/22 21:25:16 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/01 17:49:54 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ int	main(int argc, char **argv, char **envp)
 		}
 		expander(&shell_data);//ENRIQUE 22/10: Expected to exit
 				      //from free_shell scope inside here
-		//print_lex_list(shell_data.lex_list);
-
 		print_lex_list(shell_data.lex_list);
 		//t_cmd *cmd_list = parser(shell_data.lex_list);
 		//print_cmd_list(cmd_list);

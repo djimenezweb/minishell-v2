@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 19:52:08 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/01 17:29:45 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/01 17:50:35 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,4 @@ void	expander(t_shell *data)
 		}
 		current = current->next;
 	}
-	printf("End of expander\n");
 }
