@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:01:58 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/01 21:57:38 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/01 22:21:15 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,20 +28,22 @@ t_cmd	*parser(t_shell *data)
 	t_cmd		*node;
 	t_cmd		*cmd_list;
 	t_lextoken	*current;
-	int		*words_per_cmd;
-//	int		i;
+	t_parser_data	parser_data;
 
 	node = NULL;
 	cmd_list = NULL;
-	words_per_cmd = NULL;
-	if (!set_words_per_cmd(&words_per_cmd, data->lex_list))
+	if (!set_words_per_cmd(&parser_data, data->lex_list))
 		//MALLOC ERROR
 	current = data->lex_list;
-/*	while (current)
+	//"ENRIQUE is working here"
+	//Purpose: malloc all the cmd groups 
+	//	and later strdup every word or argument 
+	//	inside the cmds arrays of strings 
+	/*while (current)
 	{
 		if (current->type == TOK_EOF)
 			break ;
-		if (current->type == TOK_WORD)
+		if (is_cmd_or_arg(current))
 		{
 			node = ft_new_cmdnode();
 			if (!node)
