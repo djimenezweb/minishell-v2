@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer-utils.c                                      :+:      :+:    :+:   */
+/*   lexer-list-utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:24:38 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/02 10:29:20 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/01 18:55:57 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ void	ft_lexlist_clear(t_lextoken **lst)
 		ft_lexnode_free(current);
 		current = next;
 	}
-	*lst = NULL;
+	*lst = NULL;//ENRIQUE 1/11: In case of malloc error, how we call
+		    //to free_shell and exit?
 }

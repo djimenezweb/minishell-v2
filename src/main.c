@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/01 18:37:24 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/01 19:12:20 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ static void	init_shell(t_shell *data, char **envp)
 {
 	data->line = NULL;
 	data->lex_list = NULL;
-	data->env_list = set_env_vars(envp);
+	data->env_list = set_env_vars(envp);//ENRIQUE 1/11: If a malloc error
+					    //happens inside, how we stop,
+					    //clean and exit?
 	//To be continued...
 }
 
