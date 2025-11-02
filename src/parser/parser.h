@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:04:19 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/01 22:18:28 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/02 15:18:42 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_parser_data
 	int	*words_per_cmd;
 	int	num_cmds;
 	int	current_cmd;
+	int	current_word;
 }	t_parser_data;
 
 void	print_cmd_list(t_cmd *list);
