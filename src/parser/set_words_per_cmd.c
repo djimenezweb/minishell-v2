@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 20:03:04 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/01 22:23:40 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/02 14:20:52 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	set_words_per_cmd(t_parser_data *data, t_lextoken *lex_list)
 	if (!(data->words_per_cmd))
 		return (0);
 	i = 0;
-	while (lex_list->next)
+	while (lex_list)
 	{
 		if (lex_list->type == TOK_PIPE)
 			++i;
