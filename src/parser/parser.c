@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:01:58 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/01 22:21:15 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/02 14:49:39 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,26 @@ t_cmd	*parser(t_shell *data)
 	//Purpose: malloc all the cmd groups 
 	//	and later strdup every word or argument 
 	//	inside the cmds arrays of strings 
-	/*while (current)
+	while (current)
 	{
 		if (current->type == TOK_EOF)
 			break ;
-		if (is_cmd_or_arg(current))
+		if (!cmd_list || current->type == TOK_PIPE)
 		{
+			//cmd_index == 0;
 			node = ft_new_cmdnode();
 			if (!node)
 				return (ft_cmdlist_clear(&cmd_list), NULL);
-			node->cmd = current->value;
+			node->cmd = /*malloc_cmd+args*/;//"ENRIQUE working here"
 			ft_cmdlist_add(&cmd_list, node);
 		}
+		if (is_cmd_or_arg(current))
+		{
+			//add_to_cmd[cmd_index];
+		}
 		current = current->next;
-	}*/
-	return (cmd_list);
+	}
+	return (cmd_list);//ENRIQUE 2/11: At this point, we should have 
+			  //a list for every cmd and args.
+			  //But when we try to open fds for redir?
 }
