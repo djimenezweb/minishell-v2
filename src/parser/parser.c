@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:01:58 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/02 19:46:02 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/02 20:13:58 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,10 @@ void	print_cmd_list(t_cmd *list)
 	while (list)
 	{
 		j = 0;
-		printf("\tcmd_%d\n", i++);//debug
+		ft_printf("\tcmd_%d\n", i++);//debug
 		while (list->cmd[j])
 		{
-			if (j == 0)
-				ft_printf("%s\n", list->cmd[j]);//debug
-			else
-				ft_printf("arg->\t%s\n", list->cmd[j]);//debug
+			ft_printf("arg_%d--->%s\n", j, list->cmd[j]);//debug
 			++j;
 		}
 		list = list->next;
@@ -42,7 +39,7 @@ static int	malloc_cmd_and_args(t_cmd *node, t_parser_data *data)
 	int	i;
 
 	i = data->current_cmd;
-	node->cmd = ft_calloc(data->words_per_cmd[i], sizeof(char *));
+	node->cmd = ft_calloc(data->words_per_cmd[i] + 1, sizeof(char *));
 	if (!node->cmd)
 		return (0);
 	return (1);
