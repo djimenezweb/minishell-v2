@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:01:58 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/02 19:31:55 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/02 19:46:02 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,16 @@ void	print_cmd_list(t_cmd *list)
 	int	j;
 
 	i = 0;
-	printf("Hello, here starts the problem if I try to access\n");//debug
-	printf("Is list null?: %p\n", list);//debug
 	while (list)
 	{
 		j = 0;
-		printf("cmd_%d\n", i);//debug
+		printf("\tcmd_%d\n", i++);//debug
 		while (list->cmd[j])
 		{
 			if (j == 0)
-				ft_printf("\n%s\n", list->cmd[j]);//debug
+				ft_printf("%s\n", list->cmd[j]);//debug
 			else
-				ft_printf("\t%s\n", list->cmd[j]);//debug
+				ft_printf("arg->\t%s\n", list->cmd[j]);//debug
 			++j;
 		}
 		list = list->next;
@@ -50,7 +48,7 @@ static int	malloc_cmd_and_args(t_cmd *node, t_parser_data *data)
 	return (1);
 }
 
-static int	new_cmd(t_cmd *list, t_cmd **last, t_parser_data *data)
+static int	new_cmd(t_cmd **list, t_cmd **last, t_parser_data *data)
 {
 	t_cmd		*node;
 	
@@ -58,7 +56,7 @@ static int	new_cmd(t_cmd *list, t_cmd **last, t_parser_data *data)
 	node = ft_new_cmdnode();
 	if (!node || !malloc_cmd_and_args(node, data))
 		return (0);
-	ft_cmdlist_add(&list, node);
+	ft_cmdlist_add(list, node);
 	*last = node;
 	if (data->current_cmd < data->num_cmds)
 		++data->current_cmd;//ENRIQUE 2/11: Be careful if we use this
@@ -80,7 +78,6 @@ static void	add_to_cmd(t_lextoken *lexer, t_cmd *node, t_parser_data *data)
 	//Enrique 2/11: "Why ft_strdup here?" Because after whole parse and
 	//	just before execution, lexer could be free. 
 	//	If we do strdup here, this option is possible*/
-	printf("add_to_cmd()--->current word stored is: %s\n", node->cmd[i]);//debug
 	++data->current_word;/*
 	return (1);*/
 }
@@ -110,12 +107,11 @@ t_cmd	*parser(t_lextoken *lex_list)
 		if (current->type == TOK_EOF)
 			break ;
 		if ((!cmd_list || current->type == TOK_PIPE)
-			&& (!new_cmd(cmd_list, &last_node, &parser_data)))
+			&& (!new_cmd(&cmd_list, &last_node, &parser_data)))
 			return (ft_cmdlist_clear(&cmd_list), NULL);
 		if (is_cmd_or_arg(current))
 		{
 			add_to_cmd(current, last_node, &parser_data);
-			printf("parser()->word stored is: %s\n", last_node->cmd[parser_data.current_word - 1]);//debug
 /*			if (!add_to_cmd(current, last_node, &parser_data))
 				return (ft_cmdlist_clear(&cmd_list), NULL);*/
 			//"Above is antoher option to execute this function."
