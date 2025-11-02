@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:03:00 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/23 10:03:00 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/02 19:09:56 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ void	ft_cmdnode_free(t_cmd *node)
 {
 	if (node->cmd)
 	{
-		// to do: free array of strings
-		//free(node->cmd);
+		free_strings_array(node->cmd);//Added by Enrique, in libft
+		//free(node->cmd);//Not needed at hte end, is it?
 		node->cmd = NULL;
 	}
 	if (node->path)

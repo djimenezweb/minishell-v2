@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:04:19 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/02 15:18:42 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/02 17:41:53 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ typedef struct s_parser_data
 	int	current_word;
 }	t_parser_data;
 
-void	print_cmd_list(t_cmd *list);
-t_cmd	*parser(t_shell *data);
+void	print_cmd_list(t_cmd *list);//DEBUG, DELETE BEFORE EVALUATION 
+t_cmd	*parser(t_lextoken *lex_list);
 void	ft_cmdlist_insert(t_cmd *prev, t_cmd *new);
 void	ft_cmdlist_add(t_cmd **lst, t_cmd *new);
 void	ft_cmdnode_free(t_cmd *node);
