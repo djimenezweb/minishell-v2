@@ -105,18 +105,21 @@ t_cmd	*parser(t_lextoken *lex_list)
 			break ;
 		if ((!cmd_list || current->type == TOK_PIPE)
 			&& (!new_cmd(&cmd_list, &last_node, &parser_data)))
-			return (ft_cmdlist_clear(&cmd_list), NULL);
+			return (ft_cmdlist_clear(&cmd_list),
+					free(parser_data.words), NULL);
 		if (is_cmd_or_arg(current))
 		{
 			add_to_cmd(current, last_node, &parser_data);
 /*			if (!add_to_cmd(current, last_node, &parser_data))
-				return (ft_cmdlist_clear(&cmd_list), NULL);*/
+				return (ft_cmdlist_clear(&cmd_list),
+					free(parser_data.words), NULL);*/
 			//"Above is antoher option to execute this function."
 			//	For more information, go to add_to_cmd() scope
 			//We have to choose one of these, then remove the other
 		}
 		current = current->next;
 	}
+	free(parser_data.words);
 	print_cmd_list(cmd_list);
 	return (cmd_list);//ENRIQUE 2/11: At this point, we should have 
 			  //a list for every cmd and args.
