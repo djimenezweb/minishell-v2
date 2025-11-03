@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 19:52:08 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/01 17:50:35 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/03 19:56:31 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,6 @@ static void	try_to_expand_current_word(t_lextoken **word, t_shell *data)
 
 void	expander(t_shell *data)
 {
-	t_expansion_data	exp_data;
-
-	init_expansion_data(&exp_data);
 	t_lextoken	*current;
 
 	current = data->lex_list;
