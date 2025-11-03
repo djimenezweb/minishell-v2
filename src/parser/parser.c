@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:01:58 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/02 20:13:58 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/03 17:38:21 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,20 +106,20 @@ t_cmd	*parser(t_lextoken *lex_list)
 		if ((!cmd_list || current->type == TOK_PIPE)
 			&& (!new_cmd(&cmd_list, &last_node, &parser_data)))
 			return (ft_cmdlist_clear(&cmd_list),
-					free(parser_data.words), NULL);
+					free(parser_data.words_per_cmd), NULL);
 		if (is_cmd_or_arg(current))
 		{
 			add_to_cmd(current, last_node, &parser_data);
 /*			if (!add_to_cmd(current, last_node, &parser_data))
 				return (ft_cmdlist_clear(&cmd_list),
-					free(parser_data.words), NULL);*/
+					free(parser_data.words_per_cmd), NULL);*/
 			//"Above is antoher option to execute this function."
 			//	For more information, go to add_to_cmd() scope
 			//We have to choose one of these, then remove the other
 		}
 		current = current->next;
 	}
-	free(parser_data.words);
+	free(parser_data.words_per_cmd);
 	print_cmd_list(cmd_list);
 	return (cmd_list);//ENRIQUE 2/11: At this point, we should have 
 			  //a list for every cmd and args.
