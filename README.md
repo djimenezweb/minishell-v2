@@ -2,12 +2,13 @@
 
 ## Recursos
 - GNU Bash manual: [HTML (one page)](https://www.gnu.org/software/bash/manual/bash.html) | [HTML](https://www.gnu.org/software/bash/manual/html_node/index.html) | [PDF](https://www.gnu.org/software/bash/manual/bash.pdf)
+- GNU Readline Library: [The GNU Readline Library](https://tiswww.case.edu/php/chet/readline/rltop.html) | [Readline Manual](https://tiswww.case.edu/php/chet/readline/readline.html)
 - The Open Group: [Shell Command Language](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html)
 - Gustavo Junipero y Justin Ennen: [Writing Your Own Shell](https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/)
 - Otras minishells: [A. Pérez y M. Bueno](https://github.com/madebypixel02/minishell) | [J. Castro y M. Parra](https://github.com/lvzrr/minishell) | [D. Jiménez e I. Sainz](https://github.com/BishopVK/minishell) | [Pablo y Dax](https://github.com/Pablosky91/42cursus/tree/main/Rank03/minishell)
-- Guías 42: [42 Cursus Guide](https://42-cursus.gitbook.io/guide/3-rank-03/minishell)
-- 42 Evaluation Sheets Hub: [Minishell](https://42sheets.eina.cc/Cursus/Minishell/)
-- Cómo se usa Bash original (curso de Mouredev): https://github.com/mouredev/hello-bash-shell
+- Guías 42: [42 Cursus Guide](https://42-cursus.gitbook.io/guide/3-rank-03/minishell) | [42 Docs](https://harm-smits.github.io/42docs/projects/minishell)
+- Medium: [Minishell: Building a mini-bash](https://m4nnb3ll.medium.com/minishell-building-a-mini-bash-a-42-project-b55a10598218) | [Minishell: Building a Simple shell in C](https://apoorvasn.medium.com/minishell-building-a-simple-shell-in-c-55a64a401a4f)
+- Mouredev: [Cómo se usa Bash original](https://github.com/mouredev/hello-bash-shell)
 
 ## Requisitos
 
@@ -63,10 +64,10 @@ La función `readline` puede producir algunos leaks que no necesitas arreglar. E
 
 ```c
 char *readline(char *promt);
-? rl_clear_history(?);
-? rl_on_new_line(?);
-? rl_replace_line(?);
-? rl_redisplay(?);
+void rl_clear_history (void);
+int rl_on_new_line (void);
+void rl_replace_line (const char *text, int clear_undo);
+void rl_redisplay (void);
 void add_history(char *string);
 
 int printf(char *format, ...);
@@ -85,7 +86,7 @@ pid_t waitpid(pid_t pid, int *wstatus, int options);
 pid_t wait3(int wstatus, int options, struct rusage rusage);
 pid_t wait4(pid_t pid, int wstatus, int options, struct rusage rusage);
 
-? signal(?);
+sighandler_t signal(int signum, sighandler_t handler);
 int sigaction(int signum, struct sigaction act, struct sigaction oldact);
 int kill(pid_t pid, int sig);
 void exit(int status);
