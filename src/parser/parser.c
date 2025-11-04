@@ -6,16 +6,16 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:01:58 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/03 17:38:21 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/04 13:56:17 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "parser.h"
 
+/* For debug purposes only */
 void	print_cmd_list(t_cmd *list)
 {
-	//debug
 	int	i;
 	int	j;
 
@@ -23,15 +23,14 @@ void	print_cmd_list(t_cmd *list)
 	while (list)
 	{
 		j = 0;
-		ft_printf("\tcmd_%d\n", i++);//debug
+		ft_printf("\tcmd_%d\n", i++);
 		while (list->cmd[j])
 		{
-			ft_printf("arg_%d--->%s\n", j, list->cmd[j]);//debug
+			ft_printf("arg_%d--->%s\n", j, list->cmd[j]);
 			++j;
 		}
 		list = list->next;
 	}
-	//All is debug, and debug is all
 }
 
 static int	malloc_cmd_and_args(t_cmd *node, t_parser_data *data)
@@ -47,8 +46,8 @@ static int	malloc_cmd_and_args(t_cmd *node, t_parser_data *data)
 
 static int	new_cmd(t_cmd **list, t_cmd **last, t_parser_data *data)
 {
-	t_cmd		*node;
-	
+	t_cmd	*node;
+
 	node = NULL;
 	node = ft_new_cmdnode();
 	if (!node || !malloc_cmd_and_args(node, data))
@@ -89,9 +88,9 @@ static void	add_to_cmd(t_lextoken *lexer, t_cmd *node, t_parser_data *data)
  *	and repeating the process*/
 t_cmd	*parser(t_lextoken *lex_list)
 {
-	t_cmd		*last_node;
-	t_cmd		*cmd_list;
-	t_lextoken	*current;
+	t_cmd			*last_node;
+	t_cmd			*cmd_list;
+	t_lextoken		*current;
 	t_parser_data	parser_data;
 
 	last_node = NULL;
@@ -106,7 +105,7 @@ t_cmd	*parser(t_lextoken *lex_list)
 		if ((!cmd_list || current->type == TOK_PIPE)
 			&& (!new_cmd(&cmd_list, &last_node, &parser_data)))
 			return (ft_cmdlist_clear(&cmd_list),
-					free(parser_data.words_per_cmd), NULL);
+				free(parser_data.words_per_cmd), NULL);
 		if (is_cmd_or_arg(current))
 		{
 			add_to_cmd(current, last_node, &parser_data);

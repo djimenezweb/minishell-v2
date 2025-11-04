@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   metachar_validation.c                              :+:      :+:    :+:   */
+/*   syntax_validation.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 09:51:03 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/21 11:14:27 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/04 13:57:42 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,25 +34,14 @@ int	pipe_validation(t_lextoken *node)
 /* Return `1` if node passes redirection syntax validation.
 A syntax error occurs when: 
 - There are two consecutive `<` or `>` */
+// TODO ¿Cuáles son los requisitos?
 int	redir_validation(t_lextoken *node)
 {
-	// ¿Cuáles son los requisitos?
 	(void)node;
 	return (1);
 }
 
 /* Return `1` if list passes syntax validation */
-/*
-		if (node->type == TOK_REDIR_IN)
-			// TO DO
-		if (node->type == TOK_REDIR_OUT)
-			// TO DO
-		if (node->type == TOK_HEREDOC)
-			// TO DO
-		if (node->type == TOK_APPEND)
-			// TO DO
-
-*/
 int	syntax_validation(t_lextoken *node)
 {
 	while (node)

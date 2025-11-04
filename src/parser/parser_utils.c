@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
+/*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/01 21:52:06 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/01 21:59:14 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/04 13:56:39 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,4 @@ int	is_cmd_or_arg(t_lextoken *lex_node)
 			|| lex_node->word_type == TOK_ARGUMENT))
 		return (1);
 	return (0);
-
 }

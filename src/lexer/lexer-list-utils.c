@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:24:38 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/01 18:55:57 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/04 13:51:37 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,5 @@ void	ft_lexlist_clear(t_lextoken **lst)
 		ft_lexnode_free(current);
 		current = next;
 	}
-	*lst = NULL;//ENRIQUE 1/11: In case of malloc error, how we call
-		    //to free_shell and exit?
+	*lst = NULL;
 }

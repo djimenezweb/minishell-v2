@@ -15,8 +15,10 @@
 
 # include "minishell.h"
 
+//ENRIQUE 22/10: We shoudl create a structs.h
 
-typedef struct s_shell t_shell;//ENRIQUE 22/10: We shoudl create a structs.h
+typedef struct s_shell	t_shell;
+
 typedef struct s_expansion_data
 {
 	//WATCH PUT, COMMENTS ABOVE
