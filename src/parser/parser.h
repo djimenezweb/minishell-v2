@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:04:19 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/02 17:41:53 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/05 17:23:03 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	ft_cmdnode_free(t_cmd *node);
 void	ft_cmdlist_clear(t_cmd **lst);
 t_cmd	*ft_new_cmdnode(void);
 int		set_words_per_cmd(t_parser_data *data, t_lextoken *lex_list);
+void	add_to_cmd(t_lextoken *lexer, t_cmd *node, t_parser_data *data);
 int		is_cmd_or_arg(t_lextoken *lex_node);
 
 #endif

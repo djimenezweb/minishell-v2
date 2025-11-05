@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:01:58 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/04 13:56:17 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/05 17:51:50 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,23 +61,6 @@ static int	new_cmd(t_cmd **list, t_cmd **last, t_parser_data *data)
 	return (1);
 }
 
-//static int	add_to_cmd(t_lextoken *lexer, t_cmd *node, t_parser_data *data)
-static void	add_to_cmd(t_lextoken *lexer, t_cmd *node, t_parser_data *data)
-{
-	int	i;
-
-	i = data->current_word;
-	node->cmd[i] = lexer->value;//<-Option 1. Below, option 2
-/*	node->cmd[i] = ft_strdup(lexer->value);
-	if (!node->cmd[i])
-		return (0);
-	//Enrique 2/11: "Why ft_strdup here?" Because after whole parse and
-	//	just before execution, lexer could be free. 
-	//	If we do strdup here, this option is possible*/
-	++data->current_word;/*
-	return (1);*/
-}
-
 /* Parse a `t_lextoken` list into a `t_cmd` list */
 //
 /*	1) Count process by pipes, and counts how many words fro cmd and args 
@@ -115,6 +98,17 @@ t_cmd	*parser(t_lextoken *lex_list)
 			//"Above is antoher option to execute this function."
 			//	For more information, go to add_to_cmd() scope
 			//We have to choose one of these, then remove the other
+		}
+		if (is_infile(current))
+		{
+			last_node->infile_fd = open_infile(current->value);
+			//Protect in case of error
+		}
+		if (is_outfile(current))
+		{
+			last_node->outfile_fd = open_outfile(current->value,
+					current->type);
+			//Protect in case of error
 		}
 		current = current->next;
 	}
