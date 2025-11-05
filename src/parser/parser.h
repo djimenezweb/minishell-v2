@@ -41,5 +41,10 @@ t_cmd	*ft_new_cmdnode(void);
 int		set_words_per_cmd(t_parser_data *data, t_lextoken *lex_list);
 void	add_to_cmd(t_lextoken *lexer, t_cmd *node, t_parser_data *data);
 int		is_cmd_or_arg(t_lextoken *lex_node);
+int		is_infile(t_lextoken *lex_node);
+int		is_outfile(t_lextoken *lex_node);
+int		open_file(char *path, enum e_lex_type type);
+int		open_infile(char *path);
+int		open_outfile(char *path, enum e_lex_type type);
 
 #endif

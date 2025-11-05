@@ -13,8 +13,23 @@
 #include "minishell.h"
 #include "parser.h"
 
-/* For debug purposes only */
+
 void	print_cmd_list(t_cmd *list)
+{
+	printf("-- START COMMAND LIST --\n");
+	while (list)
+	{
+		printf("Command: %s\n", list->cmd[0]);
+		printf("Path:    %s\n", list->path);
+		printf("Input:   %i\n", list->input);
+		printf("Output:  %i\n", list->output);
+		list = list->next;
+	}
+	printf("-- END COMMAND LIST --\n");
+}
+
+/* For debug purposes only */
+/* void	print_cmd_list(t_cmd *list)
 {
 	int	i;
 	int	j;
@@ -31,7 +46,7 @@ void	print_cmd_list(t_cmd *list)
 		}
 		list = list->next;
 	}
-}
+} */
 
 static int	malloc_cmd_and_args(t_cmd *node, t_parser_data *data)
 {
@@ -102,13 +117,16 @@ t_cmd	*parser(t_lextoken *lex_list)
 		}
 		if (is_infile(current))
 		{
-			last_node->input = open_infile(current->value);
+			if (last_node->input != STDIN_FILENO)
+				close(last_node->input);
+			last_node->input = open_file(current->value, current->word_type);
 			//Protect in case of error
 		}
 		if (is_outfile(current))
 		{
-			last_node->output = open_outfile(current->value,
-					current->type);
+			if (last_node->output != STDOUT_FILENO)
+				close(last_node->output);
+			last_node->output = open_file(current->value, current->word_type);
 			//Protect in case of error
 		}
 		current = current->next;

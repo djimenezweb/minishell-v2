@@ -20,3 +20,19 @@ int	is_cmd_or_arg(t_lextoken *lex_node)
 		return (1);
 	return (0);
 }
+
+int	is_infile(t_lextoken *lex_node)
+{
+	if (lex_node->type == TOK_WORD && lex_node->word_type == TOK_INFILE)
+		return (1);
+	return (0);
+}
+
+int	is_outfile(t_lextoken *lex_node)
+{
+	if (lex_node->type == TOK_WORD
+		&& (lex_node->word_type == TOK_OUTFILE_CREATE
+			|| lex_node->word_type == TOK_OUTFILE_APPEND))
+		return (1);
+	return (0);
+}
