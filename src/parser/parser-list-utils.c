@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "parser.h"
 
 /* Add the node `new` after the node `prev` */
 void	ft_cmdlist_insert(t_cmd *prev, t_cmd *new)

@@ -13,6 +13,8 @@
 #ifndef PARSER_H
 # define PARSER_H
 
+# include "lexer.h"
+
 typedef struct s_cmd
 {
 	char			**cmd;

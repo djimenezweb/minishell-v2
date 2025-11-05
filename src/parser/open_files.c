@@ -11,7 +11,6 @@
 /******************************************************************************/
 
 #include "minishell.h"
-#include "parser.h"
 
 /* Return file descriptor of input or output file
 TODO: Check if path is file or directory, etc. */
@@ -68,11 +67,11 @@ int	open_outfile(char *path, enum e_lex_type type)
 	int	fd;
 	int	flag;
 
-	flag = O_WRONLY | O_CREAT | O_TRUNC, 0644;
-	if (type == TOK_APPEND)
-		flag = O_WRONLY | O_CREAT | O_APPEND, 0644;
+	flag = O_WRONLY | O_CREAT | O_TRUNC;
+	if (type == TOK_OUTFILE_APPEND)
+		flag = O_WRONLY | O_CREAT | O_APPEND;
 
-	fd = open(path, flag);
+	fd = open(path, flag, 0644);
 	if (fd == -1)
 	{
 		if (!access(path, F_OK) && access(path, W_OK) < 0)

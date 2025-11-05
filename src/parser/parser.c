@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "parser.h"
-
 
 void	print_cmd_list(t_cmd *list)
 {
@@ -106,34 +104,24 @@ t_cmd	*parser(t_lextoken *lex_list)
 			return (ft_cmdlist_clear(&cmd_list),
 				free(parser_data.words_per_cmd), NULL);
 		if (is_cmd_or_arg(current))
-		{
 			add_to_cmd(current, last_node, &parser_data);
-/*			if (!add_to_cmd(current, last_node, &parser_data))
-				return (ft_cmdlist_clear(&cmd_list),
-					free(parser_data.words_per_cmd), NULL);*/
-			//"Above is antoher option to execute this function."
-			//	For more information, go to add_to_cmd() scope
-			//We have to choose one of these, then remove the other
-		}
 		if (is_infile(current))
 		{
 			if (last_node->input != STDIN_FILENO)
 				close(last_node->input);
+				//Protect in case of error
 			last_node->input = open_file(current->value, current->word_type);
-			//Protect in case of error
 		}
 		if (is_outfile(current))
 		{
 			if (last_node->output != STDOUT_FILENO)
 				close(last_node->output);
+				//Protect in case of error
 			last_node->output = open_file(current->value, current->word_type);
-			//Protect in case of error
 		}
 		current = current->next;
 	}
 	free(parser_data.words_per_cmd);
-	print_cmd_list(cmd_list);
-	return (cmd_list);//ENRIQUE 2/11: At this point, we should have 
-			  //a list for every cmd and args.
-			  //But when we try to open fds for redir?
+	print_cmd_list(cmd_list); //debug
+	return (cmd_list);
 }

@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "parser.h"
 
 int	is_cmd_or_arg(t_lextoken *lex_node)
 {
