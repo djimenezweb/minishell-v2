@@ -48,7 +48,7 @@ void	print_lex_list(t_lextoken *list)
 					printf(CYAN"%s "RESET, curr->value);
 				if (curr->word_type == TOK_INFILE)
 					printf(BG_CYAN"%s"RESET" ", curr->value);
-				if (curr->word_type == TOK_OUTFILE)
+				if (curr->word_type == TOK_OUTFILE_APPEND || curr->word_type == TOK_OUTFILE_CREATE)
 					printf(BG_MAGENTA"%s"RESET" ", curr->value);
 				if (curr->word_type == TOK_DELIMITER)
 					printf(BG_YELLOW"%s"RESET" ", curr->value);

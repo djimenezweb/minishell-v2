@@ -27,9 +27,10 @@ static void	define_word(t_lextoken *lst, int *cmd_found)
 		lst->word_type = TOK_COMMAND;
 		update_command_status(cmd_found, NOT_PIPE);
 	}
-	else if (lst->prev->type == TOK_REDIR_OUT
-		|| lst->prev->type == TOK_APPEND)
-		lst->word_type = TOK_OUTFILE;
+	else if (lst->prev->type == TOK_REDIR_OUT)
+		lst->word_type = TOK_OUTFILE_CREATE;
+	else if (lst->prev->type == TOK_APPEND)
+		lst->word_type = TOK_OUTFILE_APPEND;
 	else if (lst->prev->type == TOK_REDIR_IN)
 		lst->word_type = TOK_INFILE;
 	else if (lst->prev->type == TOK_HEREDOC)
