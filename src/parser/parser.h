@@ -17,6 +17,8 @@ typedef struct s_cmd
 {
 	char			**cmd;
 	char			*path;
+	int				input;
+	int				output;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;//ENRIQUE 1/11: Do we still need this?
 }	t_cmd;

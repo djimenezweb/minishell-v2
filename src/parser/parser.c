@@ -52,6 +52,9 @@ static int	new_cmd(t_cmd **list, t_cmd **last, t_parser_data *data)
 	node = ft_new_cmdnode();
 	if (!node || !malloc_cmd_and_args(node, data))
 		return (0);
+	node->path = NULL;
+	node->input = STDIN_FILENO;
+	node->output = STDOUT_FILENO;
 	ft_cmdlist_add(list, node);
 	*last = node;
 	if (data->current_cmd < data->num_cmds)
@@ -81,10 +84,8 @@ t_cmd	*parser(t_lextoken *lex_list)
 	if (!set_words_per_cmd(&parser_data, lex_list))
 		return (NULL);
 	current = lex_list;
-	while (current)
+	while (current && current->type != TOK_EOF)
 	{
-		if (current->type == TOK_EOF)
-			break ;
 		if ((!cmd_list || current->type == TOK_PIPE)
 			&& (!new_cmd(&cmd_list, &last_node, &parser_data)))
 			return (ft_cmdlist_clear(&cmd_list),
@@ -101,12 +102,12 @@ t_cmd	*parser(t_lextoken *lex_list)
 		}
 		if (is_infile(current))
 		{
-			last_node->infile_fd = open_infile(current->value);
+			last_node->input = open_infile(current->value);
 			//Protect in case of error
 		}
 		if (is_outfile(current))
 		{
-			last_node->outfile_fd = open_outfile(current->value,
+			last_node->output = open_outfile(current->value,
 					current->type);
 			//Protect in case of error
 		}
