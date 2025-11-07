@@ -25,6 +25,8 @@ t_env_var	*ft_new_node(char *str)
 	if (!node)
 		return (NULL);
 	set_name_value(node, str);
+	if (!node->name || !node->value)
+		return (NULL);
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);

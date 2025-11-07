@@ -52,9 +52,9 @@ void	set_name_value(t_env_var *node, char *str)
 	while (str[end] && str[end] != EQUALS)
 		end++;
 	node->name = ft_substr(str, 0, end);
-	start = end++;
-	end = start;
-	start++;
+	start = end++;//ENRIQUE 7/11: I don't understand this three lines
+	end = start;//ENRIQUE 7/11: I don't understand this three lines
+	start++;//ENRIQUE 7/11: I don't understand this three lines
 	while (str[end])
 		end++;
 	node->value = ft_substr(str, start, end);

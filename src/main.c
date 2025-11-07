@@ -53,9 +53,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	init_shell(&shell_data, envp);
 	if (!shell_data.env_list)
-	{
-		return (1);
-	}
+		return (1);//ENRIQUE 7/11: Case of malloc error. Just return 1, or set a message too?
 	while (1)
 	{
 		// Use ft_strdup instead of readline to check memory leaks:
@@ -69,12 +67,13 @@ int	main(int argc, char **argv, char **envp)
 			free_shell(&shell_data);
 			return (1);
 		}
-		shell_data.lex_list = lexer(shell_data.line);
+		shell_data.lex_list = lexer(shell_data.line);//If we pass t_shell, we could merge this
+													//function in the condition above
 		if (!shell_data.lex_list)
 		{
 			free_shell(&shell_data);
 			return (1);
-		}
+		}//After lexer... We could free the shell_data.line??? ;)
 		if (!syntax_validation(shell_data.lex_list))
 		{
 			free_shell(&shell_data);
