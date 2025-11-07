@@ -30,7 +30,7 @@ static void	reset_expansion_data(t_expansion_data *exp_data)
 	init_expansion_data(exp_data);
 }
 
-static void	try_to_expand_current_word(t_lextoken **word, t_shell *data)
+static int	try_to_expand_current_word(t_lextoken **word, t_shell *data)
 {
 	t_expansion_data	exp_data;
 	char				*new_value;
@@ -52,23 +52,22 @@ static void	try_to_expand_current_word(t_lextoken **word, t_shell *data)
 		reset_expansion_data(&exp_data);
 	}
 	if (exp_data.malloc_fail)
-		free_shell(data);//ENRIQUE 22/10: I put this here expecting
-				 //free_shell() executes an exit inside
+		return (0);
+	return (1);
 }
 
-void	expander(t_shell *data)
+int	expander(t_shell *data)
 {
 	t_lextoken	*current;
 
 	current = data->lex_list;
 	while (current)
 	{
-		if (current->type == TOK_WORD)
-		{
-			try_to_expand_current_word(&current, data);
+		if (current->type == TOK_WORD && !try_to_expand_current_word(&current, data))
+			return (0);
 			//Could put here another function for remove quotes...
 			//But first, be sure to the order of execution
-		}
 		current = current->next;
 	}
+	return (1);
 }

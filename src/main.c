@@ -69,18 +69,12 @@ int	main(int argc, char **argv, char **envp)
 		}
 		shell_data.lex_list = lexer(shell_data.line);//If we pass t_shell, we could merge this
 													//function in the condition above
-		if (!shell_data.lex_list)
+		if (!shell_data.lex_list || !syntax_validation(shell_data.lex_list)
+			|| !expander(&shell_data))
 		{
 			free_shell(&shell_data);
 			return (1);
 		}//After lexer... We could free the shell_data.line??? ;)
-		if (!syntax_validation(shell_data.lex_list))
-		{
-			free_shell(&shell_data);
-			return (1);
-		}
-		expander(&shell_data);//ENRIQUE 22/10: Expected to exit
-				      //from free_shell scope inside here
 		print_lex_list(shell_data.lex_list);
 		parser(shell_data.lex_list);
 		//shell_data.cmd_list = parser(shell_data.lex_list);
