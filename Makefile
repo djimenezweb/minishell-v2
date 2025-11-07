@@ -54,4 +54,7 @@ run : all
 debug : CFLAGS += -g -fsanitize=address
 debug : fclean $(LIBFT) $(NAME)
 
-.PHONY : all clean fclean re run debug
+valgrind : all
+	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./$(NAME)
+
+.PHONY : all clean fclean re run debug valgrind
