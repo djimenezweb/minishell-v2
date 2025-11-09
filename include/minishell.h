@@ -19,6 +19,7 @@
 # include "environment.h"
 # include "expander.h"
 # include "lexer.h"
+# include "parser.h"
 # include "syntax.h"
 
 // malloc, free

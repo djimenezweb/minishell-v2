@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "parser/parser.h"
 
 static void	init_shell(t_shell *data, char **envp)
 {

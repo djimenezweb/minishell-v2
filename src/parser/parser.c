@@ -11,10 +11,23 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "parser.h"
+
+void	print_cmd_list(t_cmd *list)
+{
+	printf("-- START COMMAND LIST --\n");
+	while (list)
+	{
+		printf("Command: %s\n", list->cmd[0]);
+		printf("Path:    %s\n", list->path);
+		printf("Input:   %i\n", list->input);
+		printf("Output:  %i\n", list->output);
+		list = list->next;
+	}
+	printf("-- END COMMAND LIST --\n");
+}
 
 /* For debug purposes only */
-void	print_cmd_list(t_cmd *list)
+/* void	print_cmd_list(t_cmd *list)
 {
 	int	i;
 	int	j;
@@ -31,7 +44,7 @@ void	print_cmd_list(t_cmd *list)
 		}
 		list = list->next;
 	}
-}
+} */
 
 static int	malloc_cmd_and_args(t_cmd *node, t_parser_data *data)
 {
@@ -52,6 +65,9 @@ static int	new_cmd(t_cmd **list, t_cmd **last, t_parser_data *data)
 	node = ft_new_cmdnode();
 	if (!node || !malloc_cmd_and_args(node, data))
 		return (0);
+	node->path = NULL;
+	node->input = STDIN_FILENO;
+	node->output = STDOUT_FILENO;
 	ft_cmdlist_add(list, node);
 	*last = node;
 	if (data->current_cmd < data->num_cmds)
@@ -81,40 +97,31 @@ t_cmd	*parser(t_lextoken *lex_list)
 	if (!set_words_per_cmd(&parser_data, lex_list))
 		return (NULL);
 	current = lex_list;
-	while (current)
+	while (current && current->type != TOK_EOF)
 	{
-		if (current->type == TOK_EOF)
-			break ;
 		if ((!cmd_list || current->type == TOK_PIPE)
 			&& (!new_cmd(&cmd_list, &last_node, &parser_data)))
 			return (ft_cmdlist_clear(&cmd_list),
 				free(parser_data.words_per_cmd), NULL);
 		if (is_cmd_or_arg(current))
-		{
 			add_to_cmd(current, last_node, &parser_data);
-/*			if (!add_to_cmd(current, last_node, &parser_data))
-				return (ft_cmdlist_clear(&cmd_list),
-					free(parser_data.words_per_cmd), NULL);*/
-			//"Above is antoher option to execute this function."
-			//	For more information, go to add_to_cmd() scope
-			//We have to choose one of these, then remove the other
-		}
 		if (is_infile(current))
 		{
-			last_node->infile_fd = open_infile(current->value);
-			//Protect in case of error
+			if (last_node->input != STDIN_FILENO)
+				close(last_node->input);
+				//Protect in case of error
+			last_node->input = open_file(current->value, current->word_type);
 		}
 		if (is_outfile(current))
 		{
-			last_node->outfile_fd = open_outfile(current->value,
-					current->type);
-			//Protect in case of error
+			if (last_node->output != STDOUT_FILENO)
+				close(last_node->output);
+				//Protect in case of error
+			last_node->output = open_file(current->value, current->word_type);
 		}
 		current = current->next;
 	}
 	free(parser_data.words_per_cmd);
-	print_cmd_list(cmd_list);
-	return (cmd_list);//ENRIQUE 2/11: At this point, we should have 
-			  //a list for every cmd and args.
-			  //But when we try to open fds for redir?
+	print_cmd_list(cmd_list); //debug
+	return (cmd_list);
 }

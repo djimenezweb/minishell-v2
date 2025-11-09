@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "parser.h"//Include this in minishell.h
 
 static int	count_processes(t_lextoken *lex_list)
 {
