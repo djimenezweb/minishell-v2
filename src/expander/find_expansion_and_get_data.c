@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 19:53:52 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/22 21:12:03 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/09 21:16:00 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,14 @@ static int	set_resize_data(t_expansion_data *exp_data, char *str)
 int	find_expansion(char *str, t_expansion_data *exp_data)
 {
 	int	index;
-	int	quote_flag;
 
 	index = 0;
-	quote_flag = 0;
 	while (str[index] != '\0')
 	{
 		if (str[index] == SINGLE_QUOTE || str[index] == DOUBLE_QUOTE)
-			quote_flag = update_quote_flag(quote_flag, str[index]);
-		if (str[index] == DOLLAR && quote_flag != SINGLE_QUOTE)
+			update_quote_flag(exp_data, str[index]);
+		if (str[index] == DOLLAR
+			&& exp_data->env_quoted != SINGLE_QUOTE)
 		{
 			exp_data->dollar_position = index;
 			exp_data->var_name = get_variable_name(str + index);
