@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 11:26:17 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/09 18:25:14 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/10 13:32:39 by danielji         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef LEXER_H
 # define LEXER_H
@@ -51,8 +51,6 @@ t_lextoken	*ft_new_word_token(char *str, int *i);
 void		skip_spaces(char *str, int *i);
 t_lextoken	*lexer(char *str);
 void		ft_lexlist_insert(t_lextoken *prev, t_lextoken *new);
-void		ft_lexlist_insert_sublist(t_lextoken **current,
-				t_lextoken *sublist);//Stored in src/expander
 void		ft_lexlist_add(t_lextoken **lst, t_lextoken *new);
 void		ft_lexnode_free(t_lextoken *node);
 void		ft_lexlist_clear(t_lextoken **lst);

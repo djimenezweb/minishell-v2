@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/09 23:24:23 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/10 13:18:20 by danielji         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
@@ -65,7 +65,7 @@ int	main(int argc, char **argv, char **envp)
 		add_history(shell_data.line);
 		//char **arr = history_tokenize(shell_data.line);
 		//print_array_of_strings(arr);
-		if (!quote_validation(shell_data.line) || !expander(&shell_data.line))
+		if (!quote_validation(shell_data.line) || !expander(&shell_data.line, shell_data.env_list))
 		{
 			free_shell(&shell_data);
 			return (1);

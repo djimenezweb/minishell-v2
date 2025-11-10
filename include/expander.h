@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
+/*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 17:23:08 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/09 20:54:34 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/10 13:32:17 by danielji         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef EXPANDER_H
 # define EXPANDER_H
@@ -39,11 +39,10 @@ typedef struct s_join
 	int		len;
 }	t_join;
 
-int		expander(char **str);
+int		expander(char **str, t_env_var *list);
 int		find_expansion(char *str, t_expansion_data *exp_data);
 char	*get_variable_name(char *str);
 char	*resize_expansions(char *old_str, t_expansion_data *ed);
 void	update_quote_flag(t_expansion_data *expansion, int char_found);
-void	debug_lex_list(t_lextoken *list);
 
 #endif
