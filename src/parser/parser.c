@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:01:58 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/05 17:51:50 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/10 13:06:25 by danielji         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
@@ -63,6 +63,7 @@ static int	new_cmd(t_cmd **list, t_cmd **last, t_parser_data *data)
 
 	node = NULL;
 	node = ft_new_cmdnode();
+	printf("Node malloc is %p\n", node);//debug
 	if (!node || !malloc_cmd_and_args(node, data))
 		return (0);
 	node->path = NULL;
@@ -92,6 +93,7 @@ t_cmd	*parser(t_lextoken *lex_list)
 	t_lextoken		*current;
 	t_parser_data	parser_data;
 
+	printf("\tENTERED IN PARSER\n");//debug
 	last_node = NULL;
 	cmd_list = NULL;
 	if (!set_words_per_cmd(&parser_data, lex_list))
@@ -103,9 +105,13 @@ t_cmd	*parser(t_lextoken *lex_list)
 			&& (!new_cmd(&cmd_list, &last_node, &parser_data)))
 			return (ft_cmdlist_clear(&cmd_list),
 				free(parser_data.words_per_cmd), NULL);
-		if (is_cmd_or_arg(current))
-			add_to_cmd(current, last_node, &parser_data);
-		if (is_infile(current))
+		if (is_cmd_or_arg(current) && !add_to_cmd(current, last_node, &parser_data))
+				return (ft_cmdlist_clear(&cmd_list),
+					free(parser_data.words_per_cmd), NULL);
+			//"Above is antoher option to execute this function."
+			//	For more information, go to add_to_cmd() scope
+			//We have to choose one of these, then remove the other
+/*		if (is_infile(current))
 		{
 			if (last_node->input != STDIN_FILENO)
 				close(last_node->input);
@@ -114,11 +120,10 @@ t_cmd	*parser(t_lextoken *lex_list)
 		}
 		if (is_outfile(current))
 		{
-			if (last_node->output != STDOUT_FILENO)
-				close(last_node->output);
-				//Protect in case of error
-			last_node->output = open_file(current->value, current->word_type);
-		}
+			last_node->outfile_fd = open_outfile(current->value,
+					current->type);
+			//Protect in case of error
+		}*/
 		current = current->next;
 	}
 	free(parser_data.words_per_cmd);

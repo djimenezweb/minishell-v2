@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 13:11:38 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/02 16:57:24 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/08 05:10:57 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ ssize_t	ft_putnbr_u_r(unsigned int n);
 ssize_t	ft_puthex_int_r(unsigned int num, char *base);
 ssize_t	ft_putptr_r(void *ptr);
 
-//Minishell -> parser
+//Minishell -> parse
 void	free_strings_array(char **array);
 
 #endif

@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   upadte_quote_flag.c                                :+:      :+:    :+:   */
+/*   update_quote_flag.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/18 22:45:15 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/19 20:23:05 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/09 23:51:37 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	update_quote_flag(int quote_flag, int char_found)
+void	update_quote_flag(t_expansion_data *expansion, int char_found)
 {
-	if (!quote_flag && (char_found == SINGLE_QUOTE
-			|| char_found == DOUBLE_QUOTE))
-		return (char_found);
-	if (char_found != quote_flag)
-		return (quote_flag);
-	return (0);
+	if (!expansion->env_quoted
+		&& (char_found == SINGLE_QUOTE || char_found == DOUBLE_QUOTE))
+		expansion->env_quoted = char_found;
+	else if (expansion->env_quoted == char_found)
+		expansion->env_quoted = 0;
 }

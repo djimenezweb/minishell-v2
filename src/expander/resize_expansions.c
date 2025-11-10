@@ -6,43 +6,55 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 19:16:07 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/10/22 21:20:50 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/10 00:05:34 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	init_joined_vars(t_join *valgrind_wants_to_init)
+{
+	valgrind_wants_to_init->dst = NULL;
+	valgrind_wants_to_init->src = NULL;
+	valgrind_wants_to_init->len = 0;
+}
+
+static void	set_len_in_loop_3(t_join *j, t_expansion_data *ed)
+{
+	if (j->dst[0] == '\0')
+		j->len = ft_strlen(j->src) + 1;
+	else
+		j->len = ed->resize_len - (ed->dollar_position
+				+ ed->var_name_len);
+}
+
 static void	join_expansion(char *old_str, char **new_str,
 		t_expansion_data *ed, int loop_counter)
 {
-	char	*src;
-	char	*dst;
-	int		len;
+	t_join	joined;
 
+	init_joined_vars(&joined);
 	if (loop_counter == 1)
 	{
-		src = old_str;
-		dst = *new_str;
-		len = ed->dollar_position;
+		joined.src = old_str;
+		joined.dst = *new_str;
+		joined.len = ed->dollar_position;
 	}
 	if (loop_counter == 2)
 	{
-		src = ed->expanded;
-		dst = (*new_str) + ed->dollar_position;
-		len = ed->expanded_len;
+		joined.src = ed->expanded;
+		joined.dst = (*new_str) + ed->dollar_position;
+		joined.len = ed->expanded_len;
 	}
 	if (loop_counter == 3)
 	{
-		src = old_str + (ed->dollar_position + ed->var_name_len);
-		dst = *new_str + (ed->dollar_position + ed->expanded_len);
-		if (*dst == '\0')
-			len = ft_strlen(src) + 1;
-		else
-			len = ed->resize_len
-				- (ed->dollar_position + ed->var_name_len);
+		joined.src = old_str + (ed->dollar_position + ed->var_name_len);
+		joined.dst = *new_str + (ed->dollar_position
+				+ ed->expanded_len);
+		set_len_in_loop_3(&joined, ed);
 	}
-	if (len != 0)
-		ft_memcpy(dst, src, len);
+	if (joined.len != 0)
+		ft_memcpy(joined.dst, joined.src, joined.len);
 }
 
 char	*resize_expansions(char *old_str, t_expansion_data *ed)
@@ -54,10 +66,9 @@ char	*resize_expansions(char *old_str, t_expansion_data *ed)
 		ed->expanded_len = ft_strlen(ed->expanded);
 	if (ed->expanded_len != 0)
 		ed->resize_len += (ed->expanded_len - 1);
-	new_str = (char *)malloc((ed->resize_len + 1) * sizeof(char));
+	new_str = ft_calloc((ed->resize_len + 1), sizeof(char));
 	if (!new_str)
 		return (NULL);
-	new_str[ed->resize_len] = '\0';
 	loop_counter = 1;
 	while (loop_counter <= 3)
 	{

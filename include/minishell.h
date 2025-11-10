@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/02 17:37:29 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/10 13:04:18 by danielji         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -17,10 +17,10 @@
 # include "libft.h"
 # include "macros.h"
 # include "environment.h"
-# include "expander.h"
 # include "lexer.h"
-# include "parser.h"
+# include "expander.h"
 # include "syntax.h"
+# include "parser.h"
 
 // malloc, free
 # include <stdlib.h>
@@ -41,6 +41,7 @@ typedef struct s_shell
 	t_lextoken	*lex_list;
 	t_env_var	*env_list;
 	//Should include here exit status, updated after every execution
+	t_cmd		*cmd_list;
 }			t_shell;
 
 void	free_shell(t_shell *data);
