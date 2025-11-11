@@ -20,7 +20,7 @@ void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 {
 	//printf("-> %s (child)\n", cmd->cmd[0]); // debug
 	redirect_in(temp_fd, cmd->input);
-	redirect_out(pipefd, cmd->output, is_last(cmd));
+	redirect_out(pipefd, cmd->output);
 	if (temp_fd != -1)
 		close(temp_fd);
 	if (!is_last(cmd))
@@ -65,6 +65,8 @@ int	execute_cmd_list(t_cmd *cmd, char **envp)
 	int	temp_fd;
 
 	temp_fd = -1;
+	pipefd[READ_END] = -1;
+	pipefd[WRITE_END] = -1;
 	while (cmd)
 	{
 		if (!is_last(cmd) && (pipe(pipefd) < 0))

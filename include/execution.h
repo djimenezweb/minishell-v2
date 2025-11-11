@@ -31,7 +31,7 @@ void	close_pipe(int pipefd[2]);
 int		is_last(t_cmd *cmd);
 int		is_first(t_cmd *cmd);
 void	redirect_in(int temp_fd, int input);
-void	redirect_out(int pipefd[2], int output, int is_last);
+void	redirect_out(int pipefd[2], int output);
 void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp);
 void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2]);
 int		execute_cmd_list(t_cmd *cmd, char **envp);

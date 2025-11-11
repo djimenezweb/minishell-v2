@@ -32,6 +32,7 @@ int	is_first(t_cmd *cmd)
 	return (0);
 }
 
+// TODO: Should add a condition if pipe doesn't exist!
 void	redirect_in(int temp_fd, int input)
 {
 	if (input != STDIN_FILENO)
@@ -42,13 +43,13 @@ void	redirect_in(int temp_fd, int input)
 		close(temp_fd);
 }
 
-void	redirect_out(int pipefd[2], int output, int is_last)
+// TODO: Should add a condition if pipe doesn't exist!
+void	redirect_out(int pipefd[2], int output)
 {
-	(void)is_last;
 	if (output != STDOUT_FILENO)
 		dup2(output, STDOUT_FILENO);
 	else
 		dup2(pipefd[WRITE_END], output);
-	if (pipefd[WRITE_END] > 0 && pipefd[WRITE_END] > 0)
+	if (pipefd[READ_END] > 0 && pipefd[WRITE_END] > 0)
 		close_pipe(pipefd);
 }
