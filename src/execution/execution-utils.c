@@ -26,18 +26,14 @@ int	is_first(t_cmd *cmd)
 	return (0);
 }
 
-void	redirect_in(int temp_fd, int input, int is_first)
+void	redirect_in(int temp_fd, int input)
 {
-	if (is_first)
-	{
-		if (input != STDIN_FILENO)
-			dup2(input, STDIN_FILENO);
-	}
+	if (input != STDIN_FILENO)
+		dup2(input, STDIN_FILENO);
 	else
-	{
 		dup2(temp_fd, input);
+	if (temp_fd != -1)
 		close(temp_fd);
-	}
 }
 
 void	redirect_out(int pipefd[2], int output, int is_last)

@@ -18,7 +18,8 @@
 - Execute command */
 void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 {
-	redirect_in(temp_fd, cmd->input, is_first(cmd));
+	//printf("-> %s (child)\n", cmd->cmd[0]); // debug
+	redirect_in(temp_fd, cmd->input);
 	redirect_out(pipefd, cmd->output, is_last(cmd));
 	if (temp_fd != -1)
 		close(temp_fd);
@@ -36,6 +37,7 @@ void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 - Close input & output fd on last command */
 void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2])
 {
+	//printf("-> %s (parent)\n", cmd->cmd[0]); // debug
 	if (*temp_fd != -1)
 		close(*temp_fd);
 	if (!is_last(cmd))
@@ -45,12 +47,12 @@ void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2])
 	}
 	else
 	{
-		if (cmd->input != STDIN_FILENO)
-			close(cmd->input);
-		if (cmd->output != STDOUT_FILENO)
-			close(cmd->output);
 		*temp_fd = -1;
 	}
+	if (cmd->input != STDIN_FILENO)
+		close(cmd->input);
+	if (cmd->output != STDOUT_FILENO)
+		close(cmd->output);
 }
 
 /* For each command in the command list:
