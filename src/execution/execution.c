@@ -15,16 +15,12 @@
 /* Child process:
 - Redirect input & output
 - Close unused fd
-- Execute command */
+- Execute command. If execve fails, print error and exit ¿? */
 void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 {
-	//printf("-> %s (child)\n", cmd->cmd[0]); // debug
-	redirect_in(temp_fd, cmd->input);
-	redirect_out(pipefd, cmd->output);
-	if (temp_fd != -1)
-		close(temp_fd);
-	if (!is_last(cmd))
-		close(pipefd[READ_END]);
+	redirect_in(temp_fd, cmd->input, is_first(cmd));
+	redirect_out(pipefd, cmd->output, is_last(cmd));
+	close_child_fds(temp_fd, pipefd, is_last(cmd));
 	execve(cmd->path, cmd->cmd, envp);
 	// TODO Mensaje error
 	exit(EXIT_FAILURE);
@@ -32,12 +28,12 @@ void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 
 /* Parent process:
 - Close previous read end 
-- Save current read end for next command
-- Close current write end 
-- Close input & output fd on last command */
+- Save current read end for next child
+- Close current write end
+- Reset `temp_fd` to `-1`
+- If they were opened, close input & output files */
 void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2])
 {
-	//printf("-> %s (parent)\n", cmd->cmd[0]); // debug
 	if (*temp_fd != -1)
 		close(*temp_fd);
 	if (!is_last(cmd))
@@ -46,17 +42,16 @@ void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2])
 		close(pipefd[WRITE_END]);
 	}
 	else
-	{
 		*temp_fd = -1;
-	}
 	if (cmd->input != STDIN_FILENO)
 		close(cmd->input);
 	if (cmd->output != STDOUT_FILENO)
 		close(cmd->output);
 }
 
-/* For each command in the command list:
-- Create pipe except on last command
+/* Initialize everything to `-1` to prevent bad `close` or `dup2` calls.
+For each command in the command list:
+- Create a pipe except on last command
 - Fork process
 - Return `-1` on error */
 int	execute_cmd_list(t_cmd *cmd, char **envp)
@@ -85,6 +80,8 @@ int	execute_cmd_list(t_cmd *cmd, char **envp)
 	return (0);
 }
 
+/* Wait for each child process and return the
+exit status of the last child process */
 int	wait_children(t_cmd *cmd)
 {
 	int	status;
@@ -117,4 +114,6 @@ void	execution(t_shell *data)
 	free_strings_array(paths);
 	free_strings_array(envp);
 	ft_cmdlist_clear(&(data->cmd_list));
+	// TODO: return status??
+	(void)status;
 }
