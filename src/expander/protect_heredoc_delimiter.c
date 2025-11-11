@@ -54,7 +54,8 @@ void	protect_heredoc_delimiter(char **str, t_protect_chars_status status,
 			ptr += 2;
 		}
 	}
-	while (status == RESTORE && ptr)
+	while (status == RESTORE && ptr)//Content of this loop can be converted in a function,
+		//and be called by protect expanded_quotes too
 	{
 		ptr = ft_strchr(ptr, SUB_CHAR);
 		if (ptr)
