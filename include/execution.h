@@ -27,6 +27,7 @@ typedef struct s_cmd	t_cmd;
 char	**get_path_dirs(t_env_var *env_list);
 char	*get_exec_path(char *cmd, char **paths);
 int		is_builtin(char *cmd);
+void	close_pipe(int pipefd[2]);
 int		is_last(t_cmd *cmd);
 int		is_first(t_cmd *cmd);
 void	redirect_in(int temp_fd, int input);

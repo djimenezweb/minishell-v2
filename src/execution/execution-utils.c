@@ -12,6 +12,12 @@
 
 #include "minishell.h"
 
+void	close_pipe(int pipefd[2])
+{
+	close(pipefd[READ_END]);
+	close(pipefd[WRITE_END]);
+}
+
 int	is_last(t_cmd *cmd)
 {
 	if (cmd->next == NULL)
@@ -38,15 +44,11 @@ void	redirect_in(int temp_fd, int input)
 
 void	redirect_out(int pipefd[2], int output, int is_last)
 {
-	if (is_last)
-	{
-		if (output != STDOUT_FILENO)
-			dup2(output, STDOUT_FILENO);
-	}
+	(void)is_last;
+	if (output != STDOUT_FILENO)
+		dup2(output, STDOUT_FILENO);
 	else
-	{
 		dup2(pipefd[WRITE_END], output);
-		close(pipefd[READ_END]);
-		close(pipefd[WRITE_END]);
-	}
+	if (pipefd[WRITE_END] > 0 && pipefd[WRITE_END] > 0)
+		close_pipe(pipefd);
 }

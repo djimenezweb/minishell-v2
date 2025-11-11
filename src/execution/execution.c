@@ -72,8 +72,7 @@ int	execute_cmd_list(t_cmd *cmd, char **envp)
 		cmd->pid = fork();
 		if (cmd->pid < 0)
 		{
-			close(pipefd[0]);
-			close(pipefd[1]);
+			close_pipe(pipefd);
 			return (-1);
 		}
 		if (cmd->pid == 0)
