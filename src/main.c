@@ -23,33 +23,46 @@ static void	init_shell(t_shell *data, char **envp)
 	//To be continued...
 }
 
+/* Free all allocated memory relative to the last prompt line */
+static void	cleanup_line(t_shell *data)
+{
+	if (data->line)
+		free(data->line);
+	data->line = NULL;
+	if (data->lex_list)
+		ft_lexlist_clear(&(data->lex_list));
+	data->lex_list = NULL;
+	if (data->cmd_list)
+		ft_cmdlist_clear(&data->cmd_list);
+	data->cmd_list = NULL;
+}
+
 void	free_shell(t_shell *data)
 {
 	//printf("free_shell\n");//debug
 	//printf("cmd node to free is %p, cmd is %p, arg 0 == %s\n", data->cmd_list, data->cmd_list->cmd, data->cmd_list->cmd[0]);//debug
 	if (data->line)
 		free(data->line);
+	data->line = NULL;
 	if (data->lex_list)
 		ft_lexlist_clear(&(data->lex_list));
+	data->lex_list = NULL;
 	if (data->env_list)
 		ft_envlist_clear(&(data->env_list));
+	data->env_list = NULL;
 	//printf("cmd_list is %p\n", data->cmd_list);//debug
+	//printf("Free cmd\n");//debug
 	if (data->cmd_list)
 		ft_cmdlist_clear(&data->cmd_list);
-	data->line = NULL;
-	data->lex_list = NULL;
-	data->env_list = NULL;
 	data->cmd_list = NULL;
-	//printf("Free cmd\n");//debug
 	data = NULL;
 	//ENRIQUE 22/10: May put here an exit? WHat exit status?
 	//Any status different to zero is fail status
 }
 
-// Command example: cat << EOF | grep foo >> out.txt
 int	main(int argc, char **argv, char **envp)
 {
-	t_shell		shell_data;
+	t_shell	shell_data;
 
 	if (argc > 1)
 		return (1);
@@ -59,12 +72,11 @@ int	main(int argc, char **argv, char **envp)
 		return (1);//ENRIQUE 7/11: Case of malloc error. Just return 1, or set a message too?
 	while (1)
 	{
-		// Use ft_strdup instead of readline to check memory leaks:
-		//shell_data.line = ft_strdup("hola hola");
 		shell_data.line = readline("$ ");
 		add_history(shell_data.line);
-		//char **arr = history_tokenize(shell_data.line);
-		//print_array_of_strings(arr);
+		// Type `q` to exit (DEBUG ONLY)
+		if (shell_data.line[0] == 'q' && shell_data.line[1] == '\0')	// debug
+			return (rl_clear_history(), free_shell(&shell_data), 0);	// debug
 		if (!quote_validation(shell_data.line) || !expander(&shell_data.line, shell_data.env_list))
 		{
 			free_shell(&shell_data);
@@ -77,7 +89,7 @@ int	main(int argc, char **argv, char **envp)
 			free_shell(&shell_data);
 			return (1);
 		}//After lexer... We could free the shell_data.line??? ;)
-		print_lex_list(shell_data.lex_list);
+		print_lex_list(shell_data.lex_list); // debug
 		shell_data.cmd_list = parser(shell_data.lex_list);
 		//printf("Cmd_list is %p\n", shell_data.cmd_list);//debug
 		//shell_data.cmd_list = parser(shell_data.lex_list);
@@ -89,6 +101,7 @@ int	main(int argc, char **argv, char **envp)
 		//printf("After parser\n");//debug
 		//printf("cmd node is %p, cmd is %p, arg 0 == %s\n", shell_data.cmd_list, shell_data.cmd_list->cmd, shell_data.cmd_list->cmd[0]);//debug
 		execution(&shell_data);
+		cleanup_line(&shell_data);
 		//free_shell(&shell_data);
 	}
 	return (0);
