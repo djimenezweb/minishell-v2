@@ -32,7 +32,8 @@ void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 /* Parent process:
 - Close previous read end 
 - Save current read end for next command
-- Close current write end */
+- Close current write end 
+- Close input & output fd on last command */
 void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2])
 {
 	if (*temp_fd != -1)
@@ -43,7 +44,13 @@ void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2])
 		close(pipefd[WRITE_END]);
 	}
 	else
+	{
+		if (cmd->input != STDIN_FILENO)
+			close(cmd->input);
+		if (cmd->output != STDOUT_FILENO)
+			close(cmd->output);
 		*temp_fd = -1;
+	}
 }
 
 /* For each command in the command list:
