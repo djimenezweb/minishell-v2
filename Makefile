@@ -6,6 +6,7 @@ SRC			=	main.c debug_helpers.c\
 				environment/environment-list-utils.c\
 				environment/environment.c\
 				expander/expander.c\
+				expander/protect_heredoc_delimiter.c\
 				expander/find_expansion_and_get_data.c\
 				expander/resize_expansions.c\
 				expander/expander_utils.c\

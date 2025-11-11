@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 19:52:08 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/10 19:04:21 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/11 20:42:24 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -37,15 +37,16 @@ int	expander(char **str, t_env_var *list)
 	char				*new_str;
 
 	init_expansion_data(&exp_data);
+	protect_heredoc_delimiter(str, PROTECT, exp_data);
 	while (find_expansion(*str, &exp_data) && !exp_data.malloc_fail)
 	{
 		exp_data.expanded = get_env_value(list, exp_data.var_name);
-		if (expand_has_some_quote(exp_data.expanded)
-			&& !protect_quotes(&exp_data.expanded))
+		/*/if (expand_has_some_quote(exp_data.expanded)
+			&& !protect_quotes(&exp_data.expanded, PROTECT))
 		{
 			reset_expansion_data(&exp_data);
 			return (0);
-		}
+		}*/
 		new_str = resize_expansions(*str, &exp_data);
 		if (!new_str)
 		{
@@ -58,5 +59,6 @@ int	expander(char **str, t_env_var *list)
 	}
 	if (exp_data.malloc_fail)
 		return (0);
+	protect_heredoc_delimiter(str, RESTORE, exp_data);
 	return (1);
 }
