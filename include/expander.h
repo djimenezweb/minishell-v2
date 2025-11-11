@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 17:23:08 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/11 18:12:19 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/11 18:56:50 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -15,6 +15,11 @@
 
 # include "minishell.h"
 
+typedef enum e_protect_chars_status
+{
+	PROTECT,
+	RESTORE
+}	t_protect_chars_status;
 
 typedef struct s_expansion_data
 {
