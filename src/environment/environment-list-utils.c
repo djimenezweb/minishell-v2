@@ -86,3 +86,17 @@ void	ft_envlist_clear(t_env_var **lst)
 	}
 	*lst = NULL;
 }
+
+/* Return size of a list of env variables */
+int	ft_envlist_size(t_env_var *lst)
+{
+	int	size;
+
+	size = 0;
+	while (lst)
+	{
+		size++;
+		lst = lst->next;
+	}
+	return (size);
+}

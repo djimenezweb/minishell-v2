@@ -12,6 +12,8 @@
 
 #include "libft.h"
 
+/* To debug add to line 23:
+ft_printf("Free array to %s\n", array[i]);//debug */
 void	free_strings_array(char **array)
 {
 	size_t	i;
@@ -19,7 +21,6 @@ void	free_strings_array(char **array)
 	i = 0;
 	while (array[i])
 	{
-		ft_printf("Free array to %s\n", array[i]);//debug
 		free(array[i++]);
 	}
 	free(array);

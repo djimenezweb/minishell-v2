@@ -11,60 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "execution.h"
-
-int	ft_envlist_size(t_env_var *lst)
-{
-	int	size;
-
-	size = 0;
-	while (lst)
-	{
-		size++;
-		lst = lst->next;
-	}
-	return (size);
-}
-
-int	ft_cmdlist_size(t_cmd *lst)
-{
-	int	size;
-
-	size = 0;
-	while (lst)
-	{
-		size++;
-		lst = lst->next;
-	}
-	return (size);
-}
-
-char	**get_envp(t_env_var *env_lst)
-{
-	int		i;
-	int		size;
-	char	*temp;
-	char	**arr;
-
-	i = 0;
-	size = ft_envlist_size(env_lst);
-	arr = malloc(sizeof(char *) * (size + 1));
-	if (!arr)
-		return (NULL);
-	while (env_lst && i < size)
-	{
-		temp = ft_strjoin(env_lst->name, "=");
-		if (env_lst->value)
-			arr[i] = ft_strjoin(temp, env_lst->value);
-		else
-			arr[i] = ft_strjoin(temp, "");
-		free(temp);
-		env_lst = env_lst->next;
-		i++;
-	}
-	arr[i] = NULL;
-	return (arr);
-}
 
 /* Child process:
 - Redirect input & output
@@ -120,7 +66,7 @@ int	execute_cmd_list(t_cmd *cmd, char **envp)
 			close(pipefd[0]);
 			close(pipefd[1]);
 			return (-1);
-		}			
+		}
 		if (cmd->pid == 0)
 			child_process(cmd, temp_fd, pipefd, envp);
 		parent_process(cmd, &temp_fd, pipefd);

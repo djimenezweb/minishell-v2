@@ -48,6 +48,7 @@ static char	*add_slash(char *str)
 
 /* Return the first valid executable path of `cmd` in `paths` directories.
 If not a valid command, return `NULL` */
+// TODO: Too many lines
 char	*get_exec_path(char *cmd, char **paths)
 {
 	int		i;

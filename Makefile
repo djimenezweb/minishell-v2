@@ -5,6 +5,7 @@ SRC_PATH	= src/
 SRC			=	main.c debug_helpers.c\
 				environment/environment-list-utils.c\
 				environment/environment.c\
+				environment/environment-envp.c\
 				execution/execution.c execution/execution-utils.c execution/paths.c\
 				expander/expander.c\
 				expander/find_expansion_and_get_data.c\
@@ -17,6 +18,7 @@ SRC			=	main.c debug_helpers.c\
 				parser/parser.c parser/parser-list-utils.c\
 				parser/set_words_per_cmd.c parser/add_to_cmd.c\
 				parser/parser_utils.c parser/open_files.c \
+				parser/parser-list-free-utils.c\
 				syntax/quote_validation.c\
 				syntax/syntax_validation.c
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))

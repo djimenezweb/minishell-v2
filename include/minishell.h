@@ -46,8 +46,10 @@ typedef struct s_shell
 }			t_shell;
 
 void	free_shell(t_shell *data);
-// DEBUG HELPERS
+
+// DEBUG HELPERS (DELETE BEFORE EVALUATION)
 void	print_lex_list(t_lextoken *list);
 void	print_array_of_strings(char **arr);
+void	print_cmd_list(t_cmd *list);
 
 #endif

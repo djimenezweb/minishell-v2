@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "execution.h"
 
 int	is_last(t_cmd *cmd)
 {

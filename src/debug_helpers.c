@@ -126,3 +126,18 @@ void	print_array_of_strings(char **arr)
 		i++;
 	}
 }
+
+/* For debug purposes only */
+void	print_cmd_list(t_cmd *list)
+{
+	printf("-- START COMMAND LIST --\n");
+	while (list)
+	{
+		printf("Command: %s\n", list->cmd[0]);
+		printf("Path:    %s\n", list->path);
+		printf("Input:   %i\n", list->input);
+		printf("Output:  %i\n", list->output);
+		list = list->next;
+	}
+	printf("-- END COMMAND LIST --\n");
+}

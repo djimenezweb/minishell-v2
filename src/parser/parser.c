@@ -12,40 +12,6 @@
 
 #include "minishell.h"
 
-void	print_cmd_list(t_cmd *list)
-{
-	printf("-- START COMMAND LIST --\n");
-	while (list)
-	{
-		printf("Command: %s\n", list->cmd[0]);
-		printf("Path:    %s\n", list->path);
-		printf("Input:   %i\n", list->input);
-		printf("Output:  %i\n", list->output);
-		list = list->next;
-	}
-	printf("-- END COMMAND LIST --\n");
-}
-
-/* For debug purposes only */
-/* void	print_cmd_list(t_cmd *list)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (list)
-	{
-		j = 0;
-		ft_printf("\tcmd_%d\n", i++);
-		while (list->cmd[j])
-		{
-			ft_printf("arg_%d--->%s\n", j, list->cmd[j]);
-			++j;
-		}
-		list = list->next;
-	}
-} */
-
 static int	malloc_cmd_and_args(t_cmd *node, t_parser_data *data)
 {
 	int	i;
@@ -63,7 +29,7 @@ static int	new_cmd(t_cmd **list, t_cmd **last, t_parser_data *data)
 
 	node = NULL;
 	node = ft_new_cmdnode();
-	printf("Node malloc is %p\n", node);//debug
+	//printf("Node malloc is %p\n", node);//debug
 	if (!node || !malloc_cmd_and_args(node, data))
 		return (0);
 	node->path = NULL;
@@ -94,7 +60,7 @@ t_cmd	*parser(t_lextoken *lex_list)
 	t_lextoken		*current;
 	t_parser_data	parser_data;
 
-	printf("\tENTERED IN PARSER\n");//debug
+	//printf("\tENTERED IN PARSER\n");//debug
 	last_node = NULL;
 	cmd_list = NULL;
 	if (!set_words_per_cmd(&parser_data, lex_list))
@@ -129,6 +95,6 @@ t_cmd	*parser(t_lextoken *lex_list)
 		current = current->next;
 	}
 	free(parser_data.words_per_cmd);
-	print_cmd_list(cmd_list); //debug
+	//print_cmd_list(cmd_list); //debug
 	return (cmd_list);
 }

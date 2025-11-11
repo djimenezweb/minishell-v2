@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   expander.h                                         :+:      :+:    :+:   */
@@ -8,7 +8,7 @@
 /*   Created: 2025/10/12 17:23:08 by enrgil-p          #+#    #+#             */
 /*   Updated: 2025/11/10 13:32:17 by danielji         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #ifndef EXPANDER_H
 # define EXPANDER_H
@@ -42,6 +42,7 @@ typedef struct s_join
 int		expander(char **str, t_env_var *list);
 int		find_expansion(char *str, t_expansion_data *exp_data);
 char	*get_variable_name(char *str);
+char	*get_variable_value(char *name);
 char	*resize_expansions(char *old_str, t_expansion_data *ed);
 void	update_quote_flag(t_expansion_data *expansion, int char_found);
 

@@ -31,10 +31,11 @@ char		*get_env_value(t_env_var *list, char *name);
 void		set_name_value(t_env_var *node, char *str);
 int			set_default_env_vars(t_env_var **list);
 t_env_var	*set_env_vars(char *envp[]);
-
 t_env_var	*ft_new_node(char *str);
 void		ft_env_addback(t_env_var **lst, t_env_var *new);
 void		ft_envnode_free(t_env_var *node);
 void		ft_envlist_clear(t_env_var **lst);
+char		**get_envp(t_env_var *env_lst);
+int			ft_envlist_size(t_env_var *lst);
 
 #endif

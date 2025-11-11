@@ -34,12 +34,12 @@ typedef struct s_parser_data
 	int	current_word;
 }	t_parser_data;
 
-void	print_cmd_list(t_cmd *list);//DEBUG, DELETE BEFORE EVALUATION 
 t_cmd	*parser(t_lextoken *lex_list);
 void	ft_cmdlist_insert(t_cmd *prev, t_cmd *new);
 void	ft_cmdlist_add(t_cmd **lst, t_cmd *new);
 void	ft_cmdnode_free(t_cmd *node);
 void	ft_cmdlist_clear(t_cmd **lst);
+int		ft_cmdlist_size(t_cmd *lst);
 t_cmd	*ft_new_cmdnode(void);
 int		set_words_per_cmd(t_parser_data *data, t_lextoken *lex_list);
 int		add_to_cmd(t_lextoken *lexer, t_cmd *node, t_parser_data *data);

@@ -29,14 +29,12 @@ char	*get_exec_path(char *cmd, char **paths);
 int		is_builtin(char *cmd);
 int		is_last(t_cmd *cmd);
 int		is_first(t_cmd *cmd);
-int		ft_envlist_size(t_env_var *lst);
-int		ft_cmdlist_size(t_cmd *lst);
-char	**get_envp(t_env_var *env_lst);
 void	redirect_in(int temp_fd, int input, int is_first);
 void	redirect_out(int pipefd[2], int output, int is_last);
 void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp);
 void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2]);
 int		execute_cmd_list(t_cmd *cmd, char **envp);
 void	execution(t_shell *data);
+int		wait_children(t_cmd *cmd);
 
 #endif
