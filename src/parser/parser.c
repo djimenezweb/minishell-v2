@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
@@ -8,7 +8,7 @@
 /*   Created: 2025/10/23 10:01:58 by danielji          #+#    #+#             */
 /*   Updated: 2025/11/10 13:06:25 by danielji         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -69,6 +69,7 @@ static int	new_cmd(t_cmd **list, t_cmd **last, t_parser_data *data)
 	node->path = NULL;
 	node->input = STDIN_FILENO;
 	node->output = STDOUT_FILENO;
+	node->pid = -1;
 	ft_cmdlist_add(list, node);
 	*last = node;
 	if (data->current_cmd < data->num_cmds)
@@ -111,7 +112,7 @@ t_cmd	*parser(t_lextoken *lex_list)
 			//"Above is antoher option to execute this function."
 			//	For more information, go to add_to_cmd() scope
 			//We have to choose one of these, then remove the other
-/*		if (is_infile(current))
+		if (is_infile(current))
 		{
 			if (last_node->input != STDIN_FILENO)
 				close(last_node->input);
@@ -120,10 +121,11 @@ t_cmd	*parser(t_lextoken *lex_list)
 		}
 		if (is_outfile(current))
 		{
-			last_node->outfile_fd = open_outfile(current->value,
-					current->type);
-			//Protect in case of error
-		}*/
+			if (last_node->output != STDOUT_FILENO)
+				close(last_node->output);
+				//Protect in case of error
+			last_node->output = open_file(current->value, current->word_type);
+		}
 		current = current->next;
 	}
 	free(parser_data.words_per_cmd);

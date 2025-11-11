@@ -1,4 +1,4 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
@@ -8,7 +8,7 @@
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
 /*   Updated: 2025/11/10 13:18:20 by danielji         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "minishell.h"
 
@@ -88,7 +88,8 @@ int	main(int argc, char **argv, char **envp)
 		}*/
 		printf("After parser\n");//debug
 		printf("cmd node is %p, cmd is %p, arg 0 == %s\n", shell_data.cmd_list, shell_data.cmd_list->cmd, shell_data.cmd_list->cmd[0]);//debug
-		free_shell(&shell_data);
+		execution(&shell_data);
+		//free_shell(&shell_data);
 	}
 	return (0);
 }
