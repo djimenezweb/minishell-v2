@@ -5,11 +5,10 @@ SRC_PATH	= src/
 SRC			=	main.c debug_helpers.c\
 				environment/environment-list-utils.c\
 				environment/environment.c\
-				expander/expander.c\
-				expander/protect_heredoc_delimiter.c\
+				expander/expander.c expander/escape_chars.c\
 				expander/find_expansion_and_get_data.c\
 				expander/resize_expansions.c\
-				expander/expander_utils.c\
+				expander/update_quote_flag.c\
 				expander/variable_name.c\
 				lexer/lexer.c lexer/lexer-list-utils.c\
 				lexer/lexer-word-utils.c\

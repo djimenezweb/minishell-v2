@@ -6,11 +6,18 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:08:42 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/11 20:47:02 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/12 19:23:48 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	swap_char_value(char **str, int searched, int new_value)
+{
+	*str = ft_strchr(*str, searched);
+	if (*str)
+		**str = new_value;
+}
 
 static void	change_dollar_to_sub(char **line,
 		t_expansion_data forced_quote_flag)
@@ -54,11 +61,6 @@ void	protect_heredoc_delimiter(char **str, t_protect_chars_status status,
 			ptr += 2;
 		}
 	}
-	while (status == RESTORE && ptr)//Content of this loop can be converted in a function,
-		//and be called by protect expanded_quotes too
-	{
-		ptr = ft_strchr(ptr, SUB_CHAR);
-		if (ptr)
-			*ptr = '$';
-	}
+	while (status == RESTORE && ptr)
+		swap_char_value(&ptr, SUB_CHAR, '$');
 }

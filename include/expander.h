@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 17:23:08 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/11 19:48:27 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/12 20:04:19 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,7 @@ char	*resize_expansions(char *old_str, t_expansion_data *ed);
 void	update_quote_flag(t_expansion_data *expansion, int char_found);
 void	protect_heredoc_delimiter(char **str, t_protect_chars_status status,
 			t_expansion_data quote_status);
+void	quote_chars_in_expanded_vars(char **str, t_protect_chars_status status);
+void	swap_char_value(char **str, int searched, int new_value);
 
 #endif

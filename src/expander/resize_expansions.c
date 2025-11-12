@@ -6,7 +6,7 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 19:16:07 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/12 19:10:31 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/12 20:34:12 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static void	join_expansion(char *old_str, char **new_str,
 				+ ed->expanded_len);
 		set_len_in_loop_3(&joined, ed);
 	}
+	printf("src %s, dst %s, len %d\n", joined.src, joined.dst, joined.len);//debug
 	if (joined.len != 0)
 		ft_memcpy(joined.dst, joined.src, joined.len);
 }
