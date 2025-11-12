@@ -12,25 +12,6 @@
 
 #include "minishell.h"
 
-/* Return `1` if node passes pipe syntax validation.
-A syntax error occurs when: 
-- `|` is the first or the last node.
-- There are two consecutive `|` */
-/* int	pipe_validation(t_lextoken *node)
-{
-	if (!node->next || !node->prev)
-	{
-		printf("Syntax error near `%c`\n", PIPE);
-		return (0);
-	}
-	if (node->next->type == TOK_PIPE || node->prev->type == TOK_PIPE)
-	{
-		printf("Syntax error near `%c`\n", PIPE);
-		return (0);
-	}
-	return (1);
-} */
-
 /* Return `1` if node is the last one */
 int	is_tok_last(t_lextoken *node)
 {
@@ -59,7 +40,8 @@ int	is_tok_consecutive(t_lextoken *node)
 	return (0);
 }
 
-/* Return `1` if list passes syntax validation */
+/* Return `1` if list passes syntax validation.
+On error print error message and return `0`. */
 int	syntax_validation(t_lextoken *node)
 {
 	while (node)
@@ -67,27 +49,27 @@ int	syntax_validation(t_lextoken *node)
 		if (node->type == TOK_PIPE)
 		{
 			if (is_tok_first(node) || is_tok_last(node) || is_tok_consecutive(node))
-				return (ft_putstr_fd("Syntax error near `|`\n", 2), 0);
+				return (ft_putendl_fd("Syntax error near `|`", STDERR_FILENO), 0);
 		}
 		if (node->type == TOK_REDIR_OUT)
 		{
 			if (is_tok_last(node) || is_tok_consecutive(node))
-				return (ft_putstr_fd("Syntax error near `>`\n", 2), 0);
+				return (ft_putendl_fd("Syntax error near `>`", STDERR_FILENO), 0);
 		}
 		if (node->type == TOK_APPEND)
 		{
 			if (is_tok_last(node) || is_tok_consecutive(node))
-				return (ft_putstr_fd("Syntax error near `>>`\n", 2), 0);
+				return (ft_putendl_fd("Syntax error near `>>`", STDERR_FILENO), 0);
 		}
 		if (node->type == TOK_REDIR_IN)
 		{
 			if (is_tok_last(node) || is_tok_consecutive(node))
-				return (ft_putstr_fd("Syntax error near `<`\n", 2), 0);
+				return (ft_putendl_fd("Syntax error near `<`", STDERR_FILENO), 0);
 		}
 		if (node->type == TOK_HEREDOC)
 		{
 			if (is_tok_last(node) || is_tok_consecutive(node))
-				return (ft_putstr_fd("Syntax error near `<<`\n", 2), 0);
+				return (ft_putendl_fd("Syntax error near `<<`", STDERR_FILENO), 0);
 		}
 		node = node->next;
 	}

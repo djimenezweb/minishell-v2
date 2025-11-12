@@ -18,6 +18,8 @@
 - Execute command. If execve fails, print error and exit ¿? */
 void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 {
+	if (cmd->input == -1 || cmd->output == -1)
+		exit(EXIT_FAILURE);
 	redirect_in(temp_fd, cmd->input, is_first(cmd));
 	redirect_out(pipefd, cmd->output, is_last(cmd));
 	close_child_fds(temp_fd, pipefd, is_last(cmd));
