@@ -40,7 +40,7 @@ static void	cleanup_line(t_shell *data)
 }
 
 /* Free all allocated memory. Exits program if `exit_status`
-is `0` or `1` (`EXIT_SUCCESS` or `EXIT_FAILURE`) */
+is either `0` (`EXIT_SUCCESS`) or `1` (`EXIT_FAILURE`) */
 void	free_shell(t_shell *data, int exit_status)
 {
 	cleanup_line(data);
@@ -61,7 +61,8 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		shell_data.line = readline("$ ");
-		add_history(shell_data.line);
+		if (shell_data.line && *shell_data.line)
+			add_history(shell_data.line);
 		// Type `q` to exit (DEBUG ONLY)
 		if (shell_data.line[0] == 'q' && shell_data.line[1] == '\0')	// debug
 			free_shell(&shell_data, EXIT_SUCCESS);	// debug
@@ -70,6 +71,11 @@ int	main(int argc, char **argv, char **envp)
 		shell_data.lex_list = lexer(shell_data.line);
 		if (!shell_data.lex_list)
 			free_shell(&shell_data, EXIT_FAILURE);
+		if (shell_data.lex_list->type == TOK_EOF)
+		{
+			cleanup_line(&shell_data);
+			continue ;
+		}
 		if (!syntax_validation(shell_data.lex_list))
 			free_shell(&shell_data, EXIT_FAILURE);
 		print_lex_list(shell_data.lex_list); // debug

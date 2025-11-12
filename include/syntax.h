@@ -16,7 +16,9 @@
 # include "lexer.h"
 
 int	quote_validation(char *str);
-int	pipe_validation(t_lextoken *node);
+int	is_tok_last(t_lextoken *node);
+int	is_tok_first(t_lextoken *node);
+int	is_tok_consecutive(t_lextoken *node);
 int	syntax_validation(t_lextoken *node);
 
 #endif

@@ -16,7 +16,7 @@
 A syntax error occurs when: 
 - `|` is the first or the last node.
 - There are two consecutive `|` */
-int	pipe_validation(t_lextoken *node)
+/* int	pipe_validation(t_lextoken *node)
 {
 	if (!node->next || !node->prev)
 	{
@@ -29,16 +29,34 @@ int	pipe_validation(t_lextoken *node)
 		return (0);
 	}
 	return (1);
+} */
+
+/* Return `1` if node is the last one */
+int	is_tok_last(t_lextoken *node)
+{
+	if (node->next == NULL)
+		return (1);
+	if (node->next->type == TOK_EOF)
+		return (1);
+	return (0);
 }
 
-/* Return `1` if node passes redirection syntax validation.
-A syntax error occurs when: 
-- There are two consecutive `<` or `>` */
-// TODO ¿Cuáles son los requisitos?
-int	redir_validation(t_lextoken *node)
+/* Return `1` if node is the first one */
+int	is_tok_first(t_lextoken *node)
 {
-	(void)node;
-	return (1);
+	if (node->prev == NULL)
+		return (1);
+	return (0);
+}
+
+/* Return `1` if node is adjacent to a node of the same type */
+int	is_tok_consecutive(t_lextoken *node)
+{
+	if (node->next->type && (node->type == node->next->type))
+		return (1);
+	if (node->prev->type && (node->type == node->prev->type))
+		return (1);
+	return (0);
 }
 
 /* Return `1` if list passes syntax validation */
@@ -47,9 +65,30 @@ int	syntax_validation(t_lextoken *node)
 	while (node)
 	{
 		if (node->type == TOK_PIPE)
-			return (pipe_validation(node));
+		{
+			if (is_tok_first(node) || is_tok_last(node) || is_tok_consecutive(node))
+				return (ft_putstr_fd("Syntax error near `|`\n", 2), 0);
+		}
+		if (node->type == TOK_REDIR_OUT)
+		{
+			if (is_tok_last(node) || is_tok_consecutive(node))
+				return (ft_putstr_fd("Syntax error near `>`\n", 2), 0);
+		}
+		if (node->type == TOK_APPEND)
+		{
+			if (is_tok_last(node) || is_tok_consecutive(node))
+				return (ft_putstr_fd("Syntax error near `>>`\n", 2), 0);
+		}
 		if (node->type == TOK_REDIR_IN)
-			return (redir_validation(node));
+		{
+			if (is_tok_last(node) || is_tok_consecutive(node))
+				return (ft_putstr_fd("Syntax error near `<`\n", 2), 0);
+		}
+		if (node->type == TOK_HEREDOC)
+		{
+			if (is_tok_last(node) || is_tok_consecutive(node))
+				return (ft_putstr_fd("Syntax error near `<<`\n", 2), 0);
+		}
 		node = node->next;
 	}
 	return (1);
