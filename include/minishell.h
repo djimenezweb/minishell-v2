@@ -45,7 +45,7 @@ typedef struct s_shell
 	t_cmd		*cmd_list;
 }			t_shell;
 
-void	free_shell(t_shell *data);
+void	free_shell(t_shell *data, int exit_status);
 
 // DEBUG HELPERS (DELETE BEFORE EVALUATION)
 void	print_lex_list(t_lextoken *list);
