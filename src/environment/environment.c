@@ -60,7 +60,7 @@ void	set_name_value(t_env_var *node, char *str)
 	node->value = ft_substr(str, start, end);
 }
 
-/* Set default variable `PATH` if it's missing.
+/* Set default variables `PATH` and `PWD` if they are missing.
 TODO: Add other variables */
 int	set_default_env_vars(t_env_var **list)
 {
@@ -68,7 +68,14 @@ int	set_default_env_vars(t_env_var **list)
 
 	if (find_env_var(*list, "PATH") == NULL)
 	{
-		node = ft_new_node(DEFAULT_PATH);
+		node = ft_new_env(DEFAULT_PATH);
+		if (!node)
+			return (-1);
+		ft_env_addback(list, node);
+	}
+	if (find_env_var(*list, "PWD") == NULL)
+	{
+		node = ft_new_env_name_value("PWD", getcwd(NULL, 0));
 		if (!node)
 			return (-1);
 		ft_env_addback(list, node);
@@ -90,7 +97,7 @@ t_env_var	*set_env_vars(char *envp[])
 	list = NULL;
 	while (envp && *envp)
 	{
-		node = ft_new_node(*envp);
+		node = ft_new_env(*envp);
 		if (!node)
 			return (ft_envlist_clear(&list), NULL);
 		ft_env_addback(&list, node);

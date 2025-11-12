@@ -6,6 +6,7 @@ SRC			=	main.c debug_helpers.c\
 				environment/environment-list-utils.c\
 				environment/environment.c\
 				environment/environment-envp.c\
+				environment/environment-list-free.c\
 				execution/execution.c execution/execution-utils.c\
 				execution/paths.c execution/execution-child.c\
 				expander/expander.c\

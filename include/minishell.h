@@ -51,5 +51,6 @@ void	free_shell(t_shell *data, int exit_status);
 void	print_lex_list(t_lextoken *list);
 void	print_array_of_strings(char **arr);
 void	print_cmd_list(t_cmd *list);
+void	print_env_list(t_env_var *list);
 
 #endif
