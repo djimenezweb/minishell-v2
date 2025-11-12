@@ -16,7 +16,7 @@
 the same as the passed parameter `name` followed by `\0` */
 t_env_var	*find_env_var(t_env_var *list, char *name)
 {
-	size_t		len;
+	size_t	len;
 
 	len = ft_strlen(name);
 	while (list)
@@ -86,9 +86,6 @@ int	set_default_env_vars(t_env_var **list)
 /* Return a list of environment variables based on passed `envp`.
 If `envp` is missing, set default variables.
 Return `NULL` if memory allocation fails.*/
-// TODO ENRIQUE 1/11:
-// env_list_clear() returns void, sets lst NULL. 
-// Cause is malloc error, but when is called exit_fail later?
 t_env_var	*set_env_vars(char *envp[])
 {
 	t_env_var	*list;
