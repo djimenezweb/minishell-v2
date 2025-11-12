@@ -39,7 +39,7 @@ static void	cleanup_line(t_shell *data)
 	data->cmd_list = NULL;
 }
 
-/* Free all allocated memory. Exits program if `exit_status`
+/* Free all allocated memory. Exit program if `exit_status`
 is either `0` (`EXIT_SUCCESS`) or `1` (`EXIT_FAILURE`) */
 void	free_shell(t_shell *data, int exit_status)
 {
@@ -63,9 +63,8 @@ int	main(int argc, char **argv, char **envp)
 		shell_data.line = readline("$ ");
 		if (shell_data.line && *shell_data.line)
 			add_history(shell_data.line);
-		// Type `q` to exit (DEBUG ONLY)
-		if (shell_data.line[0] == 'q' && shell_data.line[1] == '\0')	// debug
-			free_shell(&shell_data, EXIT_SUCCESS);	// debug
+		if (shell_data.line[0] == 'q' && shell_data.line[1] == '\0') //! debug (Type `q` to exit)
+			free_shell(&shell_data, EXIT_SUCCESS); //! debug
 		if (!quote_validation(shell_data.line) || !expander(&shell_data.line, shell_data.env_list))
 			free_shell(&shell_data, EXIT_FAILURE);
 		shell_data.lex_list = lexer(shell_data.line);
@@ -78,7 +77,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (!syntax_validation(shell_data.lex_list))
 			free_shell(&shell_data, EXIT_FAILURE);
-		print_lex_list(shell_data.lex_list); // debug
+		print_lex_list(shell_data.lex_list); //! debug
 		shell_data.cmd_list = parser(shell_data.lex_list);
 		if (!shell_data.cmd_list)
 			free_shell(&shell_data, EXIT_FAILURE);
