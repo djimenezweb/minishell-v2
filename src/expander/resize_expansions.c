@@ -6,17 +6,18 @@
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 19:16:07 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/10 00:05:34 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/12 19:10:31 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	init_joined_vars(t_join *valgrind_wants_to_init)
+//Struct to keep in limit of lines and init dst as valgrind asks for
+static void	init_joined_vars(t_join *to_init)
 {
-	valgrind_wants_to_init->dst = NULL;
-	valgrind_wants_to_init->src = NULL;
-	valgrind_wants_to_init->len = 0;
+	to_init->dst = NULL;
+	to_init->src = NULL;
+	to_init->len = 0;
 }
 
 static void	set_len_in_loop_3(t_join *j, t_expansion_data *ed)
