@@ -15,10 +15,13 @@
 
 # include "lexer.h"
 
-int	quote_validation(char *str);
-int	is_tok_last(t_lextoken *node);
-int	is_tok_first(t_lextoken *node);
-int	is_tok_consecutive(t_lextoken *node);
-int	syntax_validation(t_lextoken *node);
+int		quote_validation(char *str);
+int		is_valid_heredoc(t_lextoken *node);
+int		is_valid_redin(t_lextoken *node);
+int		is_valid_append(t_lextoken *node);
+int		is_valid_redout(t_lextoken *node);
+int		is_valid_pipe(t_lextoken *node);
+void	print_syntax_error(char *str);
+int		syntax_validation(t_lextoken *node);
 
 #endif

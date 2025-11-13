@@ -12,65 +12,28 @@
 
 #include "minishell.h"
 
-/* Return `1` if node is the last one */
-int	is_tok_last(t_lextoken *node)
+void	print_syntax_error(char *str)
 {
-	if (node->next == NULL)
-		return (1);
-	if (node->next->type == TOK_EOF)
-		return (1);
-	return (0);
+	ft_putstr_fd("Syntax error near `", STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putendl_fd("`", STDERR_FILENO);
 }
 
-/* Return `1` if node is the first one */
-int	is_tok_first(t_lextoken *node)
-{
-	if (node->prev == NULL)
-		return (1);
-	return (0);
-}
-
-/* Return `1` if node is adjacent to a node of the same type */
-int	is_tok_consecutive(t_lextoken *node)
-{
-	if (node->next->type && (node->type == node->next->type))
-		return (1);
-	if (node->prev->type && (node->type == node->prev->type))
-		return (1);
-	return (0);
-}
-
-/* Return `1` if list passes syntax validation.
-On error print error message and return `0`. */
+/* Return `1` if list passes syntax validation, return `0` if it doesn't. */
 int	syntax_validation(t_lextoken *node)
 {
 	while (node)
 	{
-		if (node->type == TOK_PIPE)
-		{
-			if (is_tok_first(node) || is_tok_last(node) || is_tok_consecutive(node))
-				return (ft_putendl_fd("Syntax error near `|`", STDERR_FILENO), 0);
-		}
-		if (node->type == TOK_REDIR_OUT)
-		{
-			if (is_tok_last(node) || is_tok_consecutive(node))
-				return (ft_putendl_fd("Syntax error near `>`", STDERR_FILENO), 0);
-		}
-		if (node->type == TOK_APPEND)
-		{
-			if (is_tok_last(node) || is_tok_consecutive(node))
-				return (ft_putendl_fd("Syntax error near `>>`", STDERR_FILENO), 0);
-		}
-		if (node->type == TOK_REDIR_IN)
-		{
-			if (is_tok_last(node) || is_tok_consecutive(node))
-				return (ft_putendl_fd("Syntax error near `<`", STDERR_FILENO), 0);
-		}
-		if (node->type == TOK_HEREDOC)
-		{
-			if (is_tok_last(node) || is_tok_consecutive(node))
-				return (ft_putendl_fd("Syntax error near `<<`", STDERR_FILENO), 0);
-		}
+		if (node->type == TOK_PIPE && !is_valid_pipe(node))
+			return (0);
+		if (node->type == TOK_REDIR_OUT && !is_valid_redout(node))
+			return (0);
+		if (node->type == TOK_APPEND && !is_valid_append(node))
+			return (0);
+		if (node->type == TOK_REDIR_IN && !is_valid_redin(node))
+			return (0);
+		if (node->type == TOK_HEREDOC && !is_valid_heredoc(node))
+			return (0);
 		node = node->next;
 	}
 	return (1);

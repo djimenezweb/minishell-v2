@@ -22,6 +22,7 @@ SRC			=	main.c debug_helpers.c\
 				parser/parser_utils.c parser/open_files.c \
 				parser/parser-list-free-utils.c\
 				syntax/quote_validation.c\
+				syntax/is_valid_token.c\
 				syntax/syntax_validation.c
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 OBJS		= $(SRCS:.c=.o)
