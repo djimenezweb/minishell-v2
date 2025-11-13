@@ -15,8 +15,13 @@
 
 # include "lexer.h"
 
-int	quote_validation(char *str);
-int	pipe_validation(t_lextoken *node);
-int	syntax_validation(t_lextoken *node);
+int		quote_validation(char *str);
+int		is_valid_heredoc(t_lextoken *node);
+int		is_valid_redin(t_lextoken *node);
+int		is_valid_append(t_lextoken *node);
+int		is_valid_redout(t_lextoken *node);
+int		is_valid_pipe(t_lextoken *node);
+void	print_syntax_error(char *str);
+int		syntax_validation(t_lextoken *node);
 
 #endif

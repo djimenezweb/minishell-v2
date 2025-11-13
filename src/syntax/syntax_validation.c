@@ -12,44 +12,28 @@
 
 #include "minishell.h"
 
-/* Return `1` if node passes pipe syntax validation.
-A syntax error occurs when: 
-- `|` is the first or the last node.
-- There are two consecutive `|` */
-int	pipe_validation(t_lextoken *node)
+void	print_syntax_error(char *str)
 {
-	if (!node->next || !node->prev)
-	{
-		printf("Syntax error near `%c`\n", PIPE);
-		return (0);
-	}
-	if (node->next->type == TOK_PIPE || node->prev->type == TOK_PIPE)
-	{
-		printf("Syntax error near `%c`\n", PIPE);
-		return (0);
-	}
-	return (1);
+	ft_putstr_fd("Syntax error near `", STDERR_FILENO);
+	ft_putstr_fd(str, STDERR_FILENO);
+	ft_putendl_fd("`", STDERR_FILENO);
 }
 
-/* Return `1` if node passes redirection syntax validation.
-A syntax error occurs when: 
-- There are two consecutive `<` or `>` */
-// TODO ¿Cuáles son los requisitos?
-int	redir_validation(t_lextoken *node)
-{
-	(void)node;
-	return (1);
-}
-
-/* Return `1` if list passes syntax validation */
+/* Return `1` if list passes syntax validation, return `0` if it doesn't. */
 int	syntax_validation(t_lextoken *node)
 {
 	while (node)
 	{
-		if (node->type == TOK_PIPE)
-			return (pipe_validation(node));
-		if (node->type == TOK_REDIR_IN)
-			return (redir_validation(node));
+		if (node->type == TOK_PIPE && !is_valid_pipe(node))
+			return (0);
+		if (node->type == TOK_REDIR_OUT && !is_valid_redout(node))
+			return (0);
+		if (node->type == TOK_APPEND && !is_valid_append(node))
+			return (0);
+		if (node->type == TOK_REDIR_IN && !is_valid_redin(node))
+			return (0);
+		if (node->type == TOK_HEREDOC && !is_valid_heredoc(node))
+			return (0);
 		node = node->next;
 	}
 	return (1);

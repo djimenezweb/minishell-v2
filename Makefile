@@ -6,6 +6,7 @@ SRC			=	main.c debug_helpers.c\
 				environment/environment-list-utils.c\
 				environment/environment.c\
 				environment/environment-envp.c\
+				environment/environment-list-free.c\
 				execution/execution.c execution/execution-utils.c\
 				execution/paths.c execution/execution-child.c\
 				expander/expander.c\
@@ -21,6 +22,7 @@ SRC			=	main.c debug_helpers.c\
 				parser/parser_utils.c parser/open_files.c \
 				parser/parser-list-free-utils.c\
 				syntax/quote_validation.c\
+				syntax/is_valid_token.c\
 				syntax/syntax_validation.c
 SRCS		= $(addprefix $(SRC_PATH), $(SRC))
 OBJS		= $(SRCS:.c=.o)

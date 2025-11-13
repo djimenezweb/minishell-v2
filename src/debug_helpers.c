@@ -141,3 +141,15 @@ void	print_cmd_list(t_cmd *list)
 	}
 	printf("-- END COMMAND LIST --\n");
 }
+
+/* For debug purposes only */
+void	print_env_list(t_env_var *list)
+{
+	printf("-- START ENV VAR LIST --\n");
+	while (list)
+	{
+		printf("%s=%s\n", list->name, list->value);
+		list = list->next;
+	}
+	printf("-- END ENV VAR LIST --\n");
+}
