@@ -1,7 +1,8 @@
 NAME		= minishell
 CC			= cc
 CFLAGS		= -Wall -Werror -Wextra -ggdb
-SRC_PATH	= src/
+SRC_PATH	= src
+OBJ_PATH	= build
 SRC			=	main.c debug_helpers.c\
 				environment/environment-list-utils.c\
 				environment/environment.c\
@@ -24,53 +25,35 @@ SRC			=	main.c debug_helpers.c\
 				syntax/quote_validation.c\
 				syntax/is_valid_token.c\
 				syntax/syntax_validation.c
-SRCS		= $(addprefix $(SRC_PATH), $(SRC))
-OBJS		= $(SRCS:.c=.o)
+SRCS		= $(addprefix $(SRC_PATH)/, $(SRC))
+OBJS		= $(addprefix $(OBJ_PATH)/, $(SRC:.c=.o))
 INCLUDE		= -I./include -I./libft
+LDFLAGS		= libft/libft.a -lreadline -lhistory
 
-# Libft
-LIBFT_PATH	= libft
-LIBFT_NAME	= libft.a
-LIBFT		= $(LIBFT_PATH)/$(LIBFT_NAME)
-LIBFT_COMP	= $(LIBFT) -I./$(LIBFT_PATH)/
-
-all : $(LIBFT) $(NAME)
-	@echo "===          Done           ==="
-
-$(LIBFT) :
-	@echo "===      Making Libft       ==="
-	@$(MAKE) -sC $(LIBFT_PATH)
+all : $(NAME)
 
 $(NAME) : $(OBJS)
-	@echo "===        Compiling        ==="
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_COMP) -o $(NAME) -lreadline
+	@$(MAKE) -sC libft libft.a
+	@$(CC) $(OBJS) $(LDFLAGS) -o $(NAME)
 
-%.o : %.c
-	@$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDE)
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean :
-	@echo "===    Removing .o files    ==="
-	@rm -f $(OBJS)
-	@echo "=== Removing Libft .o files ==="
-	@$(MAKE) clean -sC $(LIBFT_PATH)
+	@rm -rf $(OBJ_PATH)
+	@$(MAKE) -sC libft clean
 
 fclean : clean
-	@echo "===   Removing executable   ==="
 	@rm -f $(NAME)
-	@echo "===     Removing Libft      ==="
-	@rm -f $(LIBFT)
+#	@$(MAKE) -sC libft fclean
 
 re : fclean all
-	@echo "===       Rebuilding        ==="
 
 run : all
-	@$(MAKE) clean
 	./$(NAME)
-
-debug : CFLAGS += -g -fsanitize=address
-debug : fclean $(LIBFT) $(NAME)
 
 valgrind : all
 	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-fds=yes ./$(NAME)
 
-.PHONY : all clean fclean re run debug valgrind
+.PHONY : all clean fclean re run valgrind
