@@ -11,46 +11,48 @@
 
 ### Simple Command & global variables
 
+If something crashes, select the "crash" flag. If something doesn't work, select the "incomplete work" flag.
+
 - [ ] Execute a simple command with an absolute path like `/bin/ls`, or any other command without any options.
 - [ ] How many global variables are used? Why? Ask the evaluated student to give you a concrete example of why it feels mandatory or logical.
 - [ ] Check the global variable. This global variable cannot provide any other information or data access than the number of a received signal.
 - [ ] Test an empty command.
 - [ ] Test only spaces or tabs.
-- [ ] If something crashes, select the "crash" flag.
-- [ ] If something doesn't work, select the "incomplete work" flag.
 
 ### Arguments
 
+If something crashes, select the "crash" flag. If something doesn't work, select the "incomplete work" flag.
+
 - [ ] Execute a simple command with an absolute path like `/bin/ls`, or any other command with arguments but without any quotes or double quotes.
 - [ ] Repeat multiple times with different commands and arguments.
-- [ ] If something crashes, select the "crash" flag.
-- [ ] If something doesn't work, select the "incomplete work" flag.
 
 ### echo
 
+If something crashes, select the "crash" flag. If something doesn't work, select the "incomplete work" flag.
+
 - [ ] Execute the `echo` command with or without arguments, or the `-n` option.
 - [ ] Repeat multiple times with different arguments.
-- [ ] If something crashes, select the "crash" flag.
-- [ ] If something doesn't work, select the "incomplete work" flag.
 
 ### exit
+
+If something crashes, select the "crash" flag. If something doesn't work, select the "incomplete work" flag.
 
 - [ ] Execute `exit` command with or without arguments.
 - [ ] Repeat multiple times with different arguments.
 - [ ] Don't forget to relaunch the minishell
-- [ ] If something crashes, select the "crash" flag.
-- [ ] If something doesn't work, select the "incomplete work" flag.
 
 ### Return value of a process
+
+If something crashes, select the "crash" flag. If something doesn't work, select the "incomplete work" flag.
 
 - [ ] Execute a simple command with an absolute path like `/bin/ls`, or any other command with arguments but without any quotes and double quotes. Then execute `echo $?`
 - [ ] Check the printed value. You can do the same in bash in order to compare the results.
 - [ ] Repeat multiple times with different commands and arguments. Try some wrong commands like `/bin/ls filethatdoesntexist`
 - [ ] Try anything like `expr $? + $?`
-- [ ] If something crashes, select the "crash" flag.
-- [ ] If something doesn't work, select the "incomplete work" flag.
 
 ### Signals
+
+If something crashes, select the "crash" flag. If something doesn't work, select the "incomplete work" flag.
 
 - [ ] `Ctrl`+`C` in an empty prompt should display a new line with a new prompt.
 - [ ] `Ctrl`+`\` in an empty prompt should not do anything.
@@ -63,16 +65,14 @@
 - [ ] Try `Ctrl`+`\` after running a blocking command like `cat` without arguments or `grep "something"`.
 - [ ] Try `Ctrl`+`D` after running a blocking command like `cat` without arguments or `grep "something"`.
 - [ ] Repeat multiple times using different commands.
-- [ ] If something crashes, select the "crash" flag.
-- [ ] If something doesn't work, select the "incomplete work" flag.
 
 ### Double Quotes
+
+If something crashes, select the "crash" flag. If something doesn't work, select the "incomplete work" flag.
 
 - [ ] Execute a simple command with arguments and, this time, use also double quotes (you should try to include whitespaces too).
 - [ ] Try a command like: `echo "cat lol.c | cat > lol.c"`
 - [ ] Try anything except `$`.
-- [ ] If something crashes, select the "crash" flag.
-- [ ] If something doesn't work, select the "incomplete work" flag.
 
 ### Single Quotes
 
