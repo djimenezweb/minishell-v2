@@ -14,7 +14,7 @@
 # define MINISHELL_H
 
 // Libft and our headers
-# include "libft.h"
+# include "../libft/libft.h"
 # include "macros.h"
 # include "environment.h"
 # include "lexer.h"
