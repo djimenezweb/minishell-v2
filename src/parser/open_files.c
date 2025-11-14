@@ -13,14 +13,6 @@
 #include "minishell.h"
 #include <errno.h>
 
-static void	printerror(char *str, int errnum)
-{
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd(str, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putendl_fd(strerror(errnum), STDERR_FILENO);
-}
-
 /* Return file descriptor of input or output file
 TODO: Check if path is file or directory, etc.?? */
 int	open_file(char *path, enum e_lex_type type)
@@ -39,13 +31,8 @@ int	open_infile(char *path)
 	int	fd;
 
 	fd = open(path, O_RDONLY);
-	if (fd == -1)
-	{
-		if (!access(path, F_OK) && access(path, R_OK) < 0)
-			printerror(path, EACCES);
-		else
-			printerror(path, ENOENT);
-	}
+	if (fd < 0)
+		perror(PERROR);
 	return (fd);
 }
 
@@ -60,12 +47,7 @@ int	open_outfile(char *path, enum e_lex_type type)
 	if (type == TOK_OUTFILE_APPEND)
 		flag = O_WRONLY | O_CREAT | O_APPEND;
 	fd = open(path, flag, 0644);
-	if (fd == -1)
-	{
-		if (!access(path, F_OK) && access(path, W_OK) < 0)
-			printerror(path, EACCES);
-		else
-			printerror(path, ENOENT);
-	}
+	if (fd < 0)
+		perror(PERROR);
 	return (fd);
 }
