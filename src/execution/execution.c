@@ -66,6 +66,13 @@ int	execute_cmd_list(t_cmd *cmd, char **envp)
 	pipefd[WRITE_END] = -1;
 	while (cmd)
 	{
+		if (cmd->is_builtin)
+		{
+			printf("%s is builtin\n", cmd->cmd[0]);
+			// TODO
+			cmd = cmd->next;
+			continue ;
+		}
 		if (!is_last(cmd) && (pipe(pipefd) < 0))
 			return (perror(PERROR), -1);
 		cmd->pid = fork();
@@ -91,7 +98,11 @@ int	wait_children(t_cmd *cmd)
 
 	while (cmd)
 	{
-		waitpid(cmd->pid, &status, 0);
+		if (cmd->is_builtin == 0)
+		{
+			if (waitpid(cmd->pid, &status, 0) < 0)
+				perror(PERROR);
+		}
 		cmd = cmd->next;
 	}
 	return (WEXITSTATUS(status));
@@ -109,7 +120,10 @@ void	execution(t_shell *data)
 	envp = get_envp(data->env_list);
 	while (cmd)
 	{
-		cmd->path = get_exec_path(cmd->cmd[0], paths);
+		if (is_builtin(cmd->cmd[0]))
+			cmd->is_builtin = 1;
+		else
+			cmd->path = get_exec_path(cmd->cmd[0], paths);
 		cmd = cmd->next;
 	}
 	execute_cmd_list(data->cmd_list, envp);
