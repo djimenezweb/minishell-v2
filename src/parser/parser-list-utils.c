@@ -52,6 +52,7 @@ t_cmd	*ft_new_cmdnode(void)
 		return (NULL);
 	node->cmd = NULL;
 	node->path = NULL;
+	node->is_builtin = 0;
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);
