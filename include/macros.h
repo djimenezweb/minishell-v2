@@ -17,6 +17,7 @@
 # define DOUBLE_QUOTE 34
 # define DOLLAR 36
 # define SINGLE_QUOTE 39
+# define SLASH 47
 # define LESS 60
 # define EQUALS 61
 # define GREATER 62
