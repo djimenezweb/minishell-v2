@@ -19,6 +19,7 @@ typedef struct s_cmd
 {
 	char			**cmd;
 	char			*path;
+	int				is_builtin;
 	int				input;
 	int				output;
 	pid_t			pid;
