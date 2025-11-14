@@ -15,7 +15,7 @@
 /* Child process:
 - Redirect input & output
 - Close unused fd
-- Execute command. If execve fails, print error and exit ¿? */
+- Execute command. If execve fails, print error and exit */
 void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 {
 	if (cmd->input == -1 || cmd->output == -1)
@@ -24,7 +24,7 @@ void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 	redirect_out(pipefd, cmd->output, is_last(cmd));
 	close_child_fds(temp_fd, pipefd, is_last(cmd));
 	execve(cmd->path, cmd->cmd, envp);
-	// TODO Mensaje error
+	perror(PERROR);
 	exit(EXIT_FAILURE);
 }
 
@@ -67,10 +67,11 @@ int	execute_cmd_list(t_cmd *cmd, char **envp)
 	while (cmd)
 	{
 		if (!is_last(cmd) && (pipe(pipefd) < 0))
-			return (-1);
+			return (perror(PERROR), -1);
 		cmd->pid = fork();
 		if (cmd->pid < 0)
 		{
+			perror(PERROR);
 			close_pipe(pipefd);
 			return (-1);
 		}
