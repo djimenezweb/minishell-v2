@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 19:52:08 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/10 13:22:21 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/16 16:26:47 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,43 @@ static void	reset_expansion_data(t_expansion_data *exp_data)
 	init_expansion_data(exp_data);
 }
 
+void	quote_chars_in_expanded_vars(char **str, t_protect_chars_status status)
+{
+	char	*ptr;
+
+	if (!*str)
+		return ;
+	if (status == PROTECT)
+	{
+		ptr = *str;
+		while (ptr)
+			swap_char_value(&ptr, DOUBLE_QUOTE, TEMP_DOUBLE_QUOTE);
+		ptr = *str;
+		while (ptr)
+			swap_char_value(&ptr, SINGLE_QUOTE, TEMP_SINGLE_QUOTE);
+	}
+	if (status == RESTORE)
+	{
+		ptr = *str;
+		while (ptr)
+			swap_char_value(&ptr, TEMP_DOUBLE_QUOTE, DOUBLE_QUOTE);
+		ptr = *str;
+		while (ptr)
+			swap_char_value(&ptr, TEMP_SINGLE_QUOTE, SINGLE_QUOTE);
+	}
+}
+
 int	expander(char **str, t_env_var *list)
 {
 	t_expansion_data	exp_data;
 	char				*new_str;
 
 	init_expansion_data(&exp_data);
+	protect_heredoc_delimiter(str, PROTECT, exp_data);
 	while (find_expansion(*str, &exp_data) && !exp_data.malloc_fail)
 	{
 		exp_data.expanded = get_env_value(list, exp_data.var_name);
+		quote_chars_in_expanded_vars(&exp_data.expanded, PROTECT);
 		new_str = resize_expansions(*str, &exp_data);
 		if (!new_str)
 		{
@@ -52,5 +80,6 @@ int	expander(char **str, t_env_var *list)
 	}
 	if (exp_data.malloc_fail)
 		return (0);
+	protect_heredoc_delimiter(str, RESTORE, exp_data);
 	return (1);
 }

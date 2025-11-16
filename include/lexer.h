@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 11:26:17 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/10 13:32:39 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/16 16:28:36 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ void		ft_lexlist_clear(t_lextoken **lst);
 int			is_in_set(char c, char *set);
 char		*parse_word(char *str, int *i);
 void		parse_word_types(t_lextoken *lst);
+void		remove_quotes(char *str);
 
 #endif

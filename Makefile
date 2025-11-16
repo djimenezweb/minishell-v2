@@ -10,14 +10,14 @@ SRC			=	main.c debug_helpers.c\
 				environment/environment-list-free.c\
 				execution/execution.c execution/execution-utils.c\
 				execution/paths.c execution/execution-child.c\
-				expander/expander.c\
+				expander/expander.c expander/escape_chars.c\
 				expander/find_expansion_and_get_data.c\
 				expander/resize_expansions.c\
 				expander/update_quote_flag.c\
 				expander/variable_name.c\
 				lexer/lexer.c lexer/lexer-list-utils.c\
 				lexer/lexer-word-utils.c\
-				lexer/lexer-word-types.c\
+				lexer/lexer-word-types.c lexer/remove_quotes.c\
 				parser/parser.c parser/parser-list-utils.c\
 				parser/set_words_per_cmd.c parser/add_to_cmd.c\
 				parser/parser_utils.c parser/open_files.c \

@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 11:58:50 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/01 18:40:34 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/16 16:29:40 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,11 @@ void	parse_word_types(t_lextoken *lst)
 		if (lst->type == TOK_PIPE)
 			update_command_status(&cmd_found, PIPE_FOUND);
 		if (lst->type == TOK_WORD)
+		{
 			define_word(lst, &cmd_found);
+			remove_quotes(lst->value);
+			quote_chars_in_expanded_vars(&lst->value, RESTORE);
+		}
 		lst = lst->next;
 	}
 }
