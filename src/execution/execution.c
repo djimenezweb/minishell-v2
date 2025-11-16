@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/16 19:05:40 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/16 19:28:42 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	execute_cmd_list(t_cmd *cmd, char **envp)
 		if (cmd->is_builtin)
 		{
 			printf("%s is builtin\n", cmd->cmd[0]);
+			call_to_builtins(cmd);
 			// TODO
 			cmd = cmd->next;
 			continue ;
