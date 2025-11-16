@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/10 12:15:46 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/16 19:05:40 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	execution(t_shell *data)
 	envp = get_envp(data->env_list);
 	while (cmd)
 	{
-		if (is_builtin(cmd->cmd[0]))
+		if (cmd->cmd[0] && is_builtin(cmd->cmd[0]))
 			cmd->is_builtin = 1;
 		else
 			cmd->path = get_exec_path(cmd->cmd[0], paths);

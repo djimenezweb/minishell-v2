@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:41:38 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/06 15:43:40 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/16 18:48:45 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	is_builtin(char *cmd)
 {
 	size_t	len;
 
+	printf("IS_BUILTIN: cmd is %s\n", cmd);//debug
 	len = ft_strlen(cmd);
 	if (len == 2 && !ft_strncmp("cd", cmd, len))
 		return (1);
