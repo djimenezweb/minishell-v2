@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 13:11:38 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/10 20:04:04 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/08 05:10:57 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include <fcntl.h>
 # include <stdarg.h>
 # include <stdint.h>
-#include "libft_for_minishell.h"
 
 typedef struct s_list
 {
@@ -89,5 +88,8 @@ ssize_t	ft_putnbr_r(int n);
 ssize_t	ft_putnbr_u_r(unsigned int n);
 ssize_t	ft_puthex_int_r(unsigned int num, char *base);
 ssize_t	ft_putptr_r(void *ptr);
+
+//Minishell -> parse
+void	free_strings_array(char **array);
 
 #endif

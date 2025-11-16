@@ -13,6 +13,11 @@
 #ifndef ENVIRONMENT_H
 # define ENVIRONMENT_H
 
+# include "minishell.h"
+
+# define DEFAULT_PATH \
+"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
 typedef struct s_env_var
 {
 	char				*name;
@@ -26,10 +31,12 @@ char		*get_env_value(t_env_var *list, char *name);
 void		set_name_value(t_env_var *node, char *str);
 int			set_default_env_vars(t_env_var **list);
 t_env_var	*set_env_vars(char *envp[]);
-
-t_env_var	*ft_new_node(char *str);
+t_env_var	*ft_new_env(char *str);
+t_env_var	*ft_new_env_name_value(char *name, char *value);
 void		ft_env_addback(t_env_var **lst, t_env_var *new);
 void		ft_envnode_free(t_env_var *node);
 void		ft_envlist_clear(t_env_var **lst);
+char		**get_envp(t_env_var *env_lst);
+int			ft_envlist_size(t_env_var *lst);
 
 #endif

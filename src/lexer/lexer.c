@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/25 19:41:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/09 18:35:32 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/01 18:40:45 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ t_lextoken	*ft_new_lex_token(t_lex_type type)
 	if (!node)
 		return (NULL);
 	node->type = type;
+	node->word_type = TOK_NULL;
 	node->value = NULL;
 	node->next = NULL;
 	node->prev = NULL;
@@ -101,7 +102,7 @@ t_lextoken	*lexer(char *str)
 	while (str[i])
 	{
 		skip_spaces(str, &i);
-		if (str[i] == PIPE | str[i] == LESS | str[i] == GREATER)
+		if (str[i] == PIPE || str[i] == LESS || str[i] == GREATER)
 			node = ft_new_operator_token(str[i], str[i + 1], &i);
 		else
 			node = ft_new_word_token(str, &i);
@@ -110,5 +111,6 @@ t_lextoken	*lexer(char *str)
 		ft_lexlist_add(&list, node);
 	}
 	ft_lexlist_add(&list, ft_new_lex_token(TOK_EOF));
+	parse_word_types(list);
 	return (list);
 }

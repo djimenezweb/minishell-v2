@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/26 20:27:17 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/10 13:04:18 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 # define MINISHELL_H
 
 // Libft and our headers
-# include "libft.h"
+# include "../libft/libft.h"
 # include "macros.h"
 # include "environment.h"
-# include "expander.h"
 # include "lexer.h"
+# include "expander.h"
 # include "syntax.h"
+# include "parser.h"
+# include "execution.h"
 
 // malloc, free
 # include <stdlib.h>
@@ -39,13 +41,16 @@ typedef struct s_shell
 	char		*line;
 	t_lextoken	*lex_list;
 	t_env_var	*env_list;
-	//exit or execution status. Should exist after exit minisshell, 
-	//isn't it? How we do this?
+	//Should include here exit status, updated after every execution
+	t_cmd		*cmd_list;
 }			t_shell;
 
-void	free_shell(t_shell *data);
-// DEBUG HELPERS
+void	free_shell(t_shell *data, int exit_status);
+
+// DEBUG HELPERS (DELETE BEFORE EVALUATION)
 void	print_lex_list(t_lextoken *list);
 void	print_array_of_strings(char **arr);
+void	print_cmd_list(t_cmd *list);
+void	print_env_list(t_env_var *list);
 
 #endif

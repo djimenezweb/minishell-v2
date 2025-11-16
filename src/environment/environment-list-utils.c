@@ -12,10 +12,23 @@
 
 #include "minishell.h"
 
+/* Allocate memory for a new `t_env_var` node based
+on the passed parameters `name` and `value`. */
+t_env_var	*ft_new_env_name_value(char *name, char *value)
+{
+	char		*str;
+	t_env_var	*node;
+
+	str = ft_strjoin(name, "=");
+	str = ft_strjoin(str, value);
+	node = ft_new_env(str);
+	return (node);
+}
+
 /* Allocate memory for a new `t_env_var` node and return it.
 Initalize `name` and `value` variables based on the passed parameter `str`.
-The variables `next` and `prev` are initialized to `NULL`. */
-t_env_var	*ft_new_node(char *str)
+The string `str` must be formatted as `NAME=VALUE`. */
+t_env_var	*ft_new_env(char *str)
 {
 	t_env_var	*node;
 
@@ -25,6 +38,8 @@ t_env_var	*ft_new_node(char *str)
 	if (!node)
 		return (NULL);
 	set_name_value(node, str);
+	if (!node->name || !node->value)
+		return (NULL);
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);
@@ -47,40 +62,16 @@ void	ft_env_addback(t_env_var **lst, t_env_var *new)
 	}
 }
 
-/* Free the content of a node and the node itself */
-void	ft_envnode_free(t_env_var *node)
+/* Return size of a list of env variables */
+int	ft_envlist_size(t_env_var *lst)
 {
-	if (node->value)
-	{
-		free(node->value);
-		node->value = NULL;
-	}
-	if (node->name)
-	{
-		free(node->name);
-		node->value = NULL;
-	}
-	node->next = NULL;
-	node->prev = NULL;
-	free(node);
-	node = NULL;
-}
+	int	size;
 
-/* Delete and free the given node and all its successors.
-Set the list pointer to `NULL`.*/
-void	ft_envlist_clear(t_env_var **lst)
-{
-	t_env_var	*current;
-	t_env_var	*next;
-
-	if (!lst)
-		return ;
-	current = *lst;
-	while (current)
+	size = 0;
+	while (lst)
 	{
-		next = current->next;
-		ft_envnode_free(current);
-		current = next;
+		size++;
+		lst = lst->next;
 	}
-	*lst = NULL;
+	return (size);
 }

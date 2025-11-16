@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   syntax.h                                           :+:      :+:    :+:   */
+/*   execution-utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/21 10:38:39 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/21 11:29:31 by danielji         ###   ########.fr       */
+/*   Created: 2025/11/10 18:08:09 by danielji          #+#    #+#             */
+/*   Updated: 2025/11/10 18:08:09 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SYNTAX_H
-# define SYNTAX_H
+#include "minishell.h"
 
-# include "lexer.h"
+void	close_pipe(int pipefd[2])
+{
+	close(pipefd[READ_END]);
+	close(pipefd[WRITE_END]);
+}
 
-int		quote_validation(char *str);
-int		is_valid_heredoc(t_lextoken *node);
-int		is_valid_redin(t_lextoken *node);
-int		is_valid_append(t_lextoken *node);
-int		is_valid_redout(t_lextoken *node);
-int		is_valid_pipe(t_lextoken *node);
-void	print_syntax_error(char *str);
-int		syntax_validation(t_lextoken *node);
+int	is_last(t_cmd *cmd)
+{
+	if (cmd->next == NULL)
+		return (1);
+	return (0);
+}
 
-#endif
+int	is_first(t_cmd *cmd)
+{
+	if (cmd->prev == NULL)
+		return (1);
+	return (0);
+}

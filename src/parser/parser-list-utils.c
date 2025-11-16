@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer-list-utils.c                                 :+:      :+:    :+:   */
+/*   parser-list-utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/26 11:24:38 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/09 22:23:03 by enrgil-p         ###   ########.fr       */
+/*   Created: 2025/10/23 10:03:00 by danielji          #+#    #+#             */
+/*   Updated: 2025/11/09 23:17:13 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /* Add the node `new` after the node `prev` */
-void	ft_lexlist_insert(t_lextoken *prev, t_lextoken *new)
+void	ft_cmdlist_insert(t_cmd *prev, t_cmd *new)
 {
-	t_lextoken	*temp;
+	t_cmd	*temp;
 
 	temp = prev->next;
 	prev->next = new;
@@ -25,9 +25,9 @@ void	ft_lexlist_insert(t_lextoken *prev, t_lextoken *new)
 
 /* Add the node `new` at the beginning of the list `lst`
 if it's empty or at the end of the list */
-void	ft_lexlist_add(t_lextoken **lst, t_lextoken *new)
+void	ft_cmdlist_add(t_cmd **lst, t_cmd *new)
 {
-	t_lextoken	*last;
+	t_cmd	*last;
 
 	if (*lst == NULL)
 		*lst = new;
@@ -41,34 +41,33 @@ void	ft_lexlist_add(t_lextoken **lst, t_lextoken *new)
 	}
 }
 
-/* Take a node as parameter and free its content.
-Free the node but do NOT free the next node. */
-void	ft_lexnode_free(t_lextoken *node)
+/* Allocate memory for a new node and return it. */
+t_cmd	*ft_new_cmdnode(void)
 {
-	if (node->value)
-	{
-		free(node->value);
-		node->value = NULL;
-	}
-	free(node);
+	t_cmd	*node;
+
 	node = NULL;
+	node = (t_cmd *)malloc(sizeof(t_cmd));
+	if (!node)
+		return (NULL);
+	node->cmd = NULL;
+	node->path = NULL;
+	node->is_builtin = 0;
+	node->next = NULL;
+	node->prev = NULL;
+	return (node);
 }
 
-/* Delete and free the given node and all its successors.
-Finally, set the pointer to the list to `NULL`.*/
-void	ft_lexlist_clear(t_lextoken **lst)
+/* Return size of a command list */
+int	ft_cmdlist_size(t_cmd *lst)
 {
-	t_lextoken	*current;
-	t_lextoken	*next;
+	int	size;
 
-	if (!lst)
-		return ;
-	current = *lst;
-	while (current)
+	size = 0;
+	while (lst)
 	{
-		next = current->next;
-		ft_lexnode_free(current);
-		current = next;
+		size++;
+		lst = lst->next;
 	}
-	*lst = NULL;
+	return (size);
 }
