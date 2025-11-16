@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/10 13:18:20 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/16 15:02:00 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 static void	init_shell(t_shell *data, int argc, char **argv, char **envp)
 {
 	if (argc > 1)
-		exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);//This exit could return a message
+				   //of Expected usage
 	(void)argv;
 	data->line = NULL;
 	data->lex_list = NULL;
