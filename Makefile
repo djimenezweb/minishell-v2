@@ -12,7 +12,7 @@ SRC			=	main.c debug_helpers.c\
 				expander/variable_name.c\
 				lexer/lexer.c lexer/lexer-list-utils.c\
 				lexer/lexer-word-utils.c\
-				lexer/lexer-word-types.c\
+				lexer/lexer-word-types.c lexer/remove_quotes.c\
 				parser/parser.c parser/parser-list-utils.c\
 				parser/set_words_per_cmd.c  parser/add_to_cmd.c\
 				parser/parser_utils.c\
