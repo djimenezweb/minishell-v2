@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 19:52:08 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/12 20:34:06 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/16 15:17:05 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	expander(char **str, t_env_var *list)
 	{
 		exp_data.expanded = get_env_value(list, exp_data.var_name);
 		quote_chars_in_expanded_vars(&exp_data.expanded, PROTECT);
+		quote_chars_in_expanded_vars(&exp_data.expanded, RESTORE);//This does not go here, is for test
 		new_str = resize_expansions(*str, &exp_data);
 		if (!new_str)
 		{
