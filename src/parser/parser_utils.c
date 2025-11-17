@@ -20,22 +20,6 @@ int	is_cmd_or_arg(t_lextoken *lex_node)
 	return (0);
 }
 
-void	assign_fd(t_lextoken *lst, t_cmd *node)
-{
-	if (is_infile(lst))
-	{
-		if (node->input != STDIN_FILENO)
-			close(node->input);
-		node->input = open_file(lst->value, lst->word_type);
-	}
-	if (is_outfile(lst))
-	{
-		if (node->output != STDOUT_FILENO)
-			close(node->output);
-		node->output = open_file(lst->value, lst->word_type);
-	}
-}
-
 int	is_infile(t_lextoken *lex_node)
 {
 	if (lex_node->type == TOK_WORD && lex_node->word_type == TOK_INFILE)

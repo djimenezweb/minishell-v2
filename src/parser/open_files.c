@@ -13,19 +13,27 @@
 #include "minishell.h"
 #include <errno.h>
 
-/* Return file descriptor of input or output file
-TODO: Check if path is file or directory, etc.?? */
-int	open_file(char *path, enum e_lex_type type)
+/* Open file and assign fd to nodes of type `TOK_INFILE`,`TOK_OUTFILE_CREATE`
+or `TOK_OUTFILE_APPEND` */
+void	assign_fd(t_lextoken *lst, t_cmd *node)
 {
-	if (type == TOK_INFILE)
-		return (open_infile(path));
-	else if (type == TOK_OUTFILE_CREATE || type == TOK_OUTFILE_APPEND)
-		return (open_outfile(path, type));
-	return (-1);
+	if (is_infile(lst))
+	{
+		if (node->input != STDIN_FILENO)
+			close(node->input);
+		node->input = open_infile(lst->value);
+	}
+	if (is_outfile(lst))
+	{
+		if (node->output != STDOUT_FILENO)
+			close(node->output);
+		node->output = open_outfile(lst->value, lst->word_type);
+	}
 }
 
 /* Open file in read-only and return its `fd`.
-On error print a warning and return the `fd`. */
+On error print a warning and return the `fd`.
+TODO: Check if path is file or directory, etc.?? */
 int	open_infile(char *path)
 {
 	int	fd;
@@ -37,7 +45,8 @@ int	open_infile(char *path)
 }
 
 /* Open file for writing and return its `fd`.
-On error print a warning and return the `fd`. */
+On error print a warning and return the `fd`. 
+TODO: Check if path is file or directory, etc.?? */
 int	open_outfile(char *path, enum e_lex_type type)
 {
 	int	fd;
