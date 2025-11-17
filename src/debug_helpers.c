@@ -133,10 +133,17 @@ void	print_cmd_list(t_cmd *list)
 	printf("-- START COMMAND LIST --\n");
 	while (list)
 	{
-		printf("Command: %s\n", list->cmd[0]);
-		printf("Path:    %s\n", list->path);
-		printf("Input:   %i\n", list->input);
-		printf("Output:  %i\n", list->output);
+		printf("Command:    %s, %s\n", list->cmd[0], list->cmd[1]);
+		printf("Path:       %s\n", list->path);
+		printf("Builtin?:   %i\n", list->is_builtin);
+		printf("Input:      %i\n", list->input);
+		printf("Output:     %i\n", list->output);
+		printf("Heredoc?:   %i\n", list->is_heredoc);
+		if (list->delimiters)
+			printf("Delimiters: %s, %s\n", list->delimiters[0], list->delimiters[1]);
+		printf("pid:        %i\n", list->pid);
+		printf("next:       %p\n", list->next);
+		printf("prev:       %p\n", list->prev);
 		list = list->next;
 	}
 	printf("-- END COMMAND LIST --\n");

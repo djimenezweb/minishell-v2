@@ -26,6 +26,11 @@ void	ft_cmdnode_free(t_cmd *node)
 		free(node->path);
 		node->path = NULL;
 	}
+	if (node->delimiters)
+	{
+		free_strings_array(node->delimiters);
+		node->delimiters = NULL;
+	}
 	free(node);
 	node = NULL;
 }

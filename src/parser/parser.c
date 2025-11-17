@@ -31,10 +31,6 @@ static int	new_cmd(t_cmd **list, t_cmd **last, t_parser_data *data)
 	node = ft_new_cmdnode();
 	if (!node || !malloc_cmd_and_args(node, data))
 		return (0);
-	node->path = NULL;
-	node->input = STDIN_FILENO;
-	node->output = STDOUT_FILENO;
-	node->pid = -1;
 	ft_cmdlist_add(list, node);
 	*last = node;
 	if (data->current_cmd < data->num_cmds)
@@ -42,6 +38,32 @@ static int	new_cmd(t_cmd **list, t_cmd **last, t_parser_data *data)
 				    //later. In that case, reset to 0 after all
 	data->current_word = 0;
 	return (1);
+}
+
+char	**append(char **arr, char *str)
+{
+	int		i;
+	int		size;
+	char	**new_arr;
+
+	if (!str)
+		return (arr);
+	i = 0;
+	size = 0;
+	while (arr && arr[size])
+		size++;
+	new_arr = malloc((size + 2) * sizeof(char *));
+	if (!new_arr)
+		return (NULL);
+	while(i < size)
+	{
+		new_arr[i] = arr[i];
+		i++;
+	}
+	new_arr[size] = str;
+	new_arr[size + 1] = NULL;
+	free(arr);
+	return (new_arr);
 }
 
 /* Parse a `t_lextoken` list into a `t_cmd` list
@@ -76,6 +98,11 @@ t_cmd	*parser(t_lextoken *lst)
 				free(parser_data.words_per_cmd), NULL);
 		if (is_infile(lst) || is_outfile(lst))
 			assign_fd(lst, last_node);
+		if (lst->type == TOK_WORD && lst->word_type == TOK_DELIMITER)
+		{
+			last_node->is_heredoc = 1;
+			last_node->delimiters = append(last_node->delimiters, lst->value);
+		}
 		lst = lst->next;
 	}
 	free(parser_data.words_per_cmd);

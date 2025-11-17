@@ -22,6 +22,8 @@ typedef struct s_cmd
 	int				is_builtin;
 	int				input;
 	int				output;
+	int				is_heredoc;
+	char			**delimiters;
 	pid_t			pid;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;//ENRIQUE 1/11: Do we still need this?
