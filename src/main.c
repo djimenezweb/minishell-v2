@@ -15,8 +15,10 @@
 static void	init_shell(t_shell *data, int argc, char **argv, char **envp)
 {
 	if (argc > 1)
-		exit(EXIT_FAILURE);//This exit could return a message
-				   //of Expected usage
+	{
+		ft_putendl_fd("Run ./minishell without arguments", STDERR_FILENO);
+		exit(EXIT_FAILURE);
+	}
 	(void)argv;
 	data->line = NULL;
 	data->lex_list = NULL;
