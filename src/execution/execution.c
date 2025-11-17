@@ -69,7 +69,6 @@ int	execute_cmd_list(t_cmd *cmd, char **envp)
 		if (cmd->is_builtin)
 		{
 			printf("%s is builtin\n", cmd->cmd[0]);
-			call_to_builtins(cmd);
 			// TODO
 			cmd = cmd->next;
 			continue ;

@@ -32,14 +32,6 @@ char	**get_path_dirs(t_env_var *env_list)
 	return (paths);
 }
 
-/* Add a `/` to the beginning of a string `str` if it's missing. */
-/* static char	*add_slash(char *str)
-{
-	if (ft_strnstr(str, "/", 1))
-		return (ft_strdup(str));
-	return (ft_strjoin("/", str));
-} */
-
 /* Return the first valid executable path of `cmd` in `paths` directories.
 Return `cmd` if it contains a `/` or if `paths` is empty.
 If not a valid command, return `NULL` */
@@ -71,7 +63,6 @@ int	is_builtin(char *cmd)
 {
 	size_t	len;
 
-	printf("IS_BUILTIN: cmd is %s\n", cmd);//debug
 	len = ft_strlen(cmd);
 	if (len == 2 && !ft_strncmp("cd", cmd, len))
 		return (1);
