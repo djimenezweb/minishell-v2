@@ -19,9 +19,11 @@ t_env_var	*ft_new_env_name_value(char *name, char *value)
 	char		*str;
 	t_env_var	*node;
 
-	str = ft_strjoin(name, "=");
-	str = ft_strjoin(str, value);
+	str = ft_strjoin3(name, "=", value);
+	if (!str)
+		return (NULL);
 	node = ft_new_env(str);
+	free(str);
 	return (node);
 }
 
