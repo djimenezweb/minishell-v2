@@ -35,7 +35,7 @@ typedef struct s_parser_data
 	int	current_word;
 }	t_parser_data;
 
-t_cmd	*parser(t_lextoken *lex_list);
+t_cmd	*parser(t_lextoken *lst);
 void	ft_cmdlist_insert(t_cmd *prev, t_cmd *new);
 void	ft_cmdlist_add(t_cmd **lst, t_cmd *new);
 void	ft_cmdnode_free(t_cmd *node);
@@ -45,6 +45,7 @@ t_cmd	*ft_new_cmdnode(void);
 int		set_words_per_cmd(t_parser_data *data, t_lextoken *lex_list);
 int		add_to_cmd(t_lextoken *lexer, t_cmd *node, t_parser_data *data);
 int		is_cmd_or_arg(t_lextoken *lex_node);
+void	assign_fd(t_lextoken *lst, t_cmd *node);
 int		is_infile(t_lextoken *lex_node);
 int		is_outfile(t_lextoken *lex_node);
 int		open_file(char *path, enum e_lex_type type);

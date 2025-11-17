@@ -16,13 +16,9 @@
 Free the node but do NOT free the next node. */
 void	ft_cmdnode_free(t_cmd *node)
 {
-	//printf("cmd node to free is %p, cmd is %p, arg 0 == %s\n", node, node->cmd, node->cmd[0]);//debug
 	if (node->cmd)
 	{
-		//printf("Free strings array after this line\n");//debug
-		free_strings_array(node->cmd);//Added by Enrique, in libft
-		//printf("Free strings array done\n");//debug
-		//free(node->cmd);//Not needed at hte end, is it?
+		free_strings_array(node->cmd);
 		node->cmd = NULL;
 	}
 	if (node->path)
@@ -41,14 +37,11 @@ void	ft_cmdlist_clear(t_cmd **lst)
 	t_cmd	*current;
 	t_cmd	*next;
 
-	//printf("cmd list to free is %p, cmd is %p, arg 0 == %s\n", *lst, (*lst)->cmd,(*lst)->cmd[0]);//debug
 	if (!lst)
 		return ;
 	current = *lst;
 	while (current)
 	{
-		//printf("current to free is %p\n", current);//debug
-		//printf("cmd current to free is %p, cmd is %p, arg 0 == %s\n", current, current->cmd, current->cmd[0]);//debug
 		next = current->next;
 		ft_cmdnode_free(current);
 		current = next;

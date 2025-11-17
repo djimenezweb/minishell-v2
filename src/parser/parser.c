@@ -29,7 +29,6 @@ static int	new_cmd(t_cmd **list, t_cmd **last, t_parser_data *data)
 
 	node = NULL;
 	node = ft_new_cmdnode();
-	//printf("Node malloc is %p\n", node);//debug
 	if (!node || !malloc_cmd_and_args(node, data))
 		return (0);
 	node->path = NULL;
@@ -45,56 +44,41 @@ static int	new_cmd(t_cmd **list, t_cmd **last, t_parser_data *data)
 	return (1);
 }
 
-/* Parse a `t_lextoken` list into a `t_cmd` list */
-//
-/*	1) Count process by pipes, and counts how many words fro cmd and args 
- *		have anyone. A process could have no cmd, and could be correct.
- *		See the case: ls | <infile | echo "Hi"
- *	2) Malloc process by process space to store (cmd || arg) in **cmd
- *	3) If we find a pipe, we change to next process, creating a new node
- *	and repeating the process*/
-t_cmd	*parser(t_lextoken *lex_list)
+/* Parse a `t_lextoken` list into a `t_cmd` list
+1) Count process by pipes, and counts how many words from `cmd` and `args`
+   have anyone. A process could have no cmd, and could be correct.
+   See the case: ls | <infile | echo "Hi"
+2) Malloc process by process space to store (cmd || arg) in **cmd
+3) If we find a pipe, we change to next process, creating a new node
+   and repeating the process
+
+"Above is antoher option to execute this function."
+For more information, go to add_to_cmd() scope
+We have to choose one of these, then remove the other */
+t_cmd	*parser(t_lextoken *lst)
 {
 	t_cmd			*last_node;
 	t_cmd			*cmd_list;
-	t_lextoken		*current;
 	t_parser_data	parser_data;
 
-	//printf("\tENTERED IN PARSER\n");//debug
 	last_node = NULL;
 	cmd_list = NULL;
-	if (!set_words_per_cmd(&parser_data, lex_list))
+	if (!set_words_per_cmd(&parser_data, lst))
 		return (NULL);
-	current = lex_list;
-	while (current && current->type != TOK_EOF)
+	while (lst && lst->type != TOK_EOF)
 	{
-		if ((!cmd_list || current->type == TOK_PIPE)
+		if ((!cmd_list || lst->type == TOK_PIPE)
 			&& (!new_cmd(&cmd_list, &last_node, &parser_data)))
 			return (ft_cmdlist_clear(&cmd_list),
 				free(parser_data.words_per_cmd), NULL);
-		if (is_cmd_or_arg(current) && !add_to_cmd(current, last_node, &parser_data))
-				return (ft_cmdlist_clear(&cmd_list),
-					free(parser_data.words_per_cmd), NULL);
-			//"Above is antoher option to execute this function."
-			//	For more information, go to add_to_cmd() scope
-			//We have to choose one of these, then remove the other
-		if (is_infile(current))
-		{
-			if (last_node->input != STDIN_FILENO)
-				close(last_node->input);
-				//Protect in case of error
-			last_node->input = open_file(current->value, current->word_type);
-		}
-		if (is_outfile(current))
-		{
-			if (last_node->output != STDOUT_FILENO)
-				close(last_node->output);
-				//Protect in case of error
-			last_node->output = open_file(current->value, current->word_type);
-		}
-		current = current->next;
+		if (is_cmd_or_arg(lst) && !add_to_cmd(lst, last_node, &parser_data))
+			return (ft_cmdlist_clear(&cmd_list),
+				free(parser_data.words_per_cmd), NULL);
+		if (is_infile(lst) || is_outfile(lst))
+			assign_fd(lst, last_node);
+		lst = lst->next;
 	}
 	free(parser_data.words_per_cmd);
-	//print_cmd_list(cmd_list); //debug
+	//! print_cmd_list(cmd_list); //debug
 	return (cmd_list);
 }
