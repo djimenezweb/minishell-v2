@@ -157,7 +157,7 @@ void	execution(t_shell *data)
 	int		status;
 
 	cmd = data->cmd_list;
-	print_cmd_list(cmd); //!debug
+	//!print_cmd_list(cmd); //!debug
 	paths = get_path_dirs(data->env_list);
 	envp = get_envp(data->env_list);
 	while (cmd)
