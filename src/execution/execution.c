@@ -24,7 +24,7 @@ void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 	redirect_out(pipefd, cmd->output, is_last(cmd));
 	close_child_fds(temp_fd, pipefd, is_last(cmd));
 	execve(cmd->path, cmd->cmd, envp);
-	perror(PERROR);
+	perror("execve");
 	exit(EXIT_FAILURE);
 }
 
@@ -37,18 +37,18 @@ void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2])
 {
 	if (*temp_fd != -1)
-		close(*temp_fd);
+		safe_close(*temp_fd);
 	if (!is_last(cmd))
 	{
 		*temp_fd = pipefd[READ_END];
-		close(pipefd[WRITE_END]);
+		safe_close(pipefd[WRITE_END]);
 	}
 	else
 		*temp_fd = -1;
 	if (cmd->input != STDIN_FILENO)
-		close(cmd->input);
+		safe_close(cmd->input);
 	if (cmd->output != STDOUT_FILENO)
-		close(cmd->output);
+		safe_close(cmd->output);
 }
 
 /* Initialize everything to `-1` to prevent bad `close` or `dup2` calls.
@@ -74,11 +74,11 @@ int	execute_cmd_list(t_cmd *cmd, char **envp)
 			continue ;
 		}
 		if (!is_last(cmd) && (pipe(pipefd) < 0))
-			return (perror(PERROR), -1);
+			return (perror("pipe"), -1);
 		cmd->pid = fork();
 		if (cmd->pid < 0)
 		{
-			perror(PERROR);
+			perror("fork");
 			close_pipe(pipefd);
 			return (-1);
 		}
@@ -101,7 +101,7 @@ int	wait_children(t_cmd *cmd)
 		if (cmd->is_builtin == 0)
 		{
 			if (waitpid(cmd->pid, &status, 0) < 0)
-				perror(PERROR);
+				perror("waitpid");
 		}
 		cmd = cmd->next;
 	}

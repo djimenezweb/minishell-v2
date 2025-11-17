@@ -24,19 +24,21 @@
 typedef struct s_shell	t_shell;
 typedef struct s_cmd	t_cmd;
 
+void	execution(t_shell *data);
+int		execute_cmd_list(t_cmd *cmd, char **envp);
+void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2]);
+void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp);
+int		wait_children(t_cmd *cmd);
 char	**get_path_dirs(t_env_var *env_list);
 char	*get_exec_path(char *cmd, char **paths);
 int		is_builtin(char *cmd);
+void	safe_dup2(int oldfd, int newfd);
+void	safe_close(int fd);
+void	close_child_fds(int temp_fd, int pipefd[2], int last);
+void	redirect_in(int temp_fd, int input, int first);
+void	redirect_out(int pipefd[2], int output, int last);
 void	close_pipe(int pipefd[2]);
 int		is_last(t_cmd *cmd);
 int		is_first(t_cmd *cmd);
-void	redirect_in(int temp_fd, int input, int first);
-void	redirect_out(int pipefd[2], int output, int last);
-void	close_child_fds(int temp_fd, int pipefd[2], int last);
-void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp);
-void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2]);
-int		execute_cmd_list(t_cmd *cmd, char **envp);
-void	execution(t_shell *data);
-int		wait_children(t_cmd *cmd);
 
 #endif

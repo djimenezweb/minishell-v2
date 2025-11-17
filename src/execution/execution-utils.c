@@ -14,8 +14,8 @@
 
 void	close_pipe(int pipefd[2])
 {
-	close(pipefd[READ_END]);
-	close(pipefd[WRITE_END]);
+	safe_close(pipefd[READ_END]);
+	safe_close(pipefd[WRITE_END]);
 }
 
 int	is_last(t_cmd *cmd)

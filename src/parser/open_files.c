@@ -32,7 +32,7 @@ int	open_infile(char *path)
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		perror(PERROR);
+		perror("open");
 	return (fd);
 }
 
@@ -48,6 +48,6 @@ int	open_outfile(char *path, enum e_lex_type type)
 		flag = O_WRONLY | O_CREAT | O_APPEND;
 	fd = open(path, flag, 0644);
 	if (fd < 0)
-		perror(PERROR);
+		perror("open");
 	return (fd);
 }
