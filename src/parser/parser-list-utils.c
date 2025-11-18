@@ -58,6 +58,7 @@ t_cmd	*ft_new_cmdnode(void)
 	node->is_builtin = 0;
 	node->is_heredoc = 0;
 	node->delimiters = NULL;
+	node->env_list = NULL;
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);

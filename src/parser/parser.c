@@ -55,7 +55,7 @@ char	**append(char **arr, char *str)
 	new_arr = malloc((size + 2) * sizeof(char *));
 	if (!new_arr)
 		return (NULL);
-	while(i < size)
+	while (i < size)
 	{
 		new_arr[i] = arr[i];
 		i++;

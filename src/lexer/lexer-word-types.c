@@ -58,7 +58,8 @@ void	parse_word_types(t_lextoken *lst)
 		if (lst->type == TOK_WORD)
 		{
 			define_word(lst, &cmd_found);
-			if (lst->word_type != TOK_DELIMITER && ft_strchr(lst->value, DOUBLE_QUOTE) != NULL)
+			if (lst->word_type != TOK_DELIMITER
+				&& ft_strchr(lst->value, DOUBLE_QUOTE))
 				remove_quotes(lst->value);
 			quote_chars_in_expanded_vars(&lst->value, RESTORE);
 		}

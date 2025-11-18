@@ -130,6 +130,8 @@ void	execution(t_shell *data)
 			cmd->is_builtin = 1;
 		else
 			cmd->path = get_exec_path(cmd->cmd[0], paths);
+		if (cmd->is_heredoc)
+			cmd->env_list = data->env_list;
 		cmd = cmd->next;
 	}
 	execute_cmd_list(data->cmd_list, envp);

@@ -29,11 +29,23 @@ int	init_heredoc(int *is_quoted, char *delim, int here_pipe[2])
 	return (0);
 }
 
+int	is_delimiter(char *delim, char *line)
+{
+	size_t	len;
+
+	len = ft_strlen(delim);
+	if (len != ft_strlen(line))
+		return (0);
+	if (ft_strncmp(delim, line, len) == 0)
+		return (1);
+	return (0);
+}
+
 int	heredoc(t_cmd *cmd)
 {
 	int		i;
-	int		here_pipe[2];
 	int		is_quoted;
+	int		here_pipe[2];
 	char	*line;
 
 	i = 0;
@@ -43,19 +55,18 @@ int	heredoc(t_cmd *cmd)
 	{
 		if (init_heredoc(&is_quoted, cmd->delimiters[i], here_pipe) < 0)
 			return (-1);
-		line = NULL;
 		while (1)
 		{
 			line = readline("> ");
 			if (!line)
 				break ;
-			else if (ft_strncmp(cmd->delimiters[i], line, ft_strlen(line) + 1) == 0)
+			else if (is_delimiter(cmd->delimiters[i], line))
 			{
 				free(line);
 				break ;
 			}
-			if (!is_quoted)
-				expander(line, NULL);
+			if (!is_quoted && ft_strchr(line, DOLLAR))
+				expander(&line, cmd->env_list);
 			ft_putendl_fd(line, here_pipe[WRITE_END]);
 			free(line);
 		}
@@ -65,3 +76,9 @@ int	heredoc(t_cmd *cmd)
 	cmd->input = here_pipe[READ_END];
 	return (0);
 }
+
+/* 
+
+
+
+*/
