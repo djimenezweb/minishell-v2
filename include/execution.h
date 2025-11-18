@@ -24,6 +24,7 @@
 typedef struct s_shell	t_shell;
 typedef struct s_cmd	t_cmd;
 
+int		heredoc(t_cmd *cmd);
 void	execution(t_shell *data);
 int		execute_cmd_list(t_cmd *cmd, char **envp);
 void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2]);

@@ -51,42 +51,6 @@ void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2])
 		safe_close(cmd->output);
 }
 
-int	heredoc(t_cmd *cmd)
-{
-	int		i;
-	int		here_pipe[2];
-	char	*line;
-
-	i = 0;
-	here_pipe[READ_END] = -1;
-	here_pipe[WRITE_END] = -1;
-	while (cmd->delimiters[i])
-	{
-		if (here_pipe[READ_END] != -1)
-			safe_close(here_pipe[READ_END]);
-		if (here_pipe[WRITE_END] != -1)
-			safe_close(here_pipe[WRITE_END]);
-		if ((pipe(here_pipe) < 0))
-			return (perror("heredoc pipe"), -1);
-		line = NULL;
-		while (1)
-		{
-			line = readline("> ");
-			if (ft_strncmp(cmd->delimiters[i], line, ft_strlen(line) + 1) == 0)
-			{
-				free(line);
-				break ;
-			}
-			ft_putendl_fd(line, here_pipe[WRITE_END]);
-			free(line);
-		}
-		i++;
-	}
-	safe_close(here_pipe[WRITE_END]);
-	cmd->input = here_pipe[READ_END];
-	return (0);
-}
-
 /* Initialize everything to `-1` to prevent bad `close` or `dup2` calls.
 For each command in the command list:
 - Create a pipe except on last command

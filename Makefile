@@ -10,6 +10,7 @@ SRC			=	main.c debug_helpers.c\
 				environment/environment-list-free.c\
 				execution/execution.c execution/execution-utils.c\
 				execution/paths.c execution/execution-child.c\
+				execution/heredoc.c\
 				expander/expander.c expander/escape_chars.c\
 				expander/find_expansion_and_get_data.c\
 				expander/resize_expansions.c\
