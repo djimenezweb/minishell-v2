@@ -33,7 +33,7 @@ int      count_chars_from(char **args)
 	count = 0;
 	while (*args)
 	{
-		count = ft_strlen(*args);
+		count += ft_strlen(*args);
 		if (*(args + 1))
 			count += 1;
 		++args;
@@ -57,7 +57,7 @@ int   join_to_write(char **args, int len, int option_n, char **joined)
 			++iterator;
 			++(*args);
 		}
-		if ((args + 1)[0] != '\0')
+		if ((*args + 1) != '\0')
 		{
 			*iterator = ' ';
 			++iterator;
