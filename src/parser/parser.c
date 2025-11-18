@@ -40,32 +40,6 @@ static int	new_cmd(t_cmd **list, t_cmd **last, t_parser_data *data)
 	return (1);
 }
 
-char	**append(char **arr, char *str)
-{
-	int		i;
-	int		size;
-	char	**new_arr;
-
-	if (!str)
-		return (arr);
-	i = 0;
-	size = 0;
-	while (arr && arr[size])
-		size++;
-	new_arr = malloc((size + 2) * sizeof(char *));
-	if (!new_arr)
-		return (NULL);
-	while (i < size)
-	{
-		new_arr[i] = arr[i];
-		i++;
-	}
-	new_arr[size] = str;
-	new_arr[size + 1] = NULL;
-	free(arr);
-	return (new_arr);
-}
-
 /* Parse a `t_lextoken` list into a `t_cmd` list
 1) Count process by pipes, and counts how many words from `cmd` and `args`
    have anyone. A process could have no cmd, and could be correct.

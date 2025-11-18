@@ -35,3 +35,29 @@ int	is_outfile(t_lextoken *lex_node)
 		return (1);
 	return (0);
 }
+
+char	**append(char **arr, char *str)
+{
+	int		i;
+	int		size;
+	char	**new_arr;
+
+	if (!str)
+		return (arr);
+	i = 0;
+	size = 0;
+	while (arr && arr[size])
+		size++;
+	new_arr = malloc((size + 2) * sizeof(char *));
+	if (!new_arr)
+		return (NULL);
+	while (i < size)
+	{
+		new_arr[i] = arr[i];
+		i++;
+	}
+	new_arr[size] = str;
+	new_arr[size + 1] = NULL;
+	free(arr);
+	return (new_arr);
+}
