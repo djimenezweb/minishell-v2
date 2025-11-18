@@ -36,19 +36,3 @@ char	*get_variable_name(char *str)
 		return (NULL);
 	return (var_name);
 }
-
-/* Returns the value of the given variable name, including
-the special parameter `$?`, or `NULL` if it doesn't exist.
-TO DO: 
-- `getenv` should be replaced by a custom function
-- `$?` should return the status of the last command,
-it currently returns a hardcoded value */
-char	*get_variable_value(char *name)
-{
-	char	*value;
-
-	if (name[0] == '?')
-		return ("123");
-	value = getenv(name);
-	return (value);
-}
