@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/16 19:28:42 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/18 20:34:57 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,14 @@ void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 	redirect_in(temp_fd, cmd->input, is_first(cmd));
 	redirect_out(pipefd, cmd->output, is_last(cmd));
 	close_child_fds(temp_fd, pipefd, is_last(cmd));
-	execve(cmd->path, cmd->cmd, envp);
-	perror("execve");
-	exit(EXIT_FAILURE);
+	if (cmd->is_builtin)
+		call_to_builtins(cmd, /*May need t_shell?*/);
+	else
+	{
+		execve(cmd->path, cmd->cmd, envp);
+		perror("execve");
+		exit(EXIT_FAILURE);
+	}
 }
 
 /* Parent process:
