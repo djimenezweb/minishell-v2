@@ -44,25 +44,39 @@ int      count_chars_from(char **args)
 int   join_to_write(char **args, int len, int option_n, char **joined)
 {
 	char *iterator;
+
 	*joined = ft_calloc(len, sizeof(char));
-	if (!(*joined))
+	if (!*joined)
 		return (0);
 	iterator = *joined;
 	while (args)
 	{
+		while (*args)
+		{
+			*iterator = **args;
+			++iterator;
+			++(*args);
+		}
+		if ((args + 1)[0] != '\0')
+		{
+			*iterator = ' ';
+			++iterator;
+		}
 	}
+	if (!option_n)
+		*iterator = '\n';
 	return (1);
 }
 	
 //Join args to write it at once
 int	execute_echo(t_cmd *cmd/*, int pipefd[2]??*/)
 {
-	int	write_len;
+	int	join_len;
 	int	option_n;
 	char	*joined_to_write;
 	char	**args;
 
-	write_len = 2;
+	join_len = 2;
 	option_n = 0;
 	join_to_write = NULL;
 	args = cmd->cmd[1];
@@ -70,12 +84,11 @@ int	execute_echo(t_cmd *cmd/*, int pipefd[2]??*/)
 	{
 		option_n = 1;
 		++args;
-		write_len -= 1;
-		/*Concatenate all the options, with 32 space. If not -n, 
-		 * add a \n. at the end*/
+		join_len -= 1;
 	}
-	write_len += count_chars_from(args);
+	join_len += count_chars_from(args);
 	if (!join_to_write(args, write_len, option_n, &joined_to_write))
 		return (0);//malloc error happened
-	write(/*output_fd*/, joined_to_write, write_len);
+	write(/*output_fd*/, joined_to_write, (join_len - 1));
+	return (1);
 }
