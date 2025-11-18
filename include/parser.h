@@ -51,8 +51,8 @@ int		is_cmd_or_arg(t_lextoken *lex_node);
 void	assign_fd(t_lextoken *lst, t_cmd *node);
 int		is_infile(t_lextoken *lex_node);
 int		is_outfile(t_lextoken *lex_node);
-int		open_file(char *path, enum e_lex_type type);
 int		open_infile(char *path);
 int		open_outfile(char *path, enum e_lex_type type);
+char	**append(char **arr, char *str);
 
 #endif
