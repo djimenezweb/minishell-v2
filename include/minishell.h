@@ -22,6 +22,7 @@
 # include "syntax.h"
 # include "parser.h"
 # include "execution.h"
+# include "builtins.h"
 
 // malloc, free
 # include <stdlib.h>

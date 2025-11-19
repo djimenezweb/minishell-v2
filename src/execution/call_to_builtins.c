@@ -12,28 +12,28 @@
 
 #include "minishell.h"
 
-/*Something*/	call_to_builtins(t_cmd *cmd/*, t_shell for exit and env_list?,
-		pipefd[2]????*/)
+/* Include `t_shell` for exit and `env_list`?*/
+void	call_to_builtins(t_cmd *cmd)
 {
+	printf("call to builtin: %s\n", cmd->cmd[0]);
 	if (cmd->cmd[0][0] != 'e')
 	{
 		if (cmd->cmd[0][0] == 'c')
-			//execute cd
+			return ;//execute cd
 		else if (cmd->cmd[0][0] == 'p')
-			//execute pwd
+			return ;//execute pwd
 		else if (cmd->cmd[0][0] == 'u')
-			//execute unset
+			return ;//execute unset
 	}
 	else
 	{
 		if (cmd->cmd[0][1] == 'c')
-			//execute echo 
-/*return some status of function?*/execute_echo(cmd/*, pipefd???*/);
+			execute_echo(cmd);	/*return some status of function?*/
 		else if (cmd->cmd[0][1] == 'n')
-			//execute env
+			return ;//execute env
 		else if (cmd->cmd[0][2] == 'p')
-			//execute export
+			return ;//execute export
 		else if (cmd->cmd[0][2] == 'i')
-			//execute exit
+			return ;//execute exit
 	}
 }

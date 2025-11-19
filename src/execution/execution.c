@@ -24,7 +24,7 @@ void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 	redirect_out(pipefd, cmd->output, is_last(cmd));
 	close_child_fds(temp_fd, pipefd, is_last(cmd));
 	if (cmd->is_builtin)
-		call_to_builtins(cmd, /*May need t_shell?*/);
+		call_to_builtins(cmd);
 	else
 	{
 		execve(cmd->path, cmd->cmd, envp);
@@ -71,13 +71,6 @@ int	execute_cmd_list(t_cmd *cmd, char **envp)
 	pipefd[WRITE_END] = -1;
 	while (cmd)
 	{
-		if (cmd->is_builtin)
-		{
-			printf("%s is builtin\n", cmd->cmd[0]);
-			// TODO
-			cmd = cmd->next;
-			continue ;
-		}
 		if (cmd->is_heredoc)
 		{
 			if (heredoc(cmd) < 0)
