@@ -26,19 +26,9 @@ void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 	if (cmd->is_builtin)
 		call_to_builtins(cmd);
 	else if (!cmd->path || !cmd->path[0])
-	{
-		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		ft_putstr_fd(cmd->cmd[0], STDERR_FILENO);
-		ft_putendl_fd(": command not found", STDERR_FILENO);
-		exit(127);
-	}
+		command_not_found(cmd->cmd[0]);
 	else if (access(cmd->path, X_OK) != 0)
-	{
-		ft_putstr_fd("minishell: ", STDERR_FILENO);
-		ft_putstr_fd(cmd->cmd[0], STDERR_FILENO);
-		ft_putendl_fd(": permission denied", STDERR_FILENO);
-		exit(126);
-	}
+		permission_denied(cmd->cmd[0]);
 	else
 	{
 		execve(cmd->path, cmd->cmd, envp);
@@ -85,20 +75,13 @@ int	execute_cmd_list(t_cmd *cmd, char **envp)
 	pipefd[WRITE_END] = -1;
 	while (cmd)
 	{
-		if (cmd->is_heredoc)
-		{
-			if (heredoc(cmd) < 0)
-				return (perror("heredoc"), -1);
-		}
+		if (cmd->is_heredoc && heredoc(cmd) < 0)
+			return (perror("heredoc"), -1);
 		if (!is_last(cmd) && (pipe(pipefd) < 0))
 			return (perror("pipe"), -1);
 		cmd->pid = fork();
 		if (cmd->pid < 0)
-		{
-			perror("fork");
-			close_pipe(pipefd);
-			return (-1);
-		}
+			return (perror("fork"), close_pipe(pipefd), -1);
 		if (cmd->pid == 0)
 			child_process(cmd, temp_fd, pipefd, envp);
 		parent_process(cmd, &temp_fd, pipefd);
@@ -130,6 +113,7 @@ int	wait_children(t_cmd *cmd)
 }
 
 // TODO: Should return `status` ??
+//!print_cmd_list(cmd); //!debug
 void	execution(t_shell *data)
 {
 	t_cmd	*cmd;
@@ -138,7 +122,6 @@ void	execution(t_shell *data)
 	int		status;
 
 	cmd = data->cmd_list;
-	//!print_cmd_list(cmd); //!debug
 	paths = get_path_dirs(data->env_list);
 	envp = get_envp(data->env_list);
 	while (cmd)

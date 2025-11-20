@@ -31,3 +31,19 @@ int	is_first(t_cmd *cmd)
 		return (1);
 	return (0);
 }
+
+void	command_not_found(char *cmd)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putendl_fd(": command not found", STDERR_FILENO);
+	exit(127);
+}
+
+void	permission_denied(char *cmd)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putendl_fd(": permission denied", STDERR_FILENO);
+	exit(126);
+}

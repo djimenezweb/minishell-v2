@@ -23,6 +23,8 @@ static int	malloc_cmd_and_args(t_cmd *node, t_parser_data *data)
 	return (1);
 }
 
+// TODO: On line `++data->current_cmd, Enrique commented:
+// Be careful if we use this later. In that case, reset to 0 after all
 static int	new_cmd(t_cmd **list, t_cmd **last, t_parser_data *data)
 {
 	t_cmd	*node;
@@ -34,8 +36,7 @@ static int	new_cmd(t_cmd **list, t_cmd **last, t_parser_data *data)
 	ft_cmdlist_add(list, node);
 	*last = node;
 	if (data->current_cmd < data->num_cmds)
-		++data->current_cmd;//ENRIQUE 2/11: Be careful if we use this
-				    //later. In that case, reset to 0 after all
+		++data->current_cmd;
 	data->current_word = 0;
 	return (1);
 }
@@ -73,13 +74,16 @@ t_cmd	*parser(t_lextoken *lst)
 		if (is_infile(lst) || is_outfile(lst))
 			assign_fd(lst, last_node);
 		if (lst->type == TOK_WORD && lst->word_type == TOK_DELIMITER)
-		{
-			last_node->is_heredoc = 1;
-			last_node->delimiters = append(last_node->delimiters, lst->value);
-		}
+			assign_hdoc(lst, last_node);
 		lst = lst->next;
 	}
 	free(parser_data.words_per_cmd);
-	//! print_cmd_list(cmd_list); //debug
 	return (cmd_list);
 }
+
+//! print_cmd_list(cmd_list); //debug
+
+/* 		{
+			last_node->is_heredoc = 1;
+			last_node->delimiters = append(last_node->delimiters, lst->value);
+		} */

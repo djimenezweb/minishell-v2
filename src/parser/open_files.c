@@ -13,6 +13,12 @@
 #include "minishell.h"
 #include <errno.h>
 
+void	assign_hdoc(t_lextoken *lst, t_cmd *last_node)
+{
+	last_node->is_heredoc = 1;
+	last_node->delimiters = append(last_node->delimiters, lst->value);
+}
+
 /* Open file and assign fd to nodes of type `TOK_INFILE`,`TOK_OUTFILE_CREATE`
 or `TOK_OUTFILE_APPEND` */
 void	assign_fd(t_lextoken *lst, t_cmd *node)

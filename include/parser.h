@@ -49,6 +49,7 @@ int		set_words_per_cmd(t_parser_data *data, t_lextoken *lex_list);
 int		add_to_cmd(t_lextoken *lexer, t_cmd *node, t_parser_data *data);
 int		is_cmd_or_arg(t_lextoken *lex_node);
 void	assign_fd(t_lextoken *lst, t_cmd *node);
+void	assign_hdoc(t_lextoken *lst, t_cmd *last_node);
 int		is_infile(t_lextoken *lex_node);
 int		is_outfile(t_lextoken *lex_node);
 int		open_infile(char *path);

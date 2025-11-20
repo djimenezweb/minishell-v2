@@ -42,5 +42,7 @@ void	redirect_out(int pipefd[2], int output, int last);
 void	close_pipe(int pipefd[2]);
 int		is_last(t_cmd *cmd);
 int		is_first(t_cmd *cmd);
+void	command_not_found(char *cmd);
+void	permission_denied(char *cmd);
 
 #endif
