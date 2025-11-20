@@ -1,17 +1,24 @@
 /******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/19 10:53:51 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/20 16:13:06 by danielji         ###   ########.fr       */
+/*   Created: 2025/11/20 16:02:09 by danielji          #+#    #+#             */
+/*   Updated: 2025/11/20 16:12:41 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
 #include "minishell.h"
 
-int	ft_exit(void);
-//int	ft_exit(t_shell shell);
-int	execute_echo(t_cmd *cmd);
+/* Todos los builtins devuelven 0 si han tenido éxito o un número distinto de
+0 en caso de error.
+Devuelven 2 para indicar uso incorrecto, opciones inválidas o que faltan
+argumentos. */
+
+int	ft_exit(void)
+{
+	printf("Exit test\n");
+	return (0);
+}

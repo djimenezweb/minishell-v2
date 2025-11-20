@@ -60,6 +60,26 @@ char	*get_exec_path(char *cmd, char **paths)
 	return (NULL);
 }
 
+/* Return `1` if the command `cmd` should be executed in a forked process.
+Only builtins `env`, `pwd` and `echo` should be forked. */
+int	is_forkable(char *cmd)
+{
+	size_t	len;
+
+	len = ft_strlen(cmd);
+	if (len == 3)
+	{
+		if (!ft_strncmp("env", cmd, len) || !ft_strncmp("pwd", cmd, len))
+			return (1);
+	}
+	else if (len == 4)
+	{
+		if (!ft_strncmp("echo", cmd, len))
+			return (1);
+	}
+	return (0);
+}
+
 /* Check if the string `cmd` is one of the builtin commands:
 `cd`, `pwd`, `env`, `echo`, `exit`, `unset`, or `export`, */
 int	is_builtin(char *cmd)

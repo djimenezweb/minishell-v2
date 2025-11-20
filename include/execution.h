@@ -34,6 +34,7 @@ int		wait_children(t_cmd *cmd);
 char	**get_path_dirs(t_env_var *env_list);
 char	*get_exec_path(char *cmd, char **paths);
 int		is_builtin(char *cmd);
+int		is_forkable(char *cmd);
 void	safe_dup2(int oldfd, int newfd);
 void	safe_close(int fd);
 void	close_child_fds(int temp_fd, int pipefd[2], int last);
