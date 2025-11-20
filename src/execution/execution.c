@@ -25,11 +25,25 @@ void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 	close_child_fds(temp_fd, pipefd, is_last(cmd));
 	if (cmd->is_builtin)
 		call_to_builtins(cmd);
+	else if (!cmd->path || !cmd->path[0])
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(cmd->cmd[0], STDERR_FILENO);
+		ft_putendl_fd(": command not found", STDERR_FILENO);
+		exit(127);
+	}
+	else if (access(cmd->path, X_OK) != 0)
+	{
+		ft_putstr_fd("minishell: ", STDERR_FILENO);
+		ft_putstr_fd(cmd->cmd[0], STDERR_FILENO);
+		ft_putendl_fd(": permission denied", STDERR_FILENO);
+		exit(126);
+	}
 	else
 	{
 		execve(cmd->path, cmd->cmd, envp);
 		perror("execve");
-		exit(EXIT_FAILURE);
+		exit(126);
 	}
 }
 
@@ -97,20 +111,25 @@ int	execute_cmd_list(t_cmd *cmd, char **envp)
 exit status of the last child process */
 int	wait_children(t_cmd *cmd)
 {
-	int	status;
+	int	wstatus;
 
 	while (cmd)
 	{
 		if (cmd->is_builtin == 0)
 		{
-			if (waitpid(cmd->pid, &status, 0) < 0)
+			if (waitpid(cmd->pid, &wstatus, 0) < 0)
 				perror("waitpid");
 		}
 		cmd = cmd->next;
 	}
-	return (WEXITSTATUS(status));
+	if (WIFEXITED(wstatus))
+		return (WEXITSTATUS(wstatus));
+	else if (WIFSIGNALED(wstatus))
+		return (128 + WTERMSIG(wstatus));
+	return (1);
 }
 
+// TODO: Should return `status` ??
 void	execution(t_shell *data)
 {
 	t_cmd	*cmd;
@@ -134,10 +153,8 @@ void	execution(t_shell *data)
 	}
 	execute_cmd_list(data->cmd_list, envp);
 	status = wait_children(data->cmd_list);
-	set_last_exit_status(data->env_list, 88);
+	set_last_exit_status(data->env_list, status);
 	free_strings_array(paths);
 	free_strings_array(envp);
 	ft_cmdlist_clear(&(data->cmd_list));
-	// TODO: return status??
-	(void)status;
 }

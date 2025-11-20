@@ -35,6 +35,7 @@ char	**get_path_dirs(t_env_var *env_list)
 /* Return the first valid executable path of `cmd` in `paths` directories.
 Return `cmd` if it contains a `/` or if `paths` is empty.
 If not a valid command, return `NULL` */
+//! Should return ft_strdup("") instead of NULL ????
 char	*get_exec_path(char *cmd, char **paths)
 {
 	int		i;
@@ -42,21 +43,21 @@ char	*get_exec_path(char *cmd, char **paths)
 	char	*exec_path;
 
 	if (!cmd || !cmd[0])
-		return (NULL);		//! return (ft_strdup(""));
+		return (NULL);
 	if (ft_strchr(cmd, SLASH) != NULL || !paths || !paths[0])
-		return (cmd);
+		return (ft_strdup(cmd));
 	i = 0;
 	cmd_slash = ft_strjoin("/", cmd);
 	while (paths[i])
 	{
 		exec_path = ft_strjoin(paths[i], cmd_slash);
-		if (access(exec_path, F_OK) == 0)		//! ¿Comprobar si archivo existe o si tiene permiso de ejecución?
+		if (access(exec_path, F_OK) == 0)
 			return (free(cmd_slash), exec_path);
 		free(exec_path);
 		i++;
 	}
 	free(cmd_slash);
-	return (NULL);			//! return (ft_strdup(""));
+	return (NULL);
 }
 
 int	is_builtin(char *cmd)
