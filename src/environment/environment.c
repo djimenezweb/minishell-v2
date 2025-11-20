@@ -66,6 +66,10 @@ int	set_default_env_vars(t_env_var **list)
 {
 	t_env_var	*node;
 
+	node = ft_new_env_name_value("?", "0");
+	if (!node)
+		return (-1);
+	ft_env_addback(list, node);
 	if (find_env_var(*list, "PATH") == NULL)
 	{
 		node = ft_new_env(DEFAULT_PATH);

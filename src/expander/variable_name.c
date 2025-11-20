@@ -26,9 +26,11 @@ char	*get_variable_name(char *str)
 
 	i = 0;
 	var_name = NULL;
-	if (str[i] != '$')
-		return (var_name);
+	if (str[i] != DOLLAR)
+		return (NULL);
 	i++;
+	if (str[i] == '?')
+		return (ft_strdup("?"));
 	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
 		i++;
 	var_name = ft_substr(str, 1, i - 1);
