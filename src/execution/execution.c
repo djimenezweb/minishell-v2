@@ -15,6 +15,7 @@
 /* Child process:
 - Redirect input & output
 - Close unused fd
+- Check if command is builtin, is found, is executable
 - Execute command. If execve fails, print error and exit */
 void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 {
@@ -112,8 +113,11 @@ int	wait_children(t_cmd *cmd)
 	return (1);
 }
 
-// TODO: Should return `status` ??
 //!print_cmd_list(cmd); //!debug
+/* -Find executable path for each command (except builtins)
+- Call `execute_cmd_list` to run commands
+- Get exit status from `wait_children`
+- Set last exit status and cleanup allocated memory*/
 void	execution(t_shell *data)
 {
 	t_cmd	*cmd;

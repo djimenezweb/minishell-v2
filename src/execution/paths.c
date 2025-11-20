@@ -60,6 +60,8 @@ char	*get_exec_path(char *cmd, char **paths)
 	return (NULL);
 }
 
+/* Check if the string `cmd` is one of the builtin commands:
+`cd`, `pwd`, `env`, `echo`, `exit`, `unset`, or `export`, */
 int	is_builtin(char *cmd)
 {
 	size_t	len;

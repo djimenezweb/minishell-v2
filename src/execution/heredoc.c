@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+/* - Close pipes from possible existing previous heredoc
+- Initialize new pipe */
 static int	init_heredoc(int here_pipe[2])
 {
 	if (here_pipe[READ_END] != -1)
@@ -23,6 +25,7 @@ static int	init_heredoc(int here_pipe[2])
 	return (0);
 }
 
+/* Return `1` if string `line` is identical to string `delimiter`  */
 static int	is_delimiter(char *delim, char *line)
 {
 	size_t	len;
@@ -35,6 +38,10 @@ static int	is_delimiter(char *delim, char *line)
 	return (0);
 }
 
+/* If delimiter is quoted, remove quotes
+- Create prompt line until an empty line
+- Expand variables if delimiter was not quoted
+- Exit loop when whole line is identical to delimiter */
 static void	heredoc_loop(t_cmd *cmd, int i, int here_pipe[2])
 {
 	int		is_quoted;
@@ -62,6 +69,9 @@ static void	heredoc_loop(t_cmd *cmd, int i, int here_pipe[2])
 	}
 }
 
+/* - Initialize pipe ends to `-1`
+- For each demiliter create a heredoc loop
+- Set heredoc output to command input */
 int	heredoc(t_cmd *cmd)
 {
 	int	i;
