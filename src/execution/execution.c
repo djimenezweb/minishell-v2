@@ -134,6 +134,7 @@ void	execution(t_shell *data)
 	}
 	execute_cmd_list(data->cmd_list, envp);
 	status = wait_children(data->cmd_list);
+	set_last_exit_status(data->env_list, 88);
 	free_strings_array(paths);
 	free_strings_array(envp);
 	ft_cmdlist_clear(&(data->cmd_list));

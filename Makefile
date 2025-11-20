@@ -9,6 +9,7 @@ SRC			=	main.c debug_helpers.c\
 				environment/environment.c\
 				environment/environment-envp.c\
 				environment/environment-list-free.c\
+				environment/environment-last-exit-st.c\
 				execution/execution.c execution/execution-utils.c\
 				execution/paths.c execution/execution-child.c\
 				execution/heredoc.c execution/call_to_builtins.c\

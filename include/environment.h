@@ -26,6 +26,7 @@ typedef struct s_env_var
 	struct s_env_var	*prev;
 }						t_env_var;
 
+int			set_last_exit_status(t_env_var *list, int status);
 t_env_var	*find_env_var(t_env_var *list, char *name);
 char		*get_env_value(t_env_var *list, char *name);
 void		set_name_value(t_env_var *node, char *str);
