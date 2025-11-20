@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 20:23:43 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/20 16:13:24 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/20 17:49:13 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -15,7 +15,7 @@
 /* Include `t_shell` for exit and `env_list`?*/
 void	call_to_builtins(t_cmd *cmd)
 {
-	printf("call to builtin: %s\n", cmd->cmd[0]);//debug
+	//printf("call to builtin: %s\n", cmd->cmd[0]);//debug
 	if (cmd->cmd[0][0] != 'e')
 	{
 		if (cmd->cmd[0][0] == 'c')

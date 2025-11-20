@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/18 20:34:57 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/20 17:58:56 by danielji         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
@@ -24,7 +24,9 @@ void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 	redirect_in(temp_fd, cmd->input, is_first(cmd));
 	redirect_out(pipefd, cmd->output, is_last(cmd));
 	close_child_fds(temp_fd, pipefd, is_last(cmd));
-	if (cmd->is_builtin)
+	if (cmd->is_builtin == NOT_FORKABLE)
+		exit(0);
+	else if (cmd->is_builtin == FORKABLE)
 		call_to_builtins(cmd);
 	else if (!cmd->path || !cmd->path[0])
 		command_not_found(cmd->cmd[0]);
@@ -48,6 +50,8 @@ void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2])
 {
 	if (*temp_fd != -1)
 		safe_close(*temp_fd);
+	if (cmd->is_builtin == NOT_FORKABLE)
+		call_to_builtins(cmd);
 	if (!is_last(cmd))
 	{
 		*temp_fd = pipefd[READ_END];
@@ -99,7 +103,7 @@ int	wait_children(t_cmd *cmd)
 
 	while (cmd)
 	{
-		if (cmd->is_builtin == 0)
+		if (cmd->is_builtin != NOT_FORKABLE)
 		{
 			if (waitpid(cmd->pid, &wstatus, 0) < 0)
 				perror("waitpid");
@@ -131,7 +135,11 @@ void	execution(t_shell *data)
 	while (cmd)
 	{
 		if (cmd->cmd[0] && is_builtin(cmd->cmd[0]))
-			cmd->is_builtin = 1;
+		{
+			cmd->is_builtin = FORKABLE;
+			if (!is_forkable(cmd->cmd[0]))
+				cmd->is_builtin = NOT_FORKABLE;
+		}
 		else
 			cmd->path = get_exec_path(cmd->cmd[0], paths);
 		if (cmd->is_heredoc)

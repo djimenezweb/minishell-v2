@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   parser-list-utils.c                                :+:      :+:    :+:   */
@@ -6,9 +6,9 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:03:00 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/09 23:17:13 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/20 16:54:07 by danielji         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
@@ -55,7 +55,7 @@ t_cmd	*ft_new_cmdnode(void)
 	node->input = STDIN_FILENO;
 	node->output = STDOUT_FILENO;
 	node->pid = -1;
-	node->is_builtin = 0;
+	node->is_builtin = NOT_BUILTIN;
 	node->is_heredoc = 0;
 	node->delimiters = NULL;
 	node->env_list = NULL;

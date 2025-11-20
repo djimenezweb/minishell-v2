@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
+/*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 20:46:19 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/19 21:35:50 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/20 18:06:57 by danielji         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "minishell.h"
 
@@ -72,6 +72,7 @@ int	join_to_write(char **args, int len, int option_n, char **joined)
 //Join args to write it at once
 int	execute_echo(t_cmd *cmd)
 {
+	(void)cmd;
 	int		join_len;
 	int		option_n;
 	char	*joined_to_write;
@@ -91,8 +92,8 @@ int	execute_echo(t_cmd *cmd)
 	if (!join_to_write(args, join_len, option_n, &joined_to_write))
 		return (0);//malloc error happened
 	write(STDOUT_FILENO, joined_to_write, (join_len - 1));
-	/*Enrique 19/11: But echo >> outfile hello world writes to outfile fd*/
 	free(joined_to_write);
 //	printf("joined to write is %p\n", joined_to_write);//debug
-	return (1);
+	//return (1);
+	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 16:02:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/20 16:12:41 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/20 17:05:23 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -19,6 +19,6 @@ argumentos. */
 
 int	ft_exit(void)
 {
-	printf("Exit test\n");
+	ft_putendl_fd("Exit test", STDOUT_FILENO);
 	return (0);
 }
