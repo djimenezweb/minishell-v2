@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:03:00 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/20 18:01:57 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/21 08:11:53 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -20,7 +20,6 @@ void	ft_cmdnode_free(t_cmd *node)
 {
 	if (node->cmd)
 	{
-		printf("cmd node clear: %s %s\n", node->cmd[0], node->cmd[1]);
 		free_strings_array(node->cmd);
 		node->cmd = NULL;
 	}
