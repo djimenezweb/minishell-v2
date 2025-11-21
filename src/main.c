@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/16 15:02:00 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/21 12:38:16 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,13 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		shell_data.line = readline("$ ");
+		if (!shell_data.line)
+		{
+			ft_putendl_fd("exit", STDOUT_FILENO);
+			free_shell(&shell_data, EXIT_SUCCESS);
+		}
 		if (shell_data.line && *shell_data.line)
 			add_history(shell_data.line);
-		if (shell_data.line[0] == 'q' && shell_data.line[1] == '\0') //! debug (Type `q` to exit)
-			free_shell(&shell_data, EXIT_SUCCESS); //! debug
 		if (!quote_validation(shell_data.line) || !expander(&shell_data.line, shell_data.env_list))
 			free_shell(&shell_data, EXIT_FAILURE);
 		shell_data.lex_list = lexer(shell_data.line);
