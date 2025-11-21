@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/20 17:58:56 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/21 08:32:00 by danielji         ###   ########.fr       */
 /*                                                                            */
 /******************************************************************************/
 
@@ -50,7 +50,7 @@ void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2])
 {
 	if (*temp_fd != -1)
 		safe_close(*temp_fd);
-	if (cmd->is_builtin == NOT_FORKABLE)
+	if (is_first(cmd) && is_last(cmd) && cmd->is_builtin == NOT_FORKABLE)
 		call_to_builtins(cmd);
 	if (!is_last(cmd))
 	{
@@ -117,23 +117,18 @@ int	wait_children(t_cmd *cmd)
 	return (1);
 }
 
-//!print_cmd_list(cmd); //!debug
-/* -Find executable path for each command (except builtins)
-- Call `execute_cmd_list` to run commands
-- Get exit status from `wait_children`
-- Set last exit status and cleanup allocated memory*/
-void	execution(t_shell *data)
+/* For each command:
+- Assign reference to shell data
+- Find executable path (except builtins)
+- Assign `is_builtin` and `is_heredoc`*/
+void	preprocess_cmdlist(t_shell *data, char **paths)
 {
 	t_cmd	*cmd;
-	char	**paths;
-	char	**envp;
-	int		status;
 
 	cmd = data->cmd_list;
-	paths = get_path_dirs(data->env_list);
-	envp = get_envp(data->env_list);
 	while (cmd)
 	{
+		cmd->shell = data;
 		if (cmd->cmd[0] && is_builtin(cmd->cmd[0]))
 		{
 			cmd->is_builtin = FORKABLE;
@@ -146,6 +141,24 @@ void	execution(t_shell *data)
 			cmd->env_list = data->env_list;
 		cmd = cmd->next;
 	}
+}
+
+//!print_cmd_list(cmd); //!debug
+/* - Find paths
+- Call `execute_cmd_list` to run commands
+- Get exit status from `wait_children`
+- Set last exit status and free allocated memory*/
+void	execution(t_shell *data)
+{
+	t_cmd	*cmd;
+	char	**paths;
+	char	**envp;
+	int		status;
+
+	cmd = data->cmd_list;
+	paths = get_path_dirs(data->env_list);
+	envp = get_envp(data->env_list);
+	preprocess_cmdlist(data, paths);
 	execute_cmd_list(data->cmd_list, envp);
 	status = wait_children(data->cmd_list);
 	set_last_exit_status(data->env_list, status);

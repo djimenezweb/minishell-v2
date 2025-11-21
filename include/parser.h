@@ -26,6 +26,7 @@ typedef struct s_cmd
 	char			**delimiters;
 	pid_t			pid;
 	t_env_var		*env_list;
+	struct s_shell	*shell;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;//ENRIQUE 1/11: Do we still need this?
 }	t_cmd;
