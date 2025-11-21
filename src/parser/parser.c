@@ -52,6 +52,7 @@ static int	new_cmd(t_cmd **list, t_cmd **last, t_parser_data *data)
 "Above is antoher option to execute this function."
 For more information, go to add_to_cmd() scope
 We have to choose one of these, then remove the other */
+//! print_cmd_list(cmd_list); //debug
 t_cmd	*parser(t_lextoken *lst)
 {
 	t_cmd			*last_node;
@@ -80,10 +81,3 @@ t_cmd	*parser(t_lextoken *lst)
 	free(parser_data.words_per_cmd);
 	return (cmd_list);
 }
-
-//! print_cmd_list(cmd_list); //debug
-
-/* 		{
-			last_node->is_heredoc = 1;
-			last_node->delimiters = append(last_node->delimiters, lst->value);
-		} */

@@ -55,7 +55,7 @@ t_cmd	*ft_new_cmdnode(void)
 	node->input = STDIN_FILENO;
 	node->output = STDOUT_FILENO;
 	node->pid = -1;
-	node->is_builtin = NOT_BUILTIN;
+	node->is_builtin = 0;
 	node->is_heredoc = 0;
 	node->delimiters = NULL;
 	node->env_list = NULL;

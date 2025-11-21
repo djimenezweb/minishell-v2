@@ -32,9 +32,9 @@
 # define TILDE 126
 
 //parser
-# define NOT_BUILTIN 0
-# define FORKABLE 1
-# define NOT_FORKABLE 2
+//# define NOT_BUILTIN 0
+//# define FORKABLE 1
+//# define NOT_FORKABLE 2
 
 # define DEFAULT_PATH \
 "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"

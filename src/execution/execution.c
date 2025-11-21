@@ -24,9 +24,7 @@ void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 	redirect_in(temp_fd, cmd->input, is_first(cmd));
 	redirect_out(pipefd, cmd->output, is_last(cmd));
 	close_child_fds(temp_fd, pipefd, is_last(cmd));
-	if (cmd->is_builtin == NOT_FORKABLE)
-		exit(0);
-	else if (cmd->is_builtin == FORKABLE)
+	if (cmd->is_builtin == 1)
 		call_to_builtins(cmd);
 	else if (!cmd->path || !cmd->path[0])
 		command_not_found(cmd->cmd[0]);
@@ -50,8 +48,6 @@ void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2])
 {
 	if (*temp_fd != -1)
 		safe_close(*temp_fd);
-	if (is_first(cmd) && is_last(cmd) && cmd->is_builtin == NOT_FORKABLE)
-		call_to_builtins(cmd);
 	if (!is_last(cmd))
 	{
 		*temp_fd = pipefd[READ_END];
@@ -103,7 +99,7 @@ int	wait_children(t_cmd *cmd)
 
 	while (cmd)
 	{
-		if (cmd->is_builtin != NOT_FORKABLE)
+		if (cmd->is_builtin != 1)
 		{
 			if (waitpid(cmd->pid, &wstatus, 0) < 0)
 				perror("waitpid");
@@ -131,9 +127,7 @@ void	preprocess_cmdlist(t_shell *data, char **paths)
 		cmd->shell = data;
 		if (cmd->cmd[0] && is_builtin(cmd->cmd[0]))
 		{
-			cmd->is_builtin = FORKABLE;
-			if (!is_forkable(cmd->cmd[0]))
-				cmd->is_builtin = NOT_FORKABLE;
+			cmd->is_builtin = 1;
 		}
 		else
 			cmd->path = get_exec_path(cmd->cmd[0], paths);
