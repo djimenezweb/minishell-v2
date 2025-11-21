@@ -21,9 +21,10 @@ void	safe_dup2(int oldfd, int newfd)
 	}
 }
 
+/* Close `fd` only if it's `0` or greater */
 void	safe_close(int fd)
 {
-	if (close(fd) < 0)
+	if (fd >= 0 && close(fd) < 0)
 	{
 		perror("close");
 		exit(EXIT_FAILURE);
