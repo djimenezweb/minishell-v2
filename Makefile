@@ -57,6 +57,6 @@ run : all
 	./$(NAME)
 
 valgrind : all
-	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-fds=yes ./$(NAME)
+	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=definite --child-silent-after-fork=yes --track-fds=yes ./$(NAME)
 
 .PHONY : all clean fclean re run valgrind

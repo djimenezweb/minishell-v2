@@ -14,7 +14,7 @@
 
 void	safe_dup2(int oldfd, int newfd)
 {
-	if (dup2(oldfd, newfd) < 0)
+	if (oldfd >= 0 && newfd >= 0 && dup2(oldfd, newfd) < 0)
 	{
 		perror("dup2");
 		exit(EXIT_FAILURE);
