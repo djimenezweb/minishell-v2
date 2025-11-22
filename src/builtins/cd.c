@@ -6,12 +6,11 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 11:06:43 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/22 20:31:44 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/22 20:50:14 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "minishell.h"
-
+#include "minishell.h"
 
 int	change_oldpwd(t_env_var *node, char *new_path)
 {
@@ -23,12 +22,24 @@ int	change_oldpwd(t_env_var *node, char *new_path)
 	return (1);
 }
 
+/*If HOME is not set, cd works only if a path is specified*/
+char	*set_home_as_path(t_shell *data)
+{
+	t_env_var	*home_node;
+	
+	home_node = find_env_var(data->env_list, "OLDPWD");
+	if (home_node)
+		return (home_node->value);
+	return (NULL);
+}
+
 int	execute_cd(char *current_path, char *new_path, t_shell *data)
 {
 	t_env_var	*oldpwd;
 	
-	if (new_path)//new_path must be cmd[1]
+	if (!new_path)//new_path must be cmd[1]
 	{
+		new_path = set_home_as_path(data);
 	}
 	else
 	{
