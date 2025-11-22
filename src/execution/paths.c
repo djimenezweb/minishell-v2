@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:41:38 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/16 18:48:45 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/22 17:23:26 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int	is_forkable(char *cmd)
 	len = ft_strlen(cmd);
 	if (len == 3)
 	{
-		if (!ft_strncmp("env", cmd, len) || !ft_strncmp("pwd", cmd, len))
+		if (!ft_strncmp("env", cmd, len)
+			|| !ft_strncmp("pwd", cmd, len))
 			return (1);
 	}
 	else if (len == 4)
@@ -91,12 +92,14 @@ int	is_builtin(char *cmd)
 		return (1);
 	else if (len == 3)
 	{
-		if (!ft_strncmp("pwd", cmd, len) || !ft_strncmp("env", cmd, len))
+		if (!ft_strncmp("pwd", cmd, len)
+			|| !ft_strncmp("env", cmd, len))
 			return (1);
 	}
 	else if (len == 4)
 	{
-		if (!ft_strncmp("echo", cmd, len) || !ft_strncmp("exit", cmd, len))
+		if (!ft_strncmp("echo", cmd, len)
+			|| !ft_strncmp("exit", cmd, len))
 			return (1);
 	}
 	else if (len == 5 && !ft_strncmp("unset", cmd, len))
