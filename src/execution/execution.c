@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/22 12:59:50 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/22 17:11:54 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ void	preprocess_cmdlist(t_shell *data, char **paths)
 			cmd->env_list = data->env_list;
 		cmd = cmd->next;
 	}
+	//Do we need !print_cmd //!debug after finishing and sending to eval?
 }
 
 //!print_cmd_list(cmd); //!debug
