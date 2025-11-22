@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 20:23:43 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/22 12:51:58 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/22 22:08:33 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 //! Run in child process: pwd, echo, env
 
 /* Include `t_shell` for exit and `env_list`?*/
-int	call_to_builtins(t_cmd *cmd)
+int	call_to_builtins(t_cmd *cmd, char **envp)
 {
 	if (cmd->cmd[0][0] != 'e')
 	{
 		if (cmd->cmd[0][0] == 'c')
-			return(ft_cd());
+			return(execute_cd(cmd, envp));
 		else if (cmd->cmd[0][0] == 'p')
 			return (ft_pwd());
 		else if (cmd->cmd[0][0] == 'u')

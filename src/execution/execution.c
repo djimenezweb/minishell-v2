@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/22 17:11:54 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/22 22:05:41 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	execute_cmd_list(t_cmd *cmd, char **envp)
 	{
 		if (cmd->is_forkable == 0 && is_first(cmd) && is_last(cmd))
 		{
-			cmd->status = call_to_builtins(cmd);
+			cmd->status = call_to_builtins(cmd, envp);
 			break ;
 		}
 		if (cmd->is_heredoc && heredoc(cmd) < 0)

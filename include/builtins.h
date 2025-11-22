@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 10:53:51 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/22 12:53:03 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/22 22:08:51 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "minishell.h"
 
-int	ft_cd(void);
+void	execute_cd(t_cmd *cmd, char **envp);
 int	execute_echo(t_cmd *cmd);
 int	ft_env(void);
 int	ft_exit(void);
