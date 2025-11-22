@@ -4,7 +4,9 @@ CFLAGS		= -Wall -Werror -Wextra -ggdb
 SRC_PATH	= src
 OBJ_PATH	= build
 SRC			=	main.c debug_helpers.c\
-				builtins/echo.c builtins/exit.c\
+				builtins/cd.c builtins/echo.c builtins/env.c\
+				builtins/exit.c builtins/export.c builtins/pwd.c\
+				builtins/unset.c\
 				environment/environment-list-utils.c\
 				environment/environment.c\
 				environment/environment-envp.c\

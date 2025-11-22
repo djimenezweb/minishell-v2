@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 12:47:23 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/20 12:47:28 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/22 10:58:22 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	print_cmd_list(t_cmd *list)
 	{
 		printf("Command:    %s, %s\n", list->cmd[0], list->cmd[1]);
 		printf("Path:       %s\n", list->path);
-		printf("Builtin?:   %i\n", list->is_builtin);
+		printf("Forkable?:  %i\n", list->is_forkable);
 		printf("Input:      %i\n", list->input);
 		printf("Output:     %i\n", list->output);
 		printf("Heredoc?:   %i\n", list->is_heredoc);

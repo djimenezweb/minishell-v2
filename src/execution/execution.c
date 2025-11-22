@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/21 12:13:41 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/22 12:59:50 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,17 @@
 void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 {
 	if (cmd->input == -1 || cmd->output == -1)
+	{
+		//! Should close child fds?
 		exit(EXIT_FAILURE);
+	}
 	redirect_in(temp_fd, cmd->input, is_first(cmd));
 	redirect_out(pipefd, cmd->output, is_last(cmd));
 	close_child_fds(temp_fd, pipefd, is_last(cmd));
-	if (cmd->is_builtin == 1)
-		call_to_builtins(cmd);
+	if (is_builtin(cmd->cmd[0]))
+	{
+		exit(call_to_builtins(cmd));
+	}
 	else if (!cmd->path || !cmd->path[0])
 		command_not_found(cmd->cmd[0]);
 	else if (access(cmd->path, X_OK) != 0)
@@ -76,6 +81,11 @@ int	execute_cmd_list(t_cmd *cmd, char **envp)
 	pipefd[WRITE_END] = -1;
 	while (cmd)
 	{
+		if (cmd->is_forkable == 0 && is_first(cmd) && is_last(cmd))
+		{
+			cmd->status = call_to_builtins(cmd);
+			break ;
+		}
 		if (cmd->is_heredoc && heredoc(cmd) < 0)
 			return (perror("heredoc"), -1);
 		if (!is_last(cmd) && (pipe(pipefd) < 0))
@@ -99,18 +109,20 @@ int	wait_children(t_cmd *cmd)
 
 	while (cmd)
 	{
-		if (cmd->is_builtin != 1)
+		if (cmd->is_forkable)
 		{
 			if (waitpid(cmd->pid, &wstatus, 0) < 0)
 				perror("waitpid");
+			if (WIFEXITED(wstatus))
+				cmd->status = WEXITSTATUS(wstatus);
+			else if (WIFSIGNALED(wstatus))
+				cmd->status = 128 + WTERMSIG(wstatus);
 		}
+		if (!cmd->next)
+			return (cmd->status);
 		cmd = cmd->next;
 	}
-	if (WIFEXITED(wstatus))
-		return (WEXITSTATUS(wstatus));
-	else if (WIFSIGNALED(wstatus))
-		return (128 + WTERMSIG(wstatus));
-	return (1);
+	return (-1);
 }
 
 /* For each command:
@@ -127,7 +139,8 @@ void	preprocess_cmdlist(t_shell *data, char **paths)
 		cmd->shell = data;
 		if (cmd->cmd[0] && is_builtin(cmd->cmd[0]))
 		{
-			cmd->is_builtin = 1;
+			if (!is_forkable(cmd->cmd[0]))
+				cmd->is_forkable = 0;
 		}
 		else
 			cmd->path = get_exec_path(cmd->cmd[0], paths);
@@ -144,12 +157,10 @@ void	preprocess_cmdlist(t_shell *data, char **paths)
 - Set last exit status and free allocated memory*/
 void	execution(t_shell *data)
 {
-	t_cmd	*cmd;
 	char	**paths;
 	char	**envp;
 	int		status;
 
-	cmd = data->cmd_list;
 	paths = get_path_dirs(data->env_list);
 	envp = get_envp(data->env_list);
 	preprocess_cmdlist(data, paths);

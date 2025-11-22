@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/20 16:02:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/22 12:45:44 by danielji         ###   ########.fr       */
+/*   Created: 2025/11/22 12:48:00 by danielji          #+#    #+#             */
+/*   Updated: 2025/11/22 12:49:51 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 Devuelven 2 para indicar uso incorrecto, opciones inválidas o que faltan
 argumentos. */
 
-int	ft_exit(void)
+int	ft_env(void)
 {
-	ft_putendl_fd("exit test", STDOUT_FILENO);
+	ft_putendl_fd("env test", STDOUT_FILENO);
 	return (0);
 }

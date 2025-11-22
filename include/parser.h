@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:04:19 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/10 13:07:51 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/22 11:05:16 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,19 @@
 
 typedef struct s_cmd
 {
-	char			**cmd;
-	char			*path;
-	int				is_builtin;
+	pid_t			pid;
 	int				input;
+	int				status;
 	int				output;
 	int				is_heredoc;
+	int				is_forkable;
+	char			*path;
+	char			**cmd;
 	char			**delimiters;
-	pid_t			pid;
 	t_env_var		*env_list;
 	struct s_shell	*shell;
 	struct s_cmd	*next;
-	struct s_cmd	*prev;//ENRIQUE 1/11: Do we still need this?
+	struct s_cmd	*prev;
 }	t_cmd;
 
 typedef struct s_parser_data

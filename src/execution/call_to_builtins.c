@@ -6,33 +6,37 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 20:23:43 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/21 12:57:57 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/22 12:51:58 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+//! Run in parent process: cd, pwd, unset, export, exit
+//! Run in child process: pwd, echo, env
+
 /* Include `t_shell` for exit and `env_list`?*/
-void	call_to_builtins(t_cmd *cmd)
+int	call_to_builtins(t_cmd *cmd)
 {
 	if (cmd->cmd[0][0] != 'e')
 	{
 		if (cmd->cmd[0][0] == 'c')
-			return ;//execute cd
+			return(ft_cd());
 		else if (cmd->cmd[0][0] == 'p')
-			return ;//execute pwd
+			return (ft_pwd());
 		else if (cmd->cmd[0][0] == 'u')
-			return ;//execute unset
+			return (ft_unset());
 	}
 	else
 	{
 		if (cmd->cmd[0][1] == 'c')
-			execute_echo(cmd);/*return some status of function?*/
+			return(execute_echo(cmd));
 		else if (cmd->cmd[0][1] == 'n')
-			return ;//execute env
+			return (ft_env());
 		else if (cmd->cmd[0][2] == 'p')
-			return ;//execute export
+			return (ft_export());
 		else if (cmd->cmd[0][2] == 'i')
-			ft_exit();
+			return(ft_exit());
 	}
+	return (1);
 }
