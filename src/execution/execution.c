@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/22 22:05:41 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/22 22:25:12 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,7 +165,9 @@ void	execution(t_shell *data)
 	paths = get_path_dirs(data->env_list);
 	envp = get_envp(data->env_list);
 	preprocess_cmdlist(data, paths);
-	execute_cmd_list(data->cmd_list, envp);
+	execute_cmd_list(data->cmd_list, envp);//May we need to pass directly 
+					      //the data->env_list, because some
+					      //builtins modify some values
 	status = wait_children(data->cmd_list);
 	set_last_exit_status(data->env_list, status);
 	free_strings_array(paths);

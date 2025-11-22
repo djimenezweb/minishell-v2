@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 11:06:43 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/22 22:02:50 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/22 22:20:01 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ static int	change_pwd(t_env_var *node, char *new_path)
 
 /*Check env_list looking for HOME. 
  * HOME must be set, if not, cd with args doesn't work*/
-static char	*set_home_as_path(t_shell *data)
+static char	*set_home_as_path(char **env_list)
 {
 	t_env_var	*home_node;
 	
-	home_node = find_env_var(data->env_list, "OLDPWD");
+	home_node = find_env_var(env_list, "OLDPWD");
 	if (!home_node)
 	{
 		perror("minishell: cd: HOME not set");
@@ -37,17 +37,23 @@ static char	*set_home_as_path(t_shell *data)
 	return (home_node->value);
 }
 
-void	execute_cd(char *new_path, t_shell *data)
+void	execute_cd(char **cmd, char **env_list)
 {
 	t_env_var	*current_pwd;
 	t_env_var	*old_pwd;
-	char	*current_pwd;
+	char	*new_path;
 	
-	current_pwd = find_env_var(data->env_list, "PWD");
-	old_pwd = find_env_var(data->env_list, "OLDPWD");
-	if (!change_pwd(oldpwd, current_pwd->value))
+	if (cmd[2])
+	{
+		perror("minishell: cd: too many arguments");
+		exit(EXIT_FAILURE); 
+	} 
+	new_path = cmd[1];
+	current_pwd = find_env_var(env_list, "PWD");
+	old_pwd = find_env_var(env_list, "OLDPWD");
+	if (!change_pwd(old_pwd, current_pwd->value))
 		//return or exit a malloc error
-	if (!new_path)//new_path must be cmd[1]
+	if (!new_path)
 		new_path = set_home_as_path(data);
 	if (chdir(new_path) < 0)
 	{
@@ -56,7 +62,6 @@ void	execute_cd(char *new_path, t_shell *data)
 	}
 	if (!change_pwd(current_pwd, new_path))
 		//return or exit a malloc error
-	//return or exit success
 	exit(EXIT_SUCCESS);
 	//
 	//
