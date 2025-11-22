@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 20:46:19 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/21 12:57:12 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/22 16:52:36 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ int	join_to_write(char **args, int len, int option_n, char **joined)
 		*iterator = '\n';
 	return (1);
 }
-	
+
 //Join args to write it at once
 int	execute_echo(t_cmd *cmd)
 {
-	(void)cmd;
+	(void)cmd;//debug
 	int		join_len;
 	int		option_n;
 	char	*joined_to_write;
@@ -90,10 +90,11 @@ int	execute_echo(t_cmd *cmd)
 	}
 	join_len += count_chars_from(args);
 	if (!join_to_write(args, join_len, option_n, &joined_to_write))
-		return (0);//malloc error happened
+	{
+		ft_pustr_fd("echo failed in malloc", 2);
+		exit(EXIT_FAILURE);
+	}
 	write(STDOUT_FILENO, joined_to_write, (join_len - 1));
 	free(joined_to_write);
-//	printf("joined to write is %p\n", joined_to_write);//debug
-	//return (1);
 	exit(0);
 }
