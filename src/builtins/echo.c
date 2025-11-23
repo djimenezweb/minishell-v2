@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 20:46:19 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/23 01:36:36 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/23 14:39:14 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	execute_echo(t_cmd *cmd)
 	join_len += count_chars_from(args);
 	if (!join_to_write(args, join_len, option_n, &joined_to_write))
 	{
-		ft_putstr_fd("echo failed in malloc", 2);
+		perror("echo failed in malloc");
 		return (12);
 	}
 	write(STDOUT_FILENO, joined_to_write, (join_len - 1));
