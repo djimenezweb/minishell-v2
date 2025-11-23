@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:44:41 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/23 00:25:40 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/23 01:58:37 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 typedef struct s_shell	t_shell;
 typedef struct s_cmd	t_cmd;
 
-int		call_to_builtins(t_cmd *cmd, t_env_var *env_list);
+int		call_to_builtins(t_cmd *cmd, char **envp, t_env_var *env_list);
 int		heredoc(t_cmd *cmd);
 void	execution(t_shell *data);
 int		execute_cmd_list(t_cmd *cmd, char **envp, t_shell *data);
