@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 20:46:19 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/23 15:47:09 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/23 17:07:58 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	join_to_write(char **args, int len, int option_n, char **joined)
 {
 	char	*iterator;
 
-	*joined = ft_calloc(len + 1, sizeof(char));
+	*joined = ft_calloc(len, sizeof(char));
 	if (!*joined)
 		return (0);
 	iterator = *joined;
@@ -57,7 +57,7 @@ int	join_to_write(char **args, int len, int option_n, char **joined)
 			++iterator;
 			++(*args);
 		}
-		if (**args == '\0')
+		if (*(args + 1) != NULL)
 		{
 			*iterator = ' ';
 			++iterator;
@@ -72,7 +72,6 @@ int	join_to_write(char **args, int len, int option_n, char **joined)
 //Join args to write it at once
 int	execute_echo(t_cmd *cmd)
 {
-	(void)cmd;//debug
 	int		join_len;
 	int		option_n;
 	char	*joined_to_write;
@@ -94,7 +93,7 @@ int	execute_echo(t_cmd *cmd)
 		perror("echo failed in malloc");
 		return (12);
 	}
-	write(STDOUT_FILENO, joined_to_write, join_len);
+	write(STDOUT_FILENO, joined_to_write, join_len - 1);
 	free(joined_to_write);
 	return (0);
 }
