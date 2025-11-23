@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 20:46:19 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/23 14:39:14 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/23 15:47:09 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	join_to_write(char **args, int len, int option_n, char **joined)
 {
 	char	*iterator;
 
-	*joined = ft_calloc(len, sizeof(char));
+	*joined = ft_calloc(len + 1, sizeof(char));
 	if (!*joined)
 		return (0);
 	iterator = *joined;
@@ -94,7 +94,7 @@ int	execute_echo(t_cmd *cmd)
 		perror("echo failed in malloc");
 		return (12);
 	}
-	write(STDOUT_FILENO, joined_to_write, (join_len - 1));
+	write(STDOUT_FILENO, joined_to_write, join_len);
 	free(joined_to_write);
 	return (0);
 }
