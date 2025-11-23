@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/21 12:38:16 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/22 22:41:45 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	init_shell(t_shell *data, int argc, char **argv, char **envp)
 		ft_putendl_fd("Run ./minishell without arguments", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
-	(void)argv;
+	(void)argv;//What do we do with argv?
 	data->line = NULL;
 	data->lex_list = NULL;
 	data->cmd_list = NULL;

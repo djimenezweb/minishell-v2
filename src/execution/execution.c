@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/22 22:25:12 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/23 00:44:03 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 	close_child_fds(temp_fd, pipefd, is_last(cmd));
 	if (is_builtin(cmd->cmd[0]))
 	{
-		exit(call_to_builtins(cmd));
+		exit(call_to_builtins(cmd, NULL));//NULL == env_list, 
+						  //not needed at this point of
+						  //builtins (env, pwd, echo)
 	}
 	else if (!cmd->path || !cmd->path[0])
 		command_not_found(cmd->cmd[0]);
@@ -71,7 +73,7 @@ For each command in the command list:
 - Create a pipe except on last command
 - Fork process
 - Return `-1` on error */
-int	execute_cmd_list(t_cmd *cmd, char **envp)
+int	execute_cmd_list(t_cmd *cmd, char **envp, t_shell *data)
 {
 	int	pipefd[2];
 	int	temp_fd;
@@ -83,7 +85,7 @@ int	execute_cmd_list(t_cmd *cmd, char **envp)
 	{
 		if (cmd->is_forkable == 0 && is_first(cmd) && is_last(cmd))
 		{
-			cmd->status = call_to_builtins(cmd, envp);
+			cmd->status = call_to_builtins(cmd, data->env_list);
 			break ;
 		}
 		if (cmd->is_heredoc && heredoc(cmd) < 0)
@@ -165,9 +167,7 @@ void	execution(t_shell *data)
 	paths = get_path_dirs(data->env_list);
 	envp = get_envp(data->env_list);
 	preprocess_cmdlist(data, paths);
-	execute_cmd_list(data->cmd_list, envp);//May we need to pass directly 
-					      //the data->env_list, because some
-					      //builtins modify some values
+	execute_cmd_list(data->cmd_list, envp, data);
 	status = wait_children(data->cmd_list);
 	set_last_exit_status(data->env_list, status);
 	free_strings_array(paths);

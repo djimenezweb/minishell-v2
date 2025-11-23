@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 11:06:43 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/22 22:20:01 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/23 01:33:39 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,71 +18,48 @@ static int	change_pwd(t_env_var *node, char *new_path)
 		free(node->value);
 	node->value = ft_strdup(new_path);
 	if (!node->value)
-		return (0);//malloc error
+		return (0);
 	return (1);
 }
 
 /*Check env_list looking for HOME. 
  * HOME must be set, if not, cd with args doesn't work*/
-static char	*set_home_as_path(char **env_list)
+static int	set_home_as_path(t_env_var *env_list, char **new_path)
 {
 	t_env_var	*home_node;
-	
-	home_node = find_env_var(env_list, "OLDPWD");
+
+	home_node = find_env_var(env_list, "HOME");
 	if (!home_node)
-	{
-		perror("minishell: cd: HOME not set");
-		exit(EXIT_FAILURE);//In case of cd working as a child process
-	}
-	return (home_node->value);
+		return (0);
+	*new_path = home_node->value;
+	return (1);
 }
 
-void	execute_cd(char **cmd, char **env_list)
+int	execute_cd(char **cmd, char *new_path, t_env_var *env_list)
 {
 	t_env_var	*current_pwd;
 	t_env_var	*old_pwd;
-	char	*new_path;
-	
-	if (cmd[2])
+
+	if (cmd[1] && cmd[2])
 	{
 		perror("minishell: cd: too many arguments");
-		exit(EXIT_FAILURE); 
-	} 
-	new_path = cmd[1];
+		return (2);
+	}
 	current_pwd = find_env_var(env_list, "PWD");
 	old_pwd = find_env_var(env_list, "OLDPWD");
 	if (!change_pwd(old_pwd, current_pwd->value))
-		//return or exit a malloc error
-	if (!new_path)
-		new_path = set_home_as_path(data);
+		return (12);
+	if (!new_path && !set_home_as_path(env_list, &new_path))
+	{
+		perror("minishell: cd: HOME not set");
+		return (2);
+	}
 	if (chdir(new_path) < 0)
 	{
-		perror("No such file or directory");//May change this message?
-		exit(EXIT_FAILURE);
+		perror("No such file or directory");
+		return (2);
 	}
 	if (!change_pwd(current_pwd, new_path))
-		//return or exit a malloc error
-	exit(EXIT_SUCCESS);
-	//
-	//
-//	ft_putendl_fd("cd test", STDOUT_FILENO);//test
-//	return (0);//test
-//	"DON'T FORGET" TO REMOVE TEST BELOW
-}
-
-/*
-int main(int argc, char **argv)
-{
-	char	*current_dir;
-
-	current_dir = NULL;
-	current_dir = getcwd(current_dir, 0); 
-	printf("current dir is %s\n", current_dir);
-	if (argc > 1)
-	{
-		chdir(argv[1]);
-		current_dir = getcwd(NULL, 0); 
-		printf("current dir is %s\n", current_dir);
-	}
+		return (12);
 	return (0);
-}*/
+}
