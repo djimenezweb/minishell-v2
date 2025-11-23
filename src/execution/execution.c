@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/23 00:44:03 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/23 02:09:24 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 	close_child_fds(temp_fd, pipefd, is_last(cmd));
 	if (is_builtin(cmd->cmd[0]))
 	{
-		exit(call_to_builtins(cmd, NULL));//NULL == env_list, 
+		exit(call_to_builtins(cmd, envp, NULL));//NULL == env_list, 
 						  //not needed at this point of
 						  //builtins (env, pwd, echo)
 	}
@@ -85,7 +85,8 @@ int	execute_cmd_list(t_cmd *cmd, char **envp, t_shell *data)
 	{
 		if (cmd->is_forkable == 0 && is_first(cmd) && is_last(cmd))
 		{
-			cmd->status = call_to_builtins(cmd, data->env_list);
+			cmd->status = call_to_builtins(cmd, envp,
+					data->env_list);
 			break ;
 		}
 		if (cmd->is_heredoc && heredoc(cmd) < 0)

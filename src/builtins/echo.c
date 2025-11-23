@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 20:46:19 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/23 01:27:25 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/23 01:36:36 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ int	execute_echo(t_cmd *cmd)
 		return (12);
 	}
 	write(STDOUT_FILENO, joined_to_write, (join_len - 1));
-	printf("char at the end is %d\n", joined_to_write[join_len - 1]);//debug
 	free(joined_to_write);
 	return (0);
 }
