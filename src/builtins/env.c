@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 12:48:00 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/22 12:49:51 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/23 02:54:33 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,20 @@
 Devuelven 2 para indicar uso incorrecto, opciones inválidas o que faltan
 argumentos. */
 
-int	ft_env(void)
+int	ft_env(char **envp)
 {
-	ft_putendl_fd("env test", STDOUT_FILENO);
+	int	i;
+	int	len;
+	char	*write_str;
+
+	i = 0;
+	len = 0;
+	while (envp[i] != NULL)
+	{
+		write_str= ft_strjoin(envp[i++], "\n");
+		len = ft_strlen(write_str);
+		write(STDOUT_FILENO, write_str, len);
+	}
+//	ft_putendl_fd("env test", STDOUT_FILENO);
 	return (0);
 }

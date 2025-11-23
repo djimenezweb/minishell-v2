@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 10:53:51 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/23 02:08:24 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/23 02:51:52 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 int	execute_cd(char **cmd, char *new_path, t_env_var *envp);
 int	execute_echo(t_cmd *cmd);
-int	ft_env(void);
+int	ft_env(char **envp);
 int	ft_exit(void);
 int	ft_export(void);
 int	ft_pwd(char **envp);
