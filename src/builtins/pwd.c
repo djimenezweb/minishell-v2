@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 12:47:08 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/23 02:07:52 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/23 14:53:15 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	ft_pwd(char **envp)
 Devuelven 2 para indicar uso incorrecto, opciones inválidas o que faltan
 argumentos. */
 	char	*working_directory;
+	char	*write_str;
 	int	i;
 	int	pwd_len;
 
@@ -32,8 +33,15 @@ argumentos. */
 	if (working_directory != NULL)
 	{
 		working_directory += 4;
-		pwd_len = ft_strlen(working_directory);
-		write(STDOUT_FILENO, working_directory, pwd_len);
+		write_str = ft_strjoin(working_directory, "\n");
+		if (!write_str)
+		{
+			perror ("echo failed in malloc");
+			return (12);
+		}
+		pwd_len = ft_strlen(write_str);
+		write(STDOUT_FILENO, write_str, pwd_len);
+		free(write_str);
 	}
 //	ft_putendl_fd("pwd test", STDOUT_FILENO);
 	return (0);
