@@ -6,18 +6,22 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 11:06:43 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/23 02:27:56 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/23 19:50:14 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//static int	change_pwd(t_env_var *node, char *new_path)
 static int	change_pwd(t_env_var *node)
 {
 	char	*new_path;
 
 	new_path = getcwd(NULL, 0);
+	if (!new_path)
+	{
+		perror("getcwd failed");
+		return (0);
+	}
 	if (node->value)
 		free(node->value);
 	node->value = ft_strdup(new_path);
@@ -52,7 +56,6 @@ int	execute_cd(char **cmd, char *new_path, t_env_var *env_list)
 	}
 	current_pwd = find_env_var(env_list, "PWD");
 	old_pwd = find_env_var(env_list, "OLDPWD");
-	//if (!change_pwd(old_pwd, current_pwd->value))
 	if (!change_pwd(old_pwd))
 		return (12);
 	if (!new_path && !set_home_as_path(env_list, &new_path))
@@ -65,7 +68,6 @@ int	execute_cd(char **cmd, char *new_path, t_env_var *env_list)
 		perror("No such file or directory");
 		return (2);
 	}
-	//if (!change_pwd(current_pwd, new_path))
 	if (!change_pwd(current_pwd))
 		return (12);
 	return (0);
