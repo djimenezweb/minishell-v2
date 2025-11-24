@@ -15,12 +15,6 @@
 /* Outputs the string `s` to the specified file descriptor. */
 void	ft_putstr_fd(char *s, int fd)
 {
-	char	c;
-
-	while (*s)
-	{
-		c = *s;
-		write(fd, &c, 1);
-		s++;
-	}
+	if (s && *s)
+		write(fd, s, ft_strlen(s));
 }
