@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:44:41 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/24 17:33:12 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/24 17:36:43 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 # define EXECUTION_H
 
 # include "minishell.h"
-
-// wait
-# include <sys/wait.h>
-
-# define READ_END 0
-# define WRITE_END 1
 
 typedef struct s_shell	t_shell;
 typedef struct s_cmd	t_cmd;

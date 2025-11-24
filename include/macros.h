@@ -6,12 +6,16 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 11:30:37 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/21 12:55:00 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/24 17:36:15 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MACROS_H
 # define MACROS_H
+
+// execution
+# define READ_END 0
+# define WRITE_END 1
 
 //expander
 # define TEMP_DOUBLE_QUOTE 18 
@@ -31,14 +35,7 @@
 # define PIPE 124
 # define TILDE 126
 
-//parser
-//# define NOT_BUILTIN 0
-//# define FORKABLE 1
-//# define NOT_FORKABLE 2
-
 # define DEFAULT_PATH \
 "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-
-# define PERROR "minishell"
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/10 13:04:18 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/24 17:37:14 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,15 @@
 // readline
 # include <readline/readline.h>
 # include <readline/history.h>
+
+// wait
+# include <sys/wait.h>
+
+// errno
+#include <errno.h>
+
+// stat
+#include <sys/stat.h>
 
 //#include <string.h>
 //#include <ctype.h>

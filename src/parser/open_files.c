@@ -6,12 +6,11 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 18:20:47 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/05 18:20:47 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/24 17:37:42 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <errno.h>
 
 void	assign_hdoc(t_lextoken *lst, t_cmd *last_node)
 {

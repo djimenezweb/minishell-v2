@@ -6,13 +6,11 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 18:08:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/24 17:32:58 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/24 17:37:22 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include <errno.h>
-#include <sys/stat.h>
 
 void	close_pipe(int pipefd[2])
 {
