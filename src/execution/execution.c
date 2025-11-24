@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/24 16:38:12 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/24 19:10:40 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,10 +118,10 @@ int	wait_children(t_cmd *cmd)
 				cmd->status = 128 + WTERMSIG(wstatus);
 		}
 		if (!cmd->next)
-			return (cmd->status);
+			break ;
 		cmd = cmd->next;
 	}
-	return (-1);
+	return (cmd->status);
 }
 
 /* For each command:
