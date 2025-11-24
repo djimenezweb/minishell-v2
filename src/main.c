@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/22 22:41:45 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/24 19:36:41 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	main(int argc, char **argv, char **envp)
 	init_shell(&shell_data, argc, argv, envp);
 	while (1)
 	{
-		shell_data.line = readline("$ ");
+		shell_data.line = readline("tubsh : ");
 		if (!shell_data.line)
 		{
 			ft_putendl_fd("exit", STDOUT_FILENO);
