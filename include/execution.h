@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:44:41 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/23 01:58:37 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/24 17:33:12 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	redirect_out(int pipefd[2], int output, int last);
 void	close_pipe(int pipefd[2]);
 int		is_last(t_cmd *cmd);
 int		is_first(t_cmd *cmd);
-void	command_not_found(char *cmd);
-void	permission_denied(char *cmd);
+int		is_executable(char *path, char *cmd);
+void	print_error_exit(char *cmd, char *msg, int exit_status);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/23 02:09:24 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/24 16:38:12 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,7 @@ void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 						  //not needed at this point of
 						  //builtins (env, pwd, echo)
 	}
-	else if (!cmd->path || !cmd->path[0])
-		command_not_found(cmd->cmd[0]);
-	else if (access(cmd->path, X_OK) != 0)
-		permission_denied(cmd->cmd[0]);
-	else
+	else if (is_executable(cmd->path, cmd->cmd[0]))
 	{
 		execve(cmd->path, cmd->cmd, envp);
 		perror("execve");

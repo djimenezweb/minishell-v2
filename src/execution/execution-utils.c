@@ -6,11 +6,13 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 18:08:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/10 18:08:09 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/24 17:32:58 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <errno.h>
+#include <sys/stat.h>
 
 void	close_pipe(int pipefd[2])
 {
@@ -32,18 +34,38 @@ int	is_first(t_cmd *cmd)
 	return (0);
 }
 
-void	command_not_found(char *cmd)
+void	print_error_exit(char *cmd, char *msg, int exit_status)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putendl_fd(": command not found", STDERR_FILENO);
-	exit(127);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putendl_fd(msg, STDERR_FILENO);
+	exit(exit_status);
 }
 
-void	permission_denied(char *cmd)
+int	is_directory(const char* path)
 {
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putendl_fd(": permission denied", STDERR_FILENO);
-	exit(126);
+	struct stat	file_status;
+
+	if (stat(path, &file_status) < 0)
+	{
+		perror("minishell: stat");
+		exit(126);
+	}
+	if (S_ISDIR(file_status.st_mode))
+		return (1);
+	return (0);
+}
+
+int	is_executable(char *path, char *cmd)
+{
+	if (!path || !path[0])
+		print_error_exit(cmd, "command not found", 127);
+	else if (access(path, F_OK) < 0)
+		print_error_exit(cmd, "No such file or directory", 127);
+	else if (is_directory(path))
+		print_error_exit(cmd, "Is a directory", 126);
+	else if (access(path, X_OK) != 0)
+		print_error_exit(cmd, "permission denied", 126);
+	return (1);
 }
