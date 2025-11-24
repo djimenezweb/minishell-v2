@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/24 19:10:40 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/24 23:18:23 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,7 @@ int	execute_cmd_list(t_cmd *cmd, char **envp, t_shell *data)
 	{
 		if (cmd->is_forkable == 0 && is_first(cmd) && is_last(cmd))
 		{
-			cmd->status = call_to_builtins(cmd, envp,
-					data->env_list);
+			cmd->status = call_to_builtins(cmd, envp, data->env_list);
 			break ;
 		}
 		if (cmd->is_heredoc && heredoc(cmd) < 0)
@@ -105,6 +104,7 @@ exit status of the last child process */
 int	wait_children(t_cmd *cmd)
 {
 	int	wstatus;
+	int	last_status;
 
 	while (cmd)
 	{
@@ -117,11 +117,10 @@ int	wait_children(t_cmd *cmd)
 			else if (WIFSIGNALED(wstatus))
 				cmd->status = 128 + WTERMSIG(wstatus);
 		}
-		if (!cmd->next)
-			break ;
+		last_status = cmd->status;
 		cmd = cmd->next;
 	}
-	return (cmd->status);
+	return (last_status);
 }
 
 /* For each command:
@@ -147,10 +146,8 @@ void	preprocess_cmdlist(t_shell *data, char **paths)
 			cmd->env_list = data->env_list;
 		cmd = cmd->next;
 	}
-	//Do we need !print_cmd //!debug after finishing and sending to eval?
 }
 
-//!print_cmd_list(cmd); //!debug
 /* - Find paths
 - Call `execute_cmd_list` to run commands
 - Get exit status from `wait_children`
