@@ -6,19 +6,17 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 12:47:08 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/23 19:53:29 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/24 23:15:18 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
-
 int	ft_pwd(void)
 {
 	char	*working_directory;
 	char	*write_str;
-	int	pwd_len;
+	int		pwd_len;
 
 	working_directory = getcwd(NULL, 0);
 	if (!working_directory)

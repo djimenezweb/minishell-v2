@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 18:08:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/24 17:37:22 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/24 23:10:45 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	print_error_exit(char *cmd, char *msg, int exit_status)
 	exit(exit_status);
 }
 
-int	is_directory(const char* path)
+int	is_directory(const char *path)
 {
 	struct stat	file_status;
 
