@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 10:07:15 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 12:39:40 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/25 13:54:01 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ void	init_signals(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-/* Handler function for `SIGINT` (Ctrl+C)
-- Write new line and redisplay */
+/* If `SIGINT` write new line and redisplay */
 void	handle_sigint(int sig)
 {
 	if (sig == SIGINT)

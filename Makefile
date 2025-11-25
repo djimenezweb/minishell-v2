@@ -13,6 +13,7 @@ SRC			=	main.c debug_helpers.c\
 				environment/environment-list-free.c\
 				environment/environment-last-exit-st.c\
 				execution/execution.c execution/execution-utils.c\
+				execution/execution-utils2.c execution/execution-wait.c\
 				execution/paths.c execution/execution-child.c\
 				execution/heredoc.c execution/call_to_builtins.c\
 				expander/expander.c expander/escape_chars.c\

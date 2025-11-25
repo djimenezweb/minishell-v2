@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 18:08:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/24 23:10:45 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/25 14:17:55 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,29 @@ void	close_pipe(int pipefd[2])
 	safe_close(pipefd[WRITE_END]);
 }
 
-int	is_last(t_cmd *cmd)
+void	init_pipe(int pipefd[2])
 {
-	if (cmd->next == NULL)
-		return (1);
-	return (0);
+	pipefd[READ_END] = -1;
+	pipefd[WRITE_END] = -1;
 }
 
-int	is_first(t_cmd *cmd)
+void	safe_dup2(int oldfd, int newfd)
 {
-	if (cmd->prev == NULL)
-		return (1);
-	return (0);
+	if (oldfd >= 0 && newfd >= 0 && dup2(oldfd, newfd) < 0)
+	{
+		perror("dup2");
+		exit(EXIT_FAILURE);
+	}
+}
+
+/* Close `fd` only if it's `0` or greater */
+void	safe_close(int fd)
+{
+	if (fd >= 0 && close(fd) < 0)
+	{
+		perror("close");
+		exit(EXIT_FAILURE);
+	}
 }
 
 void	print_error_exit(char *cmd, char *msg, int exit_status)
@@ -39,31 +50,4 @@ void	print_error_exit(char *cmd, char *msg, int exit_status)
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putendl_fd(msg, STDERR_FILENO);
 	exit(exit_status);
-}
-
-int	is_directory(const char *path)
-{
-	struct stat	file_status;
-
-	if (stat(path, &file_status) < 0)
-	{
-		perror("minishell: stat");
-		exit(126);
-	}
-	if (S_ISDIR(file_status.st_mode))
-		return (1);
-	return (0);
-}
-
-int	is_executable(char *path, char *cmd)
-{
-	if (!path || !path[0])
-		print_error_exit(cmd, "command not found", 127);
-	else if (access(path, F_OK) < 0)
-		print_error_exit(cmd, "No such file or directory", 127);
-	else if (is_directory(path))
-		print_error_exit(cmd, "Is a directory", 126);
-	else if (access(path, X_OK) != 0)
-		print_error_exit(cmd, "permission denied", 126);
-	return (1);
 }

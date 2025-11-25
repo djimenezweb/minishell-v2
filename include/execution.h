@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:44:41 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/24 17:36:43 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/25 14:20:31 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	execution(t_shell *data);
 int		execute_cmd_list(t_cmd *cmd, char **envp, t_shell *data);
 void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2]);
 void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp);
+int		get_status(int wstatus, int *signal);
 int		wait_children(t_cmd *cmd);
 char	**get_path_dirs(t_env_var *env_list);
 char	*get_exec_path(char *cmd, char **paths);
@@ -35,6 +36,7 @@ void	close_child_fds(int temp_fd, int pipefd[2], int last);
 void	redirect_in(int temp_fd, int input, int first);
 void	redirect_out(int pipefd[2], int output, int last);
 void	close_pipe(int pipefd[2]);
+void	init_pipe(int pipefd[2]);
 int		is_last(t_cmd *cmd);
 int		is_first(t_cmd *cmd);
 int		is_executable(char *path, char *cmd);

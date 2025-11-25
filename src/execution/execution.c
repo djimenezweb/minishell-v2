@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 12:54:59 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/25 14:15:01 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,17 @@
 - Execute command. If execve fails, print error and exit */
 void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 {
+	restore_signals();
 	if (cmd->input == -1 || cmd->output == -1)
 	{
-		//! Should close child fds?
+		close_child_fds(temp_fd, pipefd, is_last(cmd));
 		exit(EXIT_FAILURE);
 	}
 	redirect_in(temp_fd, cmd->input, is_first(cmd));
 	redirect_out(pipefd, cmd->output, is_last(cmd));
 	close_child_fds(temp_fd, pipefd, is_last(cmd));
 	if (is_builtin(cmd->cmd[0]))
-	{
-		exit(call_to_builtins(cmd, envp, NULL));//NULL == env_list, 
-						  //not needed at this point of
-						  //builtins (env, pwd, echo)
-	}
+		exit(call_to_builtins(cmd, envp, NULL));
 	else if (is_executable(cmd->path, cmd->cmd[0]))
 	{
 		execve(cmd->path, cmd->cmd, envp);
@@ -49,6 +46,7 @@ void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 - If they were opened, close input & output files */
 void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2])
 {
+	ignore_sigint();
 	if (*temp_fd != -1)
 		safe_close(*temp_fd);
 	if (!is_last(cmd))
@@ -69,15 +67,13 @@ For each command in the command list:
 - Create a pipe except on last command
 - Fork process
 - Return `-1` on error */
-//! TOO MANY LINES
 int	execute_cmd_list(t_cmd *cmd, char **envp, t_shell *data)
 {
-	int	pipefd[2];
 	int	temp_fd;
+	int	pipefd[2];
 
 	temp_fd = -1;
-	pipefd[READ_END] = -1;
-	pipefd[WRITE_END] = -1;
+	init_pipe(pipefd);
 	while (cmd)
 	{
 		if (cmd->is_forkable == 0 && is_first(cmd) && is_last(cmd))
@@ -93,53 +89,11 @@ int	execute_cmd_list(t_cmd *cmd, char **envp, t_shell *data)
 		if (cmd->pid < 0)
 			return (perror("fork"), close_pipe(pipefd), -1);
 		if (cmd->pid == 0)
-		{
-			restore_signals();
 			child_process(cmd, temp_fd, pipefd, envp);
-		}
-		ignore_sigint();
 		parent_process(cmd, &temp_fd, pipefd);
 		cmd = cmd->next;
 	}
 	return (0);
-}
-
-/* Return exit status of awaited child process */
-int	get_status(int wstatus, int *signal)
-{
-	if (WIFEXITED(wstatus))
-		return (WEXITSTATUS(wstatus));
-	else if (WIFSIGNALED(wstatus))
-	{
-		*signal = WTERMSIG(wstatus);
-		return (128 + *signal);
-	}
-	return (1);
-}
-
-/* Wait for each child process and return the
-exit status of the last child process */
-int	wait_children(t_cmd *cmd)
-{
-	int	wstatus;
-	int	signal;
-	int	last_status;
-
-	signal = 0;
-	while (cmd)
-	{
-		if (cmd->is_forkable)
-		{
-			if (waitpid(cmd->pid, &wstatus, 0) < 0)
-				perror("waitpid");
-			cmd->status = get_status(wstatus, &signal);
-		}
-		last_status = cmd->status;
-		cmd = cmd->next;
-	}
-	if (signal == SIGINT)
-		prompt_newline();
-	return (last_status);
 }
 
 /* For each command:
