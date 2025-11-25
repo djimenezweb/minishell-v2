@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/24 23:16:47 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/25 10:14:19 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 // Libft and our headers
 # include "../libft/libft.h"
 # include "macros.h"
+# include "signals.h"
 # include "environment.h"
 # include "lexer.h"
 # include "expander.h"
@@ -42,6 +43,9 @@
 
 // stat
 # include <sys/stat.h>
+
+// signal
+# include <signal.h>
 
 //#include <string.h>
 //#include <ctype.h>

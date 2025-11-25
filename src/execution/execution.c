@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/24 23:18:23 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/25 12:11:14 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,11 @@ int	execute_cmd_list(t_cmd *cmd, char **envp, t_shell *data)
 		if (cmd->pid < 0)
 			return (perror("fork"), close_pipe(pipefd), -1);
 		if (cmd->pid == 0)
+		{
+			restore_signals();
 			child_process(cmd, temp_fd, pipefd, envp);
+		}
+		ignore_sigint();
 		parent_process(cmd, &temp_fd, pipefd);
 		cmd = cmd->next;
 	}
@@ -120,6 +124,10 @@ int	wait_children(t_cmd *cmd)
 		last_status = cmd->status;
 		cmd = cmd->next;
 	}
+	// Print new line ONLY if child was killed by SIGINT
+	if (WIFSIGNALED(last_status))
+		prompt_newline();
+	init_signals();
 	return (last_status);
 }
 
