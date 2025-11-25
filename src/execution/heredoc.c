@@ -6,11 +6,13 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 09:52:03 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 19:04:03 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/25 19:20:15 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+ #include <sys/ioctl.h>
 
 /* Print warning when line contains EOF only (triggered by Ctrl+D) */
 static void	print_eof(char *delim)
@@ -70,9 +72,7 @@ static void	heredoc_loop(t_cmd *cmd, int i, int here_pipe[2])
 	}
 	while (g_global == 1)
 	{
-		printf("Before readline\n");
 		line = readline("> ");
-		printf("After readline\n");
 		if (!line)
 		{
 			print_eof(cmd->delimiters[i]);
@@ -90,9 +90,12 @@ static void	heredoc_loop(t_cmd *cmd, int i, int here_pipe[2])
 void	handle_sigint_heredoc(int sig)
 {
 	if (sig == SIGINT)
-		return ;
+	{
+		g_global = 2;
+		ioctl(STDIN_FILENO, TIOCSTI, "\n");
+	}
 /*		ft_putendl_fd("Sig int desde heredoc", 2);
-	g_global = 2; */
+	 */
 }
 
 /* - Initialize pipe ends to `-1`
@@ -117,5 +120,6 @@ int	heredoc(t_cmd *cmd)
 	}
 	safe_close(here_pipe[WRITE_END]);
 	cmd->input = here_pipe[READ_END];
+	g_global = 1;	// Reestablecer variable global aquí o en otro lugar
 	return (0);
 }
