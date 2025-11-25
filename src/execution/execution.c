@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 14:15:01 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/25 14:28:08 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ void	execution(t_shell *data)
 	status = wait_children(data->cmd_list);
 	init_signals();
 	set_last_exit_status(data->env_list, status);
+	data->last_status = status;
 	free_strings_array(paths);
 	free_strings_array(envp);
 	ft_cmdlist_clear(&(data->cmd_list));

@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 10:14:19 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/25 14:26:45 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@
 typedef struct s_shell
 {
 	char		*line;
+	int			last_status;
 	t_lextoken	*lex_list;
 	t_env_var	*env_list;
-	//Should include here exit status, updated after every execution
 	t_cmd		*cmd_list;
 }			t_shell;
 
