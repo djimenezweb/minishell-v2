@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:44:41 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 14:20:31 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/25 14:39:45 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_cmd	t_cmd;
 int		call_to_builtins(t_cmd *cmd, char **envp, t_env_var *env_list);
 int		heredoc(t_cmd *cmd);
 void	execution(t_shell *data);
+void	preprocess_cmdlist(t_shell *data, char **paths);
 int		execute_cmd_list(t_cmd *cmd, char **envp, t_shell *data);
 void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2]);
 void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp);
