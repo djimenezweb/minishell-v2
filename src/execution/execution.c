@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 12:50:29 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/25 12:54:59 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,6 @@ int	wait_children(t_cmd *cmd)
 	}
 	if (signal == SIGINT)
 		prompt_newline();
-	init_signals();
 	return (last_status);
 }
 
@@ -183,6 +182,7 @@ void	execution(t_shell *data)
 	preprocess_cmdlist(data, paths);
 	execute_cmd_list(data->cmd_list, envp, data);
 	status = wait_children(data->cmd_list);
+	init_signals();
 	set_last_exit_status(data->env_list, status);
 	free_strings_array(paths);
 	free_strings_array(envp);
