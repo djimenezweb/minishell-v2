@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 14:39:00 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/25 16:12:57 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,11 @@ void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2])
 void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 {
 	restore_signals();
+	if (!cmd->cmd || !cmd->cmd[0])
+	{
+		close_child_fds(temp_fd, pipefd, is_last(cmd));
+		exit(EXIT_SUCCESS);
+	}
 	if (cmd->input == -1 || cmd->output == -1)
 	{
 		close_child_fds(temp_fd, pipefd, is_last(cmd));
