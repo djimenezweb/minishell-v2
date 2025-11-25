@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 09:52:03 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 14:35:42 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/25 18:59:16 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ static int	is_delimiter(char *delim, char *line)
 	return (0);
 }
 
+int	g_global = 1;
+
 /* If delimiter is quoted, remove quotes
 - Create prompt line until an empty line
 - Expand variables if delimiter was not quoted
@@ -66,15 +68,17 @@ static void	heredoc_loop(t_cmd *cmd, int i, int here_pipe[2])
 		is_quoted = 1;
 		remove_quotes(cmd->delimiters[i]);
 	}
-	while (1)
+	while (g_global == 1)
 	{
+		printf("Before readline\n");
 		line = readline("> ");
+		printf("After readline\n");
 		if (!line)
 		{
 			print_eof(cmd->delimiters[i]);
 			break ;
 		}
-		if (is_delimiter(cmd->delimiters[i], line))
+		if (g_global == 2 || is_delimiter(cmd->delimiters[i], line))
 			break ;
 		if (!is_quoted && ft_strchr(line, DOLLAR))
 			expander(&line, cmd->env_list);
@@ -83,8 +87,16 @@ static void	heredoc_loop(t_cmd *cmd, int i, int here_pipe[2])
 	}
 }
 
+void	handle_sigint_heredoc(int sig)
+{
+	return ;
+/* 	if (sig == SIGINT)
+		ft_putendl_fd("Sig int desde heredoc", 2);
+	g_global = 2; */
+}
+
 /* - Initialize pipe ends to `-1`
-- For each demiliter create a heredoc loop
+- For each delimiter create a heredoc loop
 - Set heredoc output to command input */
 // TODO: Gestionar Ctrl+C, Ctrl+\ ????
 int	heredoc(t_cmd *cmd)
@@ -92,6 +104,7 @@ int	heredoc(t_cmd *cmd)
 	int	i;
 	int	here_pipe[2];
 
+	signal(SIGINT, handle_sigint_heredoc);
 	i = 0;
 	here_pipe[READ_END] = -1;
 	here_pipe[WRITE_END] = -1;
