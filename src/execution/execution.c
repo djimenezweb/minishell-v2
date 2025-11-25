@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 12:11:14 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/25 12:50:29 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ For each command in the command list:
 - Create a pipe except on last command
 - Fork process
 - Return `-1` on error */
+//! TOO MANY LINES
 int	execute_cmd_list(t_cmd *cmd, char **envp, t_shell *data)
 {
 	int	pipefd[2];
@@ -103,29 +104,40 @@ int	execute_cmd_list(t_cmd *cmd, char **envp, t_shell *data)
 	return (0);
 }
 
+/* Return exit status of awaited child process */
+int	get_status(int wstatus, int *signal)
+{
+	if (WIFEXITED(wstatus))
+		return (WEXITSTATUS(wstatus));
+	else if (WIFSIGNALED(wstatus))
+	{
+		*signal = WTERMSIG(wstatus);
+		return (128 + *signal);
+	}
+	return (1);
+}
+
 /* Wait for each child process and return the
 exit status of the last child process */
 int	wait_children(t_cmd *cmd)
 {
 	int	wstatus;
+	int	signal;
 	int	last_status;
 
+	signal = 0;
 	while (cmd)
 	{
 		if (cmd->is_forkable)
 		{
 			if (waitpid(cmd->pid, &wstatus, 0) < 0)
 				perror("waitpid");
-			if (WIFEXITED(wstatus))
-				cmd->status = WEXITSTATUS(wstatus);
-			else if (WIFSIGNALED(wstatus))
-				cmd->status = 128 + WTERMSIG(wstatus);
+			cmd->status = get_status(wstatus, &signal);
 		}
 		last_status = cmd->status;
 		cmd = cmd->next;
 	}
-	// Print new line ONLY if child was killed by SIGINT
-	if (WIFSIGNALED(last_status))
+	if (signal == SIGINT)
 		prompt_newline();
 	init_signals();
 	return (last_status);

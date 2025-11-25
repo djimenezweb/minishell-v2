@@ -6,26 +6,38 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 10:07:15 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 12:00:21 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/25 12:39:40 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* In interactive mode:
-- `Ctrl`+`C` (`SIGINT`) displays a new prompt on a new line.
-- `Ctrl`+`\` (`SIGQUIT`) does nothing. */
+/* - Call `handle_sigint` if `SIGINT` (Ctrl+C)
+- Ignore `SIGQUIT` (Ctrl+\) */
 void	init_signals(void)
 {
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);
 }
 
+/* Handler function for `SIGINT` (Ctrl+C)
+- Write new line and redisplay */
+void	handle_sigint(int sig)
+{
+	if (sig == SIGINT)
+	{
+		prompt_newline();
+		rl_redisplay();
+	}
+}
+
+/* Ignore `SIGINT` (Ctrl+C) */
 void	ignore_sigint(void)
 {
 	signal(SIGINT, SIG_IGN);
 }
 
+/* Restore `SIGINT` and `SIGQUIT` to defaults */
 void	restore_signals(void)
 {
 	signal(SIGINT, SIG_DFL);
@@ -39,11 +51,10 @@ void	prompt_newline(void)
 {
 	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
+	rl_replace_line("", 0);
 }
 
-/* Handler function for `Ctrl`+`C` (`SIGINT`)
-In interactive mode displays a new prompt on a new line.
-
+/*
 `rl_on_new_line`:
 	Tell the update functions that we have moved onto a new (empty) line.
 
@@ -53,13 +64,5 @@ In interactive mode displays a new prompt on a new line.
 
 `rl_redisplay`:
 	Change what’s displayed on the screen to reflect the current contents
-	of `rl_line_buffer`.*/
-void	handle_sigint(int sig)
-{
-	if (sig == SIGINT)
-	{
-		prompt_newline();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-}
+	of `rl_line_buffer`.
+*/
