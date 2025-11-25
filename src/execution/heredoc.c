@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 09:52:03 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 18:59:16 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/25 19:04:03 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ static void	heredoc_loop(t_cmd *cmd, int i, int here_pipe[2])
 
 void	handle_sigint_heredoc(int sig)
 {
-	return ;
-/* 	if (sig == SIGINT)
-		ft_putendl_fd("Sig int desde heredoc", 2);
+	if (sig == SIGINT)
+		return ;
+/*		ft_putendl_fd("Sig int desde heredoc", 2);
 	g_global = 2; */
 }
 
