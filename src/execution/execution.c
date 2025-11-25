@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 16:12:57 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/25 17:12:56 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,6 @@ void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2])
 - Execute command. If execve fails, print error and exit */
 void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 {
-	restore_signals();
 	if (!cmd->cmd || !cmd->cmd[0])
 	{
 		close_child_fds(temp_fd, pipefd, is_last(cmd));
@@ -141,6 +140,7 @@ void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 		exit(call_to_builtins(cmd, envp, NULL));
 	else if (is_executable(cmd->path, cmd->cmd[0]))
 	{
+		restore_signals();
 		execve(cmd->path, cmd->cmd, envp);
 		perror("execve");
 		exit(126);
