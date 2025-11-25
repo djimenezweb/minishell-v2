@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 11:06:43 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/23 19:50:14 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/25 19:54:57 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ static int	set_home_as_path(t_env_var *env_list, char **new_path)
 	return (1);
 }
 
+/*new_path is route called by cd. If there's not new_path, cd use HOME
+ * enviorment variable to set it as new path. In bash, if !HOME, cd alone
+ * doesn't works. We did it, too*/
 int	execute_cd(char **cmd, char *new_path, t_env_var *env_list)
 {
 	t_env_var	*current_pwd;
