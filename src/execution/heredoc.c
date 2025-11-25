@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 09:52:03 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/21 08:45:55 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/25 14:35:42 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ static void	heredoc_loop(t_cmd *cmd, int i, int here_pipe[2])
 /* - Initialize pipe ends to `-1`
 - For each demiliter create a heredoc loop
 - Set heredoc output to command input */
+// TODO: Gestionar Ctrl+C, Ctrl+\ ????
 int	heredoc(t_cmd *cmd)
 {
 	int	i;
