@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/26 17:42:52 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/26 17:56:31 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,25 @@ int	execute_cmd_list(t_cmd *cmd, char **envp, t_shell *data)
 			break ;
 		if (!is_last(cmd) && (pipe(pipefd) < 0))
 			return (perror("pipe"), -1);
-		cmd->pid = fork();
+		cmd->pid = fork_cmd(cmd, &temp_fd, pipefd, envp);
 		if (cmd->pid < 0)
 			return (perror("fork"), close_pipe(pipefd), -1);
-		if (cmd->pid == 0)
-			child_process(cmd, temp_fd, pipefd, envp);
-		parent_process(cmd, &temp_fd, pipefd);
 		cmd = cmd->next; 
 	}
 	return (0);
+}
+
+pid_t	fork_cmd(t_cmd *cmd, int *temp_fd, int pipefd[2], char **envp)
+{
+	pid_t	pid;
+
+	pid = fork();
+	if (pid < 0)
+		return (pid);
+	if (pid == 0)
+		child_process(cmd, *temp_fd, pipefd, envp);
+	parent_process(cmd, temp_fd, pipefd);
+	return (pid);
 }
 
 /* Parent process:

@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:44:41 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 14:39:45 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/26 17:56:53 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		heredoc(t_cmd *cmd);
 void	execution(t_shell *data);
 void	preprocess_cmdlist(t_shell *data, char **paths);
 int		execute_cmd_list(t_cmd *cmd, char **envp, t_shell *data);
+pid_t	fork_cmd(t_cmd *cmd, int *temp_fd, int pipefd[2], char **envp);
 void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2]);
 void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp);
 int		get_status(int wstatus, int *signal);
