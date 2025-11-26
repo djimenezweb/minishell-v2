@@ -6,13 +6,13 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 09:52:03 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 19:20:15 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/26 13:04:27 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
- #include <sys/ioctl.h>
+#include <sys/ioctl.h>
 
 /* Print warning when line contains EOF only (triggered by Ctrl+D) */
 static void	print_eof(char *delim)
@@ -53,7 +53,25 @@ static int	is_delimiter(char *delim, char *line)
 	return (0);
 }
 
-int	g_global = 1;
+void	handle_sigint_heredoc(int sig)
+{
+	(void)sig;
+	g_heredoc_signal = 2;
+	//write(STDOUT_FILENO, "\n", 1);
+	//rl_replace_line("", 0);
+	//rl_on_new_line();
+	//rl_done = 1;
+	char c = '\n';
+	ioctl(STDIN_FILENO, TIOCSTI, &c);
+}
+
+/* void	init_heredoc_signal()
+{
+	struct sigaction	sa = {0};
+	sa.sa_handler = handle_sigint_heredoc;
+	//sigemptyset(&sa.sa_mask);
+	sigaction(SIGINT, &sa, NULL);
+} */
 
 /* If delimiter is quoted, remove quotes
 - Create prompt line until an empty line
@@ -70,7 +88,7 @@ static void	heredoc_loop(t_cmd *cmd, int i, int here_pipe[2])
 		is_quoted = 1;
 		remove_quotes(cmd->delimiters[i]);
 	}
-	while (g_global == 1)
+	while (g_heredoc_signal == 1)
 	{
 		line = readline("> ");
 		if (!line)
@@ -78,24 +96,13 @@ static void	heredoc_loop(t_cmd *cmd, int i, int here_pipe[2])
 			print_eof(cmd->delimiters[i]);
 			break ;
 		}
-		if (g_global == 2 || is_delimiter(cmd->delimiters[i], line))
+		if (g_heredoc_signal == 2 || is_delimiter(cmd->delimiters[i], line))
 			break ;
 		if (!is_quoted && ft_strchr(line, DOLLAR))
 			expander(&line, cmd->env_list);
 		ft_putendl_fd(line, here_pipe[WRITE_END]);
 		free(line);
 	}
-}
-
-void	handle_sigint_heredoc(int sig)
-{
-	if (sig == SIGINT)
-	{
-		g_global = 2;
-		ioctl(STDIN_FILENO, TIOCSTI, "\n");
-	}
-/*		ft_putendl_fd("Sig int desde heredoc", 2);
-	 */
 }
 
 /* - Initialize pipe ends to `-1`
@@ -107,6 +114,7 @@ int	heredoc(t_cmd *cmd)
 	int	i;
 	int	here_pipe[2];
 
+	//init_heredoc_signal();
 	signal(SIGINT, handle_sigint_heredoc);
 	i = 0;
 	here_pipe[READ_END] = -1;
@@ -119,7 +127,9 @@ int	heredoc(t_cmd *cmd)
 		i++;
 	}
 	safe_close(here_pipe[WRITE_END]);
-	cmd->input = here_pipe[READ_END];
-	g_global = 1;	// Reestablecer variable global aquí o en otro lugar
+	if (g_heredoc_signal == 2)
+		cmd->input = -1;
+	else
+		cmd->input = here_pipe[READ_END];
 	return (0);
 }

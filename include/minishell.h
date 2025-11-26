@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 14:26:45 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/26 12:58:31 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@
 
 //#include <string.h>
 //#include <ctype.h>
+
+extern volatile sig_atomic_t	g_heredoc_signal;
 
 typedef struct s_shell
 {

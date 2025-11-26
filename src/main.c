@@ -6,11 +6,13 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 14:27:34 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/26 11:55:57 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+volatile sig_atomic_t	g_heredoc_signal = 1;
 
 static void	init_shell(t_shell *data, int argc, char **argv, char **envp)
 {

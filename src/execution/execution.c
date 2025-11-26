@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 17:12:56 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/26 12:36:28 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ int	execute_cmd_list(t_cmd *cmd, char **envp, t_shell *data)
 		}
 		if (cmd->is_heredoc && heredoc(cmd) < 0)
 			return (perror("heredoc"), -1);
+		if (g_heredoc_signal == 2)
+			break ;
 		if (!is_last(cmd) && (pipe(pipefd) < 0))
 			return (perror("pipe"), -1);
 		cmd->pid = fork();
