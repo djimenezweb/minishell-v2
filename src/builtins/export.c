@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 12:47:48 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/26 20:40:26 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/26 20:46:55 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	ft_export(char **cmd, t_env_var *env_list, char **envp)
 		while (*cmd && !error_flag)
 		{
 			create_new_env_vars(*cmd, env_list, &error_flag);
-			//Check if env_list is modified
 			++cmd;
 		}
 		if  (error_flag)
