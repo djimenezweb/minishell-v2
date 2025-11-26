@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:23:02 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/04 13:54:06 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/26 20:42:55 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,19 @@ The string `str` must be formatted as `NAME=VALUE` */
 void	set_name_value(t_env_var *node, char *str)
 {
 	int	start;
-	int	end;
+	int	len;
 
 	start = 0;
-	end = 0;
-	while (str[end] && str[end] != EQUALS)
-		end++;
-	node->name = ft_substr(str, 0, end);
-	start = end++;
-	end = start;
+	len = 0;
+	while (str[len] && str[len] != EQUALS)
+		len++;
+	node->name = ft_substr(str, 0, len);
+	start = len++;
+	len = start;
 	start++;
-	while (str[end])
-		end++;
-	node->value = ft_substr(str, start, end);
+	while (str[len])
+		len++;
+	node->value = ft_substr(str, start, len - start);
 }
 
 /* Set default variables `PATH` and `PWD` if they are missing.
