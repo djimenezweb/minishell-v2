@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 09:52:03 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/26 13:04:27 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/26 16:31:07 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	handle_sigint_heredoc(int sig)
 	//rl_done = 1;
 	char c = '\n';
 	ioctl(STDIN_FILENO, TIOCSTI, &c);
+	rl_on_new_line();
+	rl_replace_line("", 0);
 }
 
 /* void	init_heredoc_signal()
@@ -96,7 +98,7 @@ static void	heredoc_loop(t_cmd *cmd, int i, int here_pipe[2])
 			print_eof(cmd->delimiters[i]);
 			break ;
 		}
-		if (g_heredoc_signal == 2 || is_delimiter(cmd->delimiters[i], line))
+		if (is_delimiter(cmd->delimiters[i], line))
 			break ;
 		if (!is_quoted && ft_strchr(line, DOLLAR))
 			expander(&line, cmd->env_list);

@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/26 11:55:57 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/26 16:23:28 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,10 @@ int	main(int argc, char **argv, char **envp)
 	t_shell	shell_data;
 
 	init_shell(&shell_data, argc, argv, envp);
-	init_signals();
 	while (1)
 	{
+		g_heredoc_signal = 1;
+		init_signals();
 		shell_data.line = readline("$ ");
 		if (!shell_data.line)
 		{
