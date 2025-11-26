@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 10:07:15 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 13:54:01 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/26 12:07:41 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	restore_signals(void)
 - Replace the contents of `rl_line_buffer` with an empty string */
 void	prompt_newline(void)
 {
-	write(STDOUT_FILENO, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
+	write(STDOUT_FILENO, "\n", 1); // Move to a new line
+	rl_on_new_line(); // Regenerate the prompt on a newline
+	rl_replace_line("", 0); // Clear the previous text
 }
 
 /*
