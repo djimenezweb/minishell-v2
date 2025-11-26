@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 12:47:48 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 20:48:35 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/26 20:20:38 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,20 @@
 static void	create_new_env_vars(char *input, t_env_var *env_list, int *flag)
 {
 	t_env_var	*new_node;
+	t_env_var	*already_exist_env_var;
 
 	new_node = NULL;
 	new_node = ft_new_env(input);
 	if (!new_node)
+	{
 		*flag = 1;
-	ft_env_addback(&env_list, new_node);
+		return ;
+	}
+	already_exist_env_var = find_env_var(env_list, new_node->name);
+	if (!already_exist_env_var)
+		ft_env_addback(&env_list, new_node);
+	else
+		change_env_value(already_exist_env_var, new_node->value);
 	//if (!ft_strchr(input, '='))
 		//remove_equal();TODO
 }
