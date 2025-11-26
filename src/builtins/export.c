@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 12:47:48 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/26 20:46:55 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/26 20:48:05 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_export(char **cmd, t_env_var *env_list, char **envp)
 			create_new_env_vars(*cmd, env_list, &error_flag);
 			++cmd;
 		}
-		if  (error_flag)
+		if (error_flag)
 			ft_putendl_fd("env: failed creating new env_var", 2);
 	}
 	return (error_flag);
