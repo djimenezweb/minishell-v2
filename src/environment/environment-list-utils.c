@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 10:22:22 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/14 10:22:22 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/26 18:33:07 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,14 @@ int	ft_envlist_size(t_env_var *lst)
 		lst = lst->next;
 	}
 	return (size);
+}
+
+int	change_env_value(t_env_var *node, char *new_value)
+{
+	if (node->value)
+		free(node->value);
+	node->value = ft_strdup(new_value);
+	if (!node->value)
+		return (0);
+	return (1);
 }

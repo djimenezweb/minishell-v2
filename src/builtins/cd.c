@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 11:06:43 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 19:54:57 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/26 18:35:07 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ static int	change_pwd(t_env_var *node)
 		perror("getcwd failed");
 		return (0);
 	}
-	if (node->value)
-		free(node->value);
-	node->value = ft_strdup(new_path);
-	free(new_path);
-	if (!node->value)
+	if (!change_env_value(node, new_path))
+	{
+		free(new_path);
 		return (0);
+	}
+	free(new_path);
 	return (1);
 }
 
