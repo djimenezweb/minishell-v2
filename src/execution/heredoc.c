@@ -6,13 +6,11 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 09:52:03 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/26 16:31:07 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/26 16:37:40 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-#include <sys/ioctl.h>
 
 /* Print warning when line contains EOF only (triggered by Ctrl+D) */
 static void	print_eof(char *delim)
@@ -52,28 +50,6 @@ static int	is_delimiter(char *delim, char *line)
 	}
 	return (0);
 }
-
-void	handle_sigint_heredoc(int sig)
-{
-	(void)sig;
-	g_heredoc_signal = 2;
-	//write(STDOUT_FILENO, "\n", 1);
-	//rl_replace_line("", 0);
-	//rl_on_new_line();
-	//rl_done = 1;
-	char c = '\n';
-	ioctl(STDIN_FILENO, TIOCSTI, &c);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-}
-
-/* void	init_heredoc_signal()
-{
-	struct sigaction	sa = {0};
-	sa.sa_handler = handle_sigint_heredoc;
-	//sigemptyset(&sa.sa_mask);
-	sigaction(SIGINT, &sa, NULL);
-} */
 
 /* If delimiter is quoted, remove quotes
 - Create prompt line until an empty line
@@ -116,8 +92,7 @@ int	heredoc(t_cmd *cmd)
 	int	i;
 	int	here_pipe[2];
 
-	//init_heredoc_signal();
-	signal(SIGINT, handle_sigint_heredoc);
+	heredoc_signals();
 	i = 0;
 	here_pipe[READ_END] = -1;
 	here_pipe[WRITE_END] = -1;

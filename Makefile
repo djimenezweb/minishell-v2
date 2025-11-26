@@ -31,7 +31,7 @@ SRC			=	main.c debug_helpers.c\
 				syntax/quote_validation.c\
 				syntax/is_valid_token.c\
 				syntax/syntax_validation.c\
-				signals/signals.c
+				signals/signals.c signals/signals-handlers.c
 SRCS		= $(addprefix $(SRC_PATH)/, $(SRC))
 OBJS		= $(addprefix $(OBJ_PATH)/, $(SRC:.c=.o))
 INCLUDE		= -I./include -I./libft

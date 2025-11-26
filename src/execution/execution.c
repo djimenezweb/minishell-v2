@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/26 12:36:28 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/26 17:42:52 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	execution(t_shell *data)
 	preprocess_cmdlist(data, paths);
 	execute_cmd_list(data->cmd_list, envp, data);
 	status = wait_children(data->cmd_list);
-	init_signals();
 	set_last_exit_status(data->env_list, status);
 	data->last_status = status;
 	free_strings_array(paths);
@@ -89,7 +88,7 @@ int	execute_cmd_list(t_cmd *cmd, char **envp, t_shell *data)
 		if (cmd->pid == 0)
 			child_process(cmd, temp_fd, pipefd, envp);
 		parent_process(cmd, &temp_fd, pipefd);
-		cmd = cmd->next;
+		cmd = cmd->next; 
 	}
 	return (0);
 }
@@ -102,7 +101,7 @@ int	execute_cmd_list(t_cmd *cmd, char **envp, t_shell *data)
 - If they were opened, close input & output files */
 void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2])
 {
-	ignore_sigint();
+	parent_ignore_sigint();
 	if (*temp_fd != -1)
 		safe_close(*temp_fd);
 	if (!is_last(cmd))
@@ -142,7 +141,7 @@ void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 		exit(call_to_builtins(cmd, envp, NULL));
 	else if (is_executable(cmd->path, cmd->cmd[0]))
 	{
-		restore_signals();
+		child_signals();
 		execve(cmd->path, cmd->cmd, envp);
 		perror("execve");
 		exit(126);

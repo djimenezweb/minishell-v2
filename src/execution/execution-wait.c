@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 14:13:32 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/26 13:05:10 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/26 17:13:00 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,11 @@ int	wait_children(t_cmd *cmd)
 		cmd = cmd->next;
 	}
 	if (signal == SIGINT)
-		prompt_newline();
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+	}
 	return (last_status);
 }
 

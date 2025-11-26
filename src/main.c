@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/26 16:23:28 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/26 16:52:34 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		g_heredoc_signal = 1;
-		init_signals();
+		parent_signals();
 		shell_data.line = readline("$ ");
 		if (!shell_data.line)
 		{

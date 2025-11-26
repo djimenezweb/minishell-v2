@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/26 12:58:31 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/26 17:16:25 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@
 
 // signal
 # include <signal.h>
+
+// ioctl
+# include <sys/ioctl.h>
 
 //#include <string.h>
 //#include <ctype.h>
