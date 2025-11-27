@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 14:13:32 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 18:44:54 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 19:18:08 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	wait_children(t_cmd *cmd)
 		last_status = cmd->status;
 		cmd = cmd->next;
 	}
-	if (signal == SIGINT)
+	if (signal == SIGINT || signal == SIGQUIT)
 	{
 		write(STDOUT_FILENO, "\n", 1);
 		rl_on_new_line();
