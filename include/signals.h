@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 10:08:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/26 17:08:10 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 18:47:44 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,5 @@ void	child_signals(void);
 void	heredoc_signals(void);
 void	handle_parent_sigint(int sig);
 void	handle_hdoc_sigint(int sig);
-//void	prompt_newline(void);
 
 #endif

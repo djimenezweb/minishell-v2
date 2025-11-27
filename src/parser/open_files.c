@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 18:20:47 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/24 17:37:42 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 18:46:07 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	open_infile(char *path)
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		perror("open");
+		perror("minishell: open");
 	return (fd);
 }
 
@@ -62,6 +62,6 @@ int	open_outfile(char *path, enum e_lex_type type)
 		flag = O_WRONLY | O_CREAT | O_APPEND;
 	fd = open(path, flag, 0644);
 	if (fd < 0)
-		perror("open");
+		perror("minishell: open");
 	return (fd);
 }

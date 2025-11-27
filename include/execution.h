@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:44:41 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 11:34:57 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 18:47:29 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,5 @@ int		is_last(t_cmd *cmd);
 int		is_first(t_cmd *cmd);
 int		is_executable(t_cmd *cmd);
 void	print_exec_error(char *cmd, char *msg);
-//void	print_error_exit(char *cmd, char *msg, int exit_status);
 
 #endif

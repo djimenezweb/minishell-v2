@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 18:08:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 18:17:19 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 18:44:31 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,14 @@ void	init_pipe(int pipefd[2])
 void	safe_dup2(int oldfd, int newfd)
 {
 	if (oldfd >= 0 && newfd >= 0 && dup2(oldfd, newfd) < 0)
-	{
-		perror("dup2");
-		exit(EXIT_FAILURE);
-	}
+		perror("minishell: dup2");
 }
 
 /* Close `fd` only if it's `0` or greater */
 void	safe_close(int fd)
 {
 	if (fd >= 0 && close(fd) < 0)
-	{
-		perror("close");
-		exit(EXIT_FAILURE);
-	}
+		perror("minishell: close");
 }
 
 void	print_exec_error(char *cmd, char *msg)

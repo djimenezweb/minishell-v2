@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 15:41:38 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/22 17:23:26 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/27 18:52:31 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ char	**get_path_dirs(t_env_var *env_list)
 /* Return the first valid executable path of `cmd` in `paths` directories.
 Return `cmd` if it contains a `/` or if `paths` is empty.
 If not a valid command, return `NULL` */
-//! Should return ft_strdup("") instead of NULL ????
 char	*get_exec_path(char *cmd, char **paths)
 {
 	int		i;

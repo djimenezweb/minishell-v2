@@ -6,13 +6,16 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 16:38:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 12:29:15 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 18:52:31 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* If `SIGINT` write new line and redisplay */
+/* If `SIGINT` write new line and redisplay.
+- `rl_on_new_line`: Regenerate the prompt on a newline
+- `rl_replace_line`: Clear the previous text 
+- `rl_redisplay`: Reflect the current contents of `rl_line_buffer` */
 void	handle_parent_sigint(int sig)
 {
 	if (sig == SIGINT)
@@ -24,6 +27,8 @@ void	handle_parent_sigint(int sig)
 	}
 }
 
+/* If `SIGINT` during heredoc, set `g_heredoc_signal`
+to `2` and write a new line */
 void	handle_hdoc_sigint(int sig)
 {
 	char	c;
@@ -35,26 +40,3 @@ void	handle_hdoc_sigint(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 }
-
-/* - Write new line character to `STDOUT`
-- Tell the update functions that we have moved onto a new (empty) line
-- Replace the contents of `rl_line_buffer` with an empty string */
-/* void	prompt_newline(void)
-{
-	write(STDOUT_FILENO, "\n", 1); // Move to a new line
-	rl_on_new_line(); // Regenerate the prompt on a newline
-	rl_replace_line("", 0); // Clear the previous text
-} */
-
-/*
-`rl_on_new_line`:
-	Tell the update functions that we have moved onto a new (empty) line.
-
-`rl_replace_line(text, clear_undo)`:
-	Replace the contents of `rl_line_buffer` with `text`. If `clear_undo` is
-	non-zero, this clears the undo list associated with the current line. 
-
-`rl_redisplay`:
-	Change what’s displayed on the screen to reflect the current contents
-	of `rl_line_buffer`.
-*/

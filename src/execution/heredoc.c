@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 09:52:03 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 18:26:09 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 18:52:31 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	init_heredoc(int here_pipe[2])
 	if (here_pipe[WRITE_END] != -1)
 		safe_close(here_pipe[WRITE_END]);
 	if ((pipe(here_pipe) < 0))
-		return (perror("heredoc pipe"), -1);
+		return (perror("minishell: pipe"), -1);
 	return (0);
 }
 
@@ -84,7 +84,6 @@ static void	heredoc_loop(t_cmd *cmd, int i, int here_pipe[2])
 /* - Initialize pipe ends to `-1`
 - For each delimiter create a heredoc loop
 - Set heredoc output to command input */
-// TODO: Gestionar Ctrl+C, Ctrl+\ ????
 int	heredoc(t_cmd *cmd)
 {
 	int	i;

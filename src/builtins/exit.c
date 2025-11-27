@@ -6,17 +6,13 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 16:02:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 17:53:36 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 18:39:54 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Todos los builtins devuelven 0 si han tenido éxito o un número distinto de
-0 en caso de error.
-Devuelven 2 para indicar uso incorrecto, opciones inválidas o que faltan
-argumentos. */
-
+/* Count number of strings in an array of strings */
 static int	arr_size(char **arr)
 {
 	int	i;
@@ -27,6 +23,7 @@ static int	arr_size(char **arr)
 	return (i);
 }
 
+/* Print error if argument is not a valid number */
 static int	is_valid_number(char *str)
 {
 	int	i;
@@ -36,8 +33,8 @@ static int	is_valid_number(char *str)
 	{
 		if (ft_isdigit(str[i]) != 1)
 		{
-			ft_dprintf(STDERR_FILENO, "minishell: exit: %s: ");
-			ft_dprintf(STDERR_FILENO, "numeric argument required\n", str);
+			ft_dprintf(STDERR_FILENO, "minishell: exit: %s: "
+				"numeric argument required\n", str);
 			return (0);
 		}
 		i++;
@@ -45,6 +42,7 @@ static int	is_valid_number(char *str)
 	return (1);
 }
 
+/* Get status from `exit` arguments or from `last_status` */
 static int	get_exit_status(t_cmd *cmd)
 {
 	int	status;
@@ -57,6 +55,7 @@ static int	get_exit_status(t_cmd *cmd)
 	return (status);
 }
 
+/* Free allocated memory and exit program */
 int	ft_exit(t_cmd *cmd)
 {
 	unsigned char	status;

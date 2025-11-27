@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 22:52:00 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 12:30:25 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 18:45:51 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 	{
 		child_signals();
 		execve(cmd->path, cmd->cmd, envp);
-		perror("execve");
+		perror("minishell: execve");
 		free_shell(cmd->shell, 126);
 	}
 }
