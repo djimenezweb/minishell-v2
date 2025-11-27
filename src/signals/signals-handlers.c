@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 16:38:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/26 17:16:08 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 12:29:15 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	handle_parent_sigint(int sig)
 
 void	handle_hdoc_sigint(int sig)
 {
-	(void)sig;
-	char c;
+	char	c;
 
+	(void)sig;
 	g_heredoc_signal = 2;
 	c = '\n';
 	ioctl(STDIN_FILENO, TIOCSTI, &c);

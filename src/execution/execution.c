@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 11:30:43 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 12:30:17 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@
 - Set last exit status and free allocated memory*/
 void	execution(t_shell *data)
 {
-	//char	**envp;
-	int		status;
+	int	status;
 
 	data->envp = get_envp(data->env_list);
 	preprocess_cmdlist(data);
@@ -27,7 +26,6 @@ void	execution(t_shell *data)
 	status = wait_children(data->cmd_list);
 	set_last_exit_status(data->env_list, status);
 	data->last_status = status;
-	//free_strings_array(envp);
 	ft_cmdlist_clear(&(data->cmd_list));
 }
 
@@ -85,7 +83,7 @@ int	execute_cmd_list(t_cmd *cmd, t_shell *data)
 		cmd->pid = fork_cmd(cmd, &temp_fd, pipefd, data->envp);
 		if (cmd->pid < 0)
 			return (perror("fork"), close_pipe(pipefd), -1);
-		cmd = cmd->next; 
+		cmd = cmd->next;
 	}
 	return (0);
 }
@@ -125,39 +123,4 @@ void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2])
 		safe_close(cmd->input);
 	if (cmd->output != STDOUT_FILENO)
 		safe_close(cmd->output);
-}
-
-/* Child process:
-- Redirect input & output
-- Close unused fd
-- Check if command is builtin, is found, is executable
-- Execute command. If execve fails, print error and exit */
-void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
-{
-	if (!cmd->cmd || !cmd->cmd[0])
-	{
-		close_child_fds(temp_fd, pipefd, is_last(cmd));
-		free_shell(cmd->shell, EXIT_SUCCESS);
-		//exit(EXIT_SUCCESS);
-	}
-	if (cmd->input == -1 || cmd->output == -1)
-	{
-		close_child_fds(temp_fd, pipefd, is_last(cmd));
-		free_shell(cmd->shell, EXIT_FAILURE);
-		//exit(EXIT_FAILURE);
-	}
-	redirect_in(temp_fd, cmd->input, is_first(cmd));
-	redirect_out(pipefd, cmd->output, is_last(cmd));
-	close_child_fds(temp_fd, pipefd, is_last(cmd));
-	if (is_builtin(cmd->cmd[0]))
-		free_shell(cmd->shell, call_to_builtins(cmd, envp, NULL));
-		//exit(call_to_builtins(cmd, envp, NULL));
-	else if (is_executable(cmd))
-	{
-		child_signals();
-		execve(cmd->path, cmd->cmd, envp);
-		perror("execve");
-		free_shell(cmd->shell, 126);
-		//exit(126);
-	}
 }

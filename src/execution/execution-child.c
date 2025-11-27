@@ -6,11 +6,42 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 22:52:00 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 14:17:55 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 12:30:25 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/* Child process:
+- Redirect input & output
+- Close unused fd
+- Check if command is builtin, is found, is executable
+- Execute command. If execve fails, print error and exit */
+void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
+{
+	if (!cmd->cmd || !cmd->cmd[0])
+	{
+		close_child_fds(temp_fd, pipefd, is_last(cmd));
+		free_shell(cmd->shell, EXIT_SUCCESS);
+	}
+	if (cmd->input == -1 || cmd->output == -1)
+	{
+		close_child_fds(temp_fd, pipefd, is_last(cmd));
+		free_shell(cmd->shell, EXIT_FAILURE);
+	}
+	redirect_in(temp_fd, cmd->input, is_first(cmd));
+	redirect_out(pipefd, cmd->output, is_last(cmd));
+	close_child_fds(temp_fd, pipefd, is_last(cmd));
+	if (is_builtin(cmd->cmd[0]))
+		free_shell(cmd->shell, call_to_builtins(cmd, envp, NULL));
+	else if (is_executable(cmd))
+	{
+		child_signals();
+		execve(cmd->path, cmd->cmd, envp);
+		perror("execve");
+		free_shell(cmd->shell, 126);
+	}
+}
 
 /* Read from file if `input` is other than STDIN
 Read from `temp_fd` except if it's the first command */
