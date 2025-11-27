@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 16:02:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 12:28:20 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 17:53:36 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	get_exit_status(t_cmd *cmd)
 
 int	ft_exit(t_cmd *cmd)
 {
-	char	status;
+	unsigned char	status;
 
 	if (arr_size(cmd->cmd) > 2)
 	{
@@ -68,7 +68,7 @@ int	ft_exit(t_cmd *cmd)
 	}
 	if (cmd->cmd[1] && is_valid_number(cmd->cmd[1]) == 0)
 		return (2);
-	status = (char)get_exit_status(cmd);
+	status = (unsigned char)get_exit_status(cmd);
 	free_shell(cmd->shell, status);
 	return (0);
 }
