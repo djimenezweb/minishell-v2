@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 20:46:19 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/27 20:44:34 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/27 21:28:37 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,22 +80,23 @@ static int	join_to_write(char **args, int len, int option_n, char **joined)
 int	execute_echo(t_cmd *cmd)
 {
 	int		join_len;
-	int		option_n;
+	int		args_option_n;
 	char	*joined_to_write;
 	char	**args;
 
 	join_len = 2;
-	option_n = 0;
+	args_option_n = 0;
 	joined_to_write = NULL;
 	args = cmd->cmd + 1;
-	if (*args && is_option_n(*args))
+	while (*args && is_option_n(*args))
 	{
-		option_n = 1;
+		++args_option_n;
 		++args;
-		join_len -= 1;
 	}
+	if (args_option_n)
+		join_len -= 1;
 	join_len += count_chars_from(args);
-	if (!join_to_write(args, join_len, option_n, &joined_to_write))
+	if (!join_to_write(args, join_len, args_option_n, &joined_to_write))
 	{
 		perror("echo failed in malloc");
 		return (12);
