@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 09:06:19 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 11:31:56 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	init_shell(t_shell *data, int argc, char **argv, char **envp)
 	data->last_status = 0;
 	data->lex_list = NULL;
 	data->cmd_list = NULL;
+	data->envp = NULL;
 	data->env_list = set_env_vars(envp);
 	if (!data->env_list)
 		free_shell(data, EXIT_FAILURE);
@@ -37,6 +38,9 @@ static void	cleanup_line(t_shell *data)
 	if (data->line)
 		free(data->line);
 	data->line = NULL;
+	if (data->envp)
+		free_strings_array(data->envp);
+	data->envp = NULL;
 	if (data->lex_list)
 		ft_lexlist_clear(&(data->lex_list));
 	data->lex_list = NULL;

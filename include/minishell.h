@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/26 17:16:25 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 11:28:48 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ extern volatile sig_atomic_t	g_heredoc_signal;
 typedef struct s_shell
 {
 	char		*line;
+	char		**envp;
 	int			last_status;
 	t_lextoken	*lex_list;
 	t_env_var	*env_list;

@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 10:44:09 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 11:30:43 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@
 - Set last exit status and free allocated memory*/
 void	execution(t_shell *data)
 {
-	char	**envp;
+	//char	**envp;
 	int		status;
 
-	envp = get_envp(data->env_list);
+	data->envp = get_envp(data->env_list);
 	preprocess_cmdlist(data);
-	execute_cmd_list(data->cmd_list, envp, data);
+	execute_cmd_list(data->cmd_list, data);
 	status = wait_children(data->cmd_list);
 	set_last_exit_status(data->env_list, status);
 	data->last_status = status;
-	free_strings_array(envp);
+	//free_strings_array(envp);
 	ft_cmdlist_clear(&(data->cmd_list));
 }
 
@@ -62,7 +62,7 @@ void	preprocess_cmdlist(t_shell *data)
 /* Initialize everything to `-1` to prevent bad `close` or `dup2` calls.
 - Run builtin, Create pipe (if needed), Fork process
 - Return `-1` on error */
-int	execute_cmd_list(t_cmd *cmd, char **envp, t_shell *data)
+int	execute_cmd_list(t_cmd *cmd, t_shell *data)
 {
 	int	temp_fd;
 	int	pipefd[2];
@@ -73,7 +73,7 @@ int	execute_cmd_list(t_cmd *cmd, char **envp, t_shell *data)
 	{
 		if (cmd->is_forkable == 0 && is_first(cmd) && is_last(cmd))
 		{
-			cmd->status = call_to_builtins(cmd, envp, data->env_list);
+			cmd->status = call_to_builtins(cmd, data->envp, data->env_list);
 			break ;
 		}
 		if (cmd->is_heredoc && heredoc(cmd) < 0)
@@ -82,7 +82,7 @@ int	execute_cmd_list(t_cmd *cmd, char **envp, t_shell *data)
 			break ;
 		if (!is_last(cmd) && (pipe(pipefd) < 0))
 			return (perror("pipe"), -1);
-		cmd->pid = fork_cmd(cmd, &temp_fd, pipefd, envp);
+		cmd->pid = fork_cmd(cmd, &temp_fd, pipefd, data->envp);
 		if (cmd->pid < 0)
 			return (perror("fork"), close_pipe(pipefd), -1);
 		cmd = cmd->next; 
