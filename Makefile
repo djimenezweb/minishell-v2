@@ -29,7 +29,7 @@ SRC			=	main.c debug_helpers.c\
 				parser/parser_utils.c parser/open_files.c \
 				parser/parser-list-free-utils.c\
 				syntax/quote_validation.c\
-				syntax/is_valid_token.c\
+				syntax/is_valid_token.c syntax/is_valid_token_utils.c\
 				syntax/syntax_validation.c\
 				signals/signals.c signals/signals-handlers.c
 SRCS		= $(addprefix $(SRC_PATH)/, $(SRC))
@@ -61,6 +61,6 @@ run : all
 	./$(NAME)
 
 valgrind : all
-	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=definite --track-fds=yes ./$(NAME)
+	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-fds=yes ./$(NAME)
 
 .PHONY : all clean fclean re run valgrind

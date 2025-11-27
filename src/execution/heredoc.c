@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 09:52:03 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/26 16:37:40 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 18:26:09 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 /* Print warning when line contains EOF only (triggered by Ctrl+D) */
 static void	print_eof(char *delim)
 {
-	ft_putstr_fd("minishell: warning: here-document ", STDERR_FILENO);
-	ft_putstr_fd("delimited by end-of-file (wanted `", STDERR_FILENO);
-	ft_putstr_fd(delim, STDERR_FILENO);
-	ft_putendl_fd("`)", STDERR_FILENO);
+	ft_dprintf(STDERR_FILENO, "minishell: warning: "
+		"here-document delimited by end-of-file (wanted `%s`)\n", delim);
 }
 
 /* - Close pipes from possible existing previous heredoc

@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/10 18:08:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 09:13:59 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 18:17:19 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,5 @@ void	safe_close(int fd)
 
 void	print_exec_error(char *cmd, char *msg)
 {
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd(cmd, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putendl_fd(msg, STDERR_FILENO);
+	ft_dprintf(STDERR_FILENO, "minishell: %s: %s\n", cmd, msg);
 }
