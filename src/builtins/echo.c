@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 20:46:19 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/23 17:07:58 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/27 19:48:24 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	execute_echo(t_cmd *cmd)
 	join_len = 2;
 	option_n = 0;
 	joined_to_write = NULL;
-	args = &(cmd->cmd[1]);
+	args = cmd->cmd + 1;
 	if (*args && is_option_n(*args))
 	{
 		option_n = 1;
