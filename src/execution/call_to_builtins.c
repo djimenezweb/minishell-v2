@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 20:23:43 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/27 11:01:15 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 11:51:52 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	call_to_builtins(t_cmd *cmd, char **envp, t_env_var *env_list)
 		else if (cmd->cmd[0][2] == 'p')
 			return (ft_export(cmd->cmd, env_list, envp));//needs env_list
 		else if (cmd->cmd[0][2] == 'i')
-			ft_exit(cmd->shell);
+			return (ft_exit(cmd));
 	}
 	return (1);
 }
