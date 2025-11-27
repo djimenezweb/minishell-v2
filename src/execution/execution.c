@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/26 17:56:31 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 09:16:46 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,23 +137,27 @@ void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp)
 	if (!cmd->cmd || !cmd->cmd[0])
 	{
 		close_child_fds(temp_fd, pipefd, is_last(cmd));
-		exit(EXIT_SUCCESS);
+		free_shell(cmd->shell, EXIT_SUCCESS);
+		//exit(EXIT_SUCCESS);
 	}
 	if (cmd->input == -1 || cmd->output == -1)
 	{
 		close_child_fds(temp_fd, pipefd, is_last(cmd));
-		exit(EXIT_FAILURE);
+		free_shell(cmd->shell, EXIT_FAILURE);
+		//exit(EXIT_FAILURE);
 	}
 	redirect_in(temp_fd, cmd->input, is_first(cmd));
 	redirect_out(pipefd, cmd->output, is_last(cmd));
 	close_child_fds(temp_fd, pipefd, is_last(cmd));
 	if (is_builtin(cmd->cmd[0]))
-		exit(call_to_builtins(cmd, envp, NULL));
-	else if (is_executable(cmd->path, cmd->cmd[0]))
+		free_shell(cmd->shell, call_to_builtins(cmd, envp, NULL));
+		//exit(call_to_builtins(cmd, envp, NULL));
+	else if (is_executable(cmd))
 	{
 		child_signals();
 		execve(cmd->path, cmd->cmd, envp);
 		perror("execve");
-		exit(126);
+		free_shell(cmd->shell, 126);
+		//exit(126);
 	}
 }

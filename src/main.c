@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/26 16:52:34 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 09:06:19 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ static void	cleanup_line(t_shell *data)
 	data->cmd_list = NULL;
 }
 
-/* Free all allocated memory. Exit program if `exit_status`
-is either `0` (`EXIT_SUCCESS`) or `1` (`EXIT_FAILURE`) */
+/* Free all allocated memory, clear history and exit program */
 void	free_shell(t_shell *data, int exit_status)
 {
 	cleanup_line(data);
@@ -55,8 +54,7 @@ void	free_shell(t_shell *data, int exit_status)
 		ft_envlist_clear(&(data->env_list));
 	data->env_list = NULL;
 	data = NULL;
-	if (exit_status == EXIT_SUCCESS || exit_status == EXIT_FAILURE)
-		exit(exit_status);
+	exit(exit_status);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -88,7 +86,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (!syntax_validation(shell_data.lex_list))
 			free_shell(&shell_data, EXIT_FAILURE);
-		print_lex_list(shell_data.lex_list); //! debug
+		//print_lex_list(shell_data.lex_list); //! debug
 		shell_data.cmd_list = parser(shell_data.lex_list);
 		if (!shell_data.cmd_list)
 			free_shell(&shell_data, EXIT_FAILURE);
