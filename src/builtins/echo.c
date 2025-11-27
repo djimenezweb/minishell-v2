@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 20:46:19 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/27 19:48:24 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/27 20:44:34 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	is_option_n(char *arg_one)
 	return (1);
 }
 
-int	count_chars_from(char **args)
+static int	count_chars_from(char **args)
 {
 	int	count;
 
@@ -41,31 +41,38 @@ int	count_chars_from(char **args)
 	return (count);
 }
 
-int	join_to_write(char **args, int len, int option_n, char **joined)
+static void	copy_args_to_join(char **args, char **joined, int option_n)
 {
-	char	*iterator;
+	char	*iterator_joined;
+	char	*iterator_arg;
 
-	*joined = ft_calloc(len, sizeof(char));
-	if (!*joined)
-		return (0);
-	iterator = *joined;
+	iterator_joined = *joined;
 	while (*args)
 	{
-		while (**args != '\0')
+		iterator_arg = *args;
+		while (*iterator_arg != '\0')
 		{
-			*iterator = **args;
-			++iterator;
-			++(*args);
+			*iterator_joined = *iterator_arg;
+			++iterator_joined;
+			++(iterator_arg);
 		}
 		if (*(args + 1) != NULL)
 		{
-			*iterator = ' ';
-			++iterator;
+			*iterator_joined = ' ';
+			++iterator_joined;
 		}
 		++args;
 	}
 	if (!option_n)
-		*iterator = '\n';
+		*iterator_joined = '\n';
+}
+
+static int	join_to_write(char **args, int len, int option_n, char **joined)
+{
+	*joined = ft_calloc(len, sizeof(char));
+	if (!*joined)
+		return (0);
+	copy_args_to_join(args, joined, option_n);
 	return (1);
 }
 
