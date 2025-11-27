@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 09:16:46 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 10:44:09 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,15 @@
 - Set last exit status and free allocated memory*/
 void	execution(t_shell *data)
 {
-	char	**paths;
 	char	**envp;
 	int		status;
 
-	paths = get_path_dirs(data->env_list);
 	envp = get_envp(data->env_list);
-	preprocess_cmdlist(data, paths);
+	preprocess_cmdlist(data);
 	execute_cmd_list(data->cmd_list, envp, data);
 	status = wait_children(data->cmd_list);
 	set_last_exit_status(data->env_list, status);
 	data->last_status = status;
-	free_strings_array(paths);
 	free_strings_array(envp);
 	ft_cmdlist_clear(&(data->cmd_list));
 }
@@ -38,11 +35,13 @@ void	execution(t_shell *data)
 - Assign reference to shell data
 - Find executable path (except builtins)
 - Assign `is_builtin` and `is_heredoc`*/
-void	preprocess_cmdlist(t_shell *data, char **paths)
+void	preprocess_cmdlist(t_shell *data)
 {
 	t_cmd	*cmd;
+	char	**paths;
 
 	cmd = data->cmd_list;
+	paths = get_path_dirs(data->env_list);
 	while (cmd)
 	{
 		cmd->shell = data;
@@ -57,6 +56,7 @@ void	preprocess_cmdlist(t_shell *data, char **paths)
 			cmd->env_list = data->env_list;
 		cmd = cmd->next;
 	}
+	free_strings_array(paths);
 }
 
 /* Initialize everything to `-1` to prevent bad `close` or `dup2` calls.
