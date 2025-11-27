@@ -6,22 +6,38 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 11:06:43 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/26 18:35:07 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/27 23:22:54 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	change_pwd(t_env_var *node)
+static int	error_in_cd(char *message, int status, char **new_oldpwd)
+{
+	if (*new_oldpwd)
+		free(*new_oldpwd);
+	if (message)
+		ft_putendl_fd(message, STDERR_FILENO);
+	return (status);
+}
+
+static int	call_to_getcwd(char **cwd)
+{
+	*cwd = getcwd(NULL, 0);
+	if (*cwd == NULL)
+		return (0);
+	return (1);
+}
+
+static int	change_pwd(t_env_var *node, char *path_already_gotten)
 {
 	char	*new_path;
 
-	new_path = getcwd(NULL, 0);
-	if (!new_path)
-	{
-		perror("getcwd failed");
+	new_path = NULL;
+	if (!path_already_gotten && !call_to_getcwd(&new_path))
 		return (0);
-	}
+	else if (path_already_gotten)
+		new_path = path_already_gotten;
 	if (!change_env_value(node, new_path))
 	{
 		free(new_path);
@@ -51,27 +67,20 @@ int	execute_cd(char **cmd, char *new_path, t_env_var *env_list)
 {
 	t_env_var	*current_pwd;
 	t_env_var	*old_pwd;
+	char		*new_oldpwd;
 
 	if (cmd[1] && cmd[2])
-	{
-		perror("minishell: cd: too many arguments");
-		return (2);
-	}
+		return (error_in_cd(CD_ARGS, 2, NULL));
 	current_pwd = find_env_var(env_list, "PWD");
 	old_pwd = find_env_var(env_list, "OLDPWD");
-	if (!change_pwd(old_pwd))
-		return (12);
+	new_oldpwd = NULL;
+	if (!call_to_getcwd(&new_oldpwd))
+		return (error_in_cd(CD_GETCWD, 1, &new_oldpwd));
 	if (!new_path && !set_home_as_path(env_list, &new_path))
-	{
-		perror("minishell: cd: HOME not set");
-		return (2);
-	}
+		return (error_in_cd(CD_NO_HOME, 2, &new_oldpwd));
 	if (chdir(new_path) < 0)
-	{
-		perror("No such file or directory");
-		return (2);
-	}
-	if (!change_pwd(current_pwd))
-		return (12);
+		return (error_in_cd(CD_NO_DIR, 2, &new_oldpwd));
+	if (!change_pwd(old_pwd, new_oldpwd) || !change_pwd(current_pwd, NULL))
+		return (error_in_cd(CD_GETCWD, 1, &new_oldpwd));
 	return (0);
 }
