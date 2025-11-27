@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 11:35:29 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 18:12:10 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/27 18:12:52 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 */
 int	is_valid_heredoc(t_lextoken *node)
 {
-	if (node->next->type == TOK_EOF || node->next == NULL)
+	if (is_tok_last(node))
 		return (print_syntax_error("<<"), 0);
 	if (node->prev != NULL && (node->prev->type == TOK_REDIR_OUT
 			|| node->prev->type == TOK_APPEND
@@ -41,7 +41,7 @@ int	is_valid_heredoc(t_lextoken *node)
 */
 int	is_valid_redin(t_lextoken *node)
 {
-	if (node->next->type == TOK_EOF || node->next == NULL)
+	if (is_tok_last(node))
 		return (print_syntax_error("<"), 0);
 	if (node->prev != NULL && (node->prev->type == TOK_REDIR_OUT
 			|| node->prev->type == TOK_APPEND
@@ -61,7 +61,7 @@ int	is_valid_redin(t_lextoken *node)
 */
 int	is_valid_append(t_lextoken *node)
 {
-	if (node->next->type == TOK_EOF || node->next == NULL)
+	if (is_tok_last(node))
 		return (print_syntax_error(">>"), 0);
 	if (node->prev != NULL && (node->prev->type == TOK_REDIR_OUT
 			|| node->prev->type == TOK_APPEND
@@ -81,7 +81,7 @@ int	is_valid_append(t_lextoken *node)
 */
 int	is_valid_redout(t_lextoken *node)
 {
-	if (node->next->type == TOK_EOF || node->next == NULL)
+	if (is_tok_last(node))
 		return (print_syntax_error(">"), 0);
 	if (node->prev != NULL && (node->prev->type == TOK_REDIR_OUT
 			|| node->prev->type == TOK_APPEND
@@ -100,8 +100,7 @@ int	is_valid_redout(t_lextoken *node)
 */
 int	is_valid_pipe(t_lextoken *node)
 {
-	if (node->prev == NULL || node->next->type == TOK_EOF
-		|| node->next == NULL)
+	if (is_tok_first(node) || is_tok_last(node))
 		return (print_syntax_error("|"), 0);
 	if (node->prev->type == TOK_PIPE
 		|| node->prev->type == TOK_APPEND
