@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 20:23:43 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/27 11:51:52 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/28 00:15:39 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	call_to_builtins(t_cmd *cmd, char **envp, t_env_var *env_list)
 	if (cmd->cmd[0][0] != 'e')
 	{
 		if (cmd->cmd[0][0] == 'c')
-			return (execute_cd(cmd->cmd, cmd->cmd[1], env_list));
+			return (execute_cd(cmd->cmd, cmd->cmd[1],
+					env_list, envp));
 		else if (cmd->cmd[0][0] == 'p')
 			return (ft_pwd());
 		else if (cmd->cmd[0][0] == 'u')
