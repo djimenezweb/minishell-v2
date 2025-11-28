@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 10:38:27 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/28 16:51:36 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/28 17:02:44 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,15 @@ int	quote_validation(char *str)
 		if (!quote && !pipe && (str[i] == PIPE))
 			pipe = str[i++];
 		while (pipe && ft_isspace(str[i]))
-			i++;
+			++i;
 		if (!quote && pipe && (str[i] == PIPE))
 			break ;
 		else if (!quote && pipe)
 			pipe = 0;
-		if ((!quote && is_quote(str[i])) || (quote && str[i] == quote))
+	//if ((!quote && is_quote(str[i])) || (quote && str[i] == quote))
+		if (is_quote(str[i]))
 			update_quote_count(&quote, &quote_count, str[i]);
-		i++;
+		++i;
 	}
 	if (!pipe && quote_count % 2 == 0)
 		return (1);
