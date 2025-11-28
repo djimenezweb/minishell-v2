@@ -53,7 +53,7 @@ clean :
 
 fclean : clean
 	@rm -f $(NAME)
-#	@$(MAKE) -sC libft fclean
+	@$(MAKE) -sC libft fclean
 
 re : fclean all
 
