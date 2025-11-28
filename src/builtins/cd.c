@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 11:06:43 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/28 00:19:08 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/28 17:32:01 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,9 @@ static int	change_pwd(t_env_var *node, char **path_already_gotten)
 
 	if (node)
 	{
-		new_path = NULL;
-		if (!(*path_already_gotten) && !call_to_getcwd(&new_path))
+		if (!path_already_gotten && !call_to_getcwd(&new_path))
 			return (0);
-		else if (*path_already_gotten)
+		else if (path_already_gotten)
 			new_path = *path_already_gotten;
 		if (!change_env_value(node, new_path))
 		{
