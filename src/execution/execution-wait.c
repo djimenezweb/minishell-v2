@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 14:13:32 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 19:18:08 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/28 10:20:58 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	wait_children(t_cmd *cmd)
 		return (0);
 	while (cmd)
 	{
-		if (cmd->is_forkable)
+		if (cmd->is_forkable || !is_single_cmd(cmd))
 		{
 			if (waitpid(cmd->pid, &wstatus, 0) < 0)
 				perror("minishell: waitpid");

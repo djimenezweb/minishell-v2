@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 14:04:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 12:27:43 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/28 10:05:16 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@ int	is_last(t_cmd *cmd)
 int	is_first(t_cmd *cmd)
 {
 	if (cmd->prev == NULL)
+		return (1);
+	return (0);
+}
+
+int	is_single_cmd(t_cmd *cmd)
+{
+	if (is_first(cmd) && is_last(cmd))
 		return (1);
 	return (0);
 }

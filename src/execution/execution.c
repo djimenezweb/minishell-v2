@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 18:45:10 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/28 10:24:57 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	execute_cmd_list(t_cmd *cmd, t_shell *data)
 	init_pipe(pipefd);
 	while (cmd)
 	{
-		if (cmd->is_forkable == 0 && is_first(cmd) && is_last(cmd))
+		if (!cmd->is_forkable && is_single_cmd(cmd))
 		{
 			cmd->status = call_to_builtins(cmd, data->envp, data->env_list);
 			break ;
