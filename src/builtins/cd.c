@@ -29,17 +29,17 @@ static int	call_to_getcwd(char **cwd)
 	return (1);
 }
 
-static int	change_pwd(t_env_var *node, char *path_already_gotten)
+static int	change_pwd(t_env_var *node, char **path_already_gotten)
 {
 	char	*new_path;
 
 	if (node)
 	{
 		new_path = NULL;
-		if (!path_already_gotten && !call_to_getcwd(&new_path))
+		if (!(*path_already_gotten) && !call_to_getcwd(&new_path))
 			return (0);
-		else if (path_already_gotten)
-			new_path = path_already_gotten;
+		else if (*path_already_gotten)
+			new_path = *path_already_gotten;
 		if (!change_env_value(node, new_path))
 		{
 			free(new_path);
@@ -100,7 +100,7 @@ int	execute_cd(char **cmd, char *new_path, t_env_var *env_list, char **envp)
 		return (error_in_cd(CD_NO_DIR, 2, &new_oldpwd));
 	if (!env_list)
 		return (error_in_cd(NULL, 0, &new_oldpwd));
-	if (!change_pwd(old_pwd, new_oldpwd) || !change_pwd(current_pwd, NULL))
+	if (!change_pwd(old_pwd, &new_oldpwd) || !change_pwd(current_pwd, NULL))
 		return (error_in_cd(CD_GETCWD, 1, &new_oldpwd));
 	return (0);
 }
