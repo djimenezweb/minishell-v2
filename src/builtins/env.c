@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 12:48:00 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/25 20:04:47 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/28 16:17:51 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 int	ft_env(char **cmd, char **envp)
 {
 	int		i;
-	int		len;
 
 	i = 0;
-	len = 0;
 	if (cmd[1])
 	{
 		ft_putendl_fd("env: expected no arguments", 2);
