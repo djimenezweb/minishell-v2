@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   protect_heredoc_delimiter.c                        :+:      :+:    :+:   */
+/*   escape_chars.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/11 18:08:42 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/12 19:23:48 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/28 16:50:21 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static void	change_dollar_to_sub(char **line,
 		heredoc++;
 	while (*heredoc)
 	{
-		if (*heredoc == SINGLE_QUOTE || *heredoc == DOUBLE_QUOTE)
+		//if (*heredoc == SINGLE_QUOTE || *heredoc == DOUBLE_QUOTE)
+		if is_quote(*heredoc)
 		{
 			update_quote_flag(&forced_quote_flag, *heredoc);
 			++heredoc;
