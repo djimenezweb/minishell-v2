@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 10:38:27 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/03 11:30:47 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/28 16:04:35 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,30 @@ quotation pairs. Return `1` if it's valid, `0` if it's not */
 int	quote_validation(char *str)
 {
 	int		i;
+	char	pipe;
 	char	quote;
 	int		quote_count;
 
 	i = 0;
 	quote = 0;
+	pipe = 0;
 	quote_count = 0;
 	while (str[i])
 	{
-		if (!quote && (str[i] == DOUBLE_QUOTE || str[i] == SINGLE_QUOTE))
-		{
-			quote = str[i];
-			quote_count++;
+		if (!quote && !pipe && (str[i] == PIPE))
+			pipe = str[i++];
+		while (pipe && ft_isspace(str[i]))
 			i++;
+		if (!quote && pipe && (str[i] == PIPE))
+			return (0);
+		else if (!quote && pipe)
+			pipe = 0;
+		if (!quote && (str[i] == DOUBLE_QUOTE
+				|| str[i] == SINGLE_QUOTE))
+		{
+			quote = str[i++];
+			quote_count++;
+			//i++;
 		}
 		if (quote && str[i] == quote)
 		{
