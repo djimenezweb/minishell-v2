@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 12:47:30 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/24 23:16:26 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/28 10:31:12 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 Devuelven 2 para indicar uso incorrecto, opciones inválidas o que faltan
 argumentos. */
 
-int	ft_unset(void)
+int	ft_unset(t_cmd *cmd)
 {
 	ft_putendl_fd("unset test", STDOUT_FILENO);
 	return (0);

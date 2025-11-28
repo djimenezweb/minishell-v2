@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 10:53:51 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/28 00:14:59 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/28 10:31:12 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@ int	ft_env(char **cmd, char **envp);
 int	ft_exit(t_cmd *cmd);
 int	ft_export(char **cmd, t_env_var *env_list, char **envp);
 int	ft_pwd(void);
-int	ft_unset(void);
+int	ft_unset(t_cmd *cmd);
 
 #endif

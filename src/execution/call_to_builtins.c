@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 20:23:43 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/28 10:25:34 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/28 10:31:12 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	call_to_builtins(t_cmd *cmd, char **envp, t_env_var *env_list)
 		else if (cmd->cmd[0][0] == 'p')
 			return (ft_pwd());
 		else if (cmd->cmd[0][0] == 'u')
-			return (ft_unset());//Needs env_list
+			return (ft_unset(cmd));//Needs env_list
 	}
 	else
 	{
