@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:23:02 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/26 20:21:26 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/28 11:11:39 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_env_var	*ft_new_env_name_value(char *name, char *value);
 void		ft_env_addback(t_env_var **lst, t_env_var *new);
 void		ft_envnode_free(t_env_var *node);
 void		ft_envlist_clear(t_env_var **lst);
+void		ft_env_remove(t_env_var **lst, t_env_var *node);
 char		**get_envp(t_env_var *env_lst);
 int			ft_envlist_size(t_env_var *lst);
 int			change_env_value(t_env_var *node, char *new_value);

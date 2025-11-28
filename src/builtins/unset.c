@@ -6,19 +6,35 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 12:47:30 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/28 10:31:12 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/28 11:51:59 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Todos los builtins devuelven 0 si han tenido éxito o un número distinto de
-0 en caso de error.
-Devuelven 2 para indicar uso incorrecto, opciones inválidas o que faltan
-argumentos. */
+static void	unset_env(t_env_var **list, char *name)
+{
+	t_env_var	*node;
 
+	node = find_env_var(*list, name);
+	if (!node)
+		return ;
+	ft_env_remove(list, node);
+}
+
+/* Remove env nodes from the env list. `$?` env can't be deleted. */
 int	ft_unset(t_cmd *cmd)
 {
-	ft_putendl_fd("unset test", STDOUT_FILENO);
+	int	i;
+
+	if (!cmd->cmd[1])
+		return (0);
+	i = 1;
+	while (cmd->cmd[i])
+	{
+		if (cmd->cmd[i][0] != '?')
+			unset_env(&(cmd->shell->env_list), cmd->cmd[i]);
+		i++;
+	}
 	return (0);
 }

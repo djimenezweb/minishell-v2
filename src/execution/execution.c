@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/28 10:24:57 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/28 12:21:15 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,11 @@ void	preprocess_cmdlist(t_shell *data)
 			cmd->env_list = data->env_list;
 		cmd = cmd->next;
 	}
-	free_strings_array(paths);
+	if (paths != NULL)
+	{
+		free_strings_array(paths);
+		paths = NULL;
+	}
 }
 
 /* Initialize everything to `-1` to prevent bad `close` or `dup2` calls.
