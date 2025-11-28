@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 09:52:03 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 18:52:31 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/28 12:25:28 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	heredoc_loop(t_cmd *cmd, int i, int here_pipe[2])
 		if (is_delimiter(cmd->delimiters[i], line))
 			break ;
 		if (!is_quoted && ft_strchr(line, DOLLAR))
-			expander(&line, cmd->env_list);
+			expander(&line, cmd->shell->env_list);
 		ft_putendl_fd(line, here_pipe[WRITE_END]);
 		free(line);
 	}

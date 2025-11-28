@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:04:19 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/22 11:05:16 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/28 12:28:19 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct s_cmd
 	char			*path;
 	char			**cmd;
 	char			**delimiters;
-	t_env_var		*env_list;
 	struct s_shell	*shell;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;

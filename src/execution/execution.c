@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/28 12:21:15 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/28 12:27:28 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ void	preprocess_cmdlist(t_shell *data)
 		}
 		else
 			cmd->path = get_exec_path(cmd->cmd[0], paths);
-		if (cmd->is_heredoc)
-			cmd->env_list = data->env_list;
 		cmd = cmd->next;
 	}
 	if (paths != NULL)

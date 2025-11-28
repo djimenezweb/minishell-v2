@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:03:00 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/22 10:57:42 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/28 12:28:03 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ t_cmd	*ft_new_cmdnode(void)
 	node->is_forkable = 1;
 	node->is_heredoc = 0;
 	node->delimiters = NULL;
-	node->env_list = NULL;
 	node->shell = NULL;
 	node->next = NULL;
 	node->prev = NULL;
