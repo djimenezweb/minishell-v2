@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/14 10:22:22 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/28 11:24:05 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/29 15:05:24 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_envlist_clear(t_env_var **lst)
 void	ft_env_remove(t_env_var **lst, t_env_var *node)
 {
 	if (!lst || !*lst || !node)
-		return;
+		return ;
 	if (node->prev == NULL)
 		*lst = node->next;
 	else
