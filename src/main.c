@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/29 10:44:00 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/29 15:16:22 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,40 @@ void	free_shell(t_shell *data, int exit_status)
 	exit(exit_status);
 }
 
+/* Add line to history, validate quotes. Exit if EOF (Ctrl+D) */
+// TODO: Validate pipes
+int	validate_line(t_shell *shell_data)
+{
+	if (!shell_data->line)
+	{
+		ft_putendl_fd("exit", STDOUT_FILENO);
+		free_shell(shell_data, EXIT_SUCCESS);
+	}
+	if (*shell_data->line)
+		add_history(shell_data->line);
+	if (!quote_validation(shell_data->line))
+		return (-1);
+	return (0);
+}
+
+/* Call lexer, validate syntax and call parser.
+Return `-1` to restart loop if syntax validation fails or if empty line.
+Exit program if list creation fails. */
+int	parse_line(t_shell *shell_data)
+{
+	shell_data->lex_list = lexer(shell_data->line);
+	if (!shell_data->lex_list)
+		free_shell(shell_data, EXIT_FAILURE);
+	if (shell_data->lex_list->type == TOK_EOF)
+		return (-1);
+	if (!syntax_validation(shell_data->lex_list))
+		return (-1);
+	shell_data->cmd_list = parser(shell_data->lex_list);
+	if (!shell_data->cmd_list)
+		free_shell(shell_data, EXIT_FAILURE);
+	return (0);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_shell	shell_data;
@@ -68,39 +102,17 @@ int	main(int argc, char **argv, char **envp)
 	init_shell(&shell_data, argc, argv, envp);
 	while (1)
 	{
+		cleanup_line(&shell_data);
 		g_heredoc_signal = 1;
 		parent_signals();
 		shell_data.line = readline("$ ");
-		if (!shell_data.line)
-		{
-			ft_putendl_fd("exit", STDOUT_FILENO);
-			free_shell(&shell_data, EXIT_SUCCESS);
-		}
-		if (shell_data.line && *shell_data.line)
-			add_history(shell_data.line);
-		if (!quote_validation(shell_data.line))
-		{
-			cleanup_line(&shell_data);
+		if (validate_line(&shell_data) < 0)
 			continue ;
-		}
 		if (!expander(&shell_data.line, shell_data.env_list))
 			free_shell(&shell_data, EXIT_FAILURE);
-		shell_data.lex_list = lexer(shell_data.line);
-		if (!shell_data.lex_list)
-			free_shell(&shell_data, EXIT_FAILURE);
-		if (shell_data.lex_list->type == TOK_EOF)
-		{
-			cleanup_line(&shell_data);
+		if (parse_line(&shell_data) < 0)
 			continue ;
-		}
-		if (!syntax_validation(shell_data.lex_list))
-			free_shell(&shell_data, EXIT_FAILURE);
-		//print_lex_list(shell_data.lex_list); //! debug
-		shell_data.cmd_list = parser(shell_data.lex_list);
-		if (!shell_data.cmd_list)
-			free_shell(&shell_data, EXIT_FAILURE);
 		execution(&shell_data);
-		cleanup_line(&shell_data);
 	}
 	return (0);
 }
