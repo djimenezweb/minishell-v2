@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 10:38:39 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/28 17:04:05 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/29 21:20:03 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "lexer.h"
 
-int		quote_validation(char *str);
+int		pipes_and_quotes_validation(char *str);
 int		is_quote(char possible_quote);
 int		is_valid_heredoc(t_lextoken *node);
 int		is_valid_redin(t_lextoken *node);

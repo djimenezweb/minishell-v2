@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/29 15:16:22 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/29 21:18:52 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	validate_line(t_shell *shell_data)
 	}
 	if (*shell_data->line)
 		add_history(shell_data->line);
-	if (!quote_validation(shell_data->line))
+	if (!pipes_and_quotes_validation(shell_data->line))
 		return (-1);
 	return (0);
 }
