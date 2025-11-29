@@ -6,12 +6,37 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 12:47:48 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/29 21:57:57 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/29 22:58:02 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	check_name_chars(char *name, int *error_flag)
+{
+	int	i;
+
+	i  = 0;
+	if (!ft_isalpha(name[i]) && name[i] != '_')
+	{
+		if (*error_flag == 0)
+			*error_flag = 1;
+		return (0);
+	}
+	while (name[++i])
+	{
+		if (!ft_isalnum(name[i]) || name[i] != '_')
+		{
+			if (*error_flag == 0)
+				*error_flag = 1;
+			return (0);
+		}
+	}
+	return (1);
+}
+
+/*Export could have many values. If some of it are wrong, returns 1,
+ * but still creates any env_var asked if it is possible*/
 static void	create_new_env_vars(char *input, t_env_var *env_list, int *flag)
 {
 	t_env_var	*new_node;
@@ -19,9 +44,12 @@ static void	create_new_env_vars(char *input, t_env_var *env_list, int *flag)
 
 	new_node = NULL;
 	new_node = ft_new_env(input);
-	if (!new_node)
+	if (!new_node || !check_name_chars(new_node->name, flag))
 	{
-		*flag = 1;
+		if (!new_node)
+			*flag = 2;
+		else
+			ft_envnode_free(new_node);
 		return ;
 	}
 	already_exist_env_var = find_env_var(env_list, new_node->name);
@@ -46,12 +74,12 @@ int	ft_export(char **cmd, t_env_var *env_list, char **envp)
 	else
 	{
 		cmd += 1;
-		while (*cmd && !error_flag)
+		while (*cmd && error_flag != 2)
 		{
 			create_new_env_vars(*cmd, env_list, &error_flag);
 			++cmd;
 		}
-		if (error_flag)
+		if (error_flag == 2)
 			ft_putendl_fd("env: failed creating new env_var", 2);
 	}
 	return (error_flag);
