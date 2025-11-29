@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 10:38:27 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/03 11:30:47 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/29 10:42:18 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	quote_validation(char *str)
 		}
 		i++;
 	}
-	if (quote_count % 2 == 0)
-		return (1);
-	return (0);
+	if (quote_count % 2 != 0)
+		return (print_syntax_error((char[]){quote, '\0'}), 0);
+	return (1);
 }

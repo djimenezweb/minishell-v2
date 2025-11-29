@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 11:31:56 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/29 10:44:00 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,12 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (shell_data.line && *shell_data.line)
 			add_history(shell_data.line);
-		if (!quote_validation(shell_data.line) || !expander(&shell_data.line, shell_data.env_list))
+		if (!quote_validation(shell_data.line))
+		{
+			cleanup_line(&shell_data);
+			continue ;
+		}
+		if (!expander(&shell_data.line, shell_data.env_list))
 			free_shell(&shell_data, EXIT_FAILURE);
 		shell_data.lex_list = lexer(shell_data.line);
 		if (!shell_data.lex_list)
