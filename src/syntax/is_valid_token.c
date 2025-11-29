@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 11:35:29 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 18:12:52 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/29 10:13:34 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	is_valid_redout(t_lextoken *node)
 
 /* - is last? WRONG!
 - is first? WRONG!
-- `||` WRONG!
+- `||` OK!
 - `>|` OK
 - `>>|` WRONG!
 - `<|` WRONG!
@@ -102,8 +102,7 @@ int	is_valid_pipe(t_lextoken *node)
 {
 	if (is_tok_first(node) || is_tok_last(node))
 		return (print_syntax_error("|"), 0);
-	if (node->prev->type == TOK_PIPE
-		|| node->prev->type == TOK_APPEND
+	if (node->prev->type == TOK_APPEND
 		|| node->prev->type == TOK_REDIR_IN
 		|| node->prev->type == TOK_HEREDOC)
 		return (print_syntax_error("|"), 0);
