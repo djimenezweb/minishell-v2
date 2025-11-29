@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 10:38:27 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/28 17:02:44 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/29 20:09:11 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ static void	update_quote_count(char *quote, int *quote_count, char found)
 {
 	if (*quote == 0)
 		*quote = found;
-	else
+	else if (*quote == found)
 		*quote = 0;
+	else
+		return ;
 	*quote_count += 1;
 }
 
@@ -57,7 +59,6 @@ int	quote_validation(char *str)
 			break ;
 		else if (!quote && pipe)
 			pipe = 0;
-	//if ((!quote && is_quote(str[i])) || (quote && str[i] == quote))
 		if (is_quote(str[i]))
 			update_quote_count(&quote, &quote_count, str[i]);
 		++i;
