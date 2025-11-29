@@ -5,17 +5,20 @@ SRC_PATH	= src
 OBJ_PATH	= build
 SRC			=	main.c debug_helpers.c\
 				builtins/cd.c builtins/echo.c builtins/env.c\
-				builtins/exit.c builtins/export.c builtins/pwd.c\
-				builtins/unset.c\
+				builtins/exit.c builtins/export.c\
+				builtins/pwd.c builtins/unset.c\
 				environment/environment-list-utils.c\
 				environment/environment.c\
 				environment/environment-envp.c\
 				environment/environment-list-free.c\
 				environment/environment-last-exit-st.c\
-				execution/execution.c execution/execution-utils.c\
-				execution/execution-utils2.c execution/execution-wait.c\
+				execution/execution.c\
+				execution/execution-utils.c\
+				execution/execution-utils2.c\
+				execution/execution-wait.c\
 				execution/paths.c execution/execution-child.c\
-				execution/heredoc.c execution/call_to_builtins.c\
+				execution/heredoc.c\
+				execution/call_to_builtins.c\
 				expander/expander.c expander/escape_chars.c\
 				expander/find_expansion_and_get_data.c\
 				expander/resize_expansions.c\
@@ -28,8 +31,9 @@ SRC			=	main.c debug_helpers.c\
 				parser/set_words_per_cmd.c parser/add_to_cmd.c\
 				parser/parser_utils.c parser/open_files.c \
 				parser/parser-list-free-utils.c\
-				syntax/quote_validation.c\
-				syntax/is_valid_token.c syntax/is_valid_token_utils.c\
+				syntax/pipes_and_quotes_validation.c\
+				syntax/is_valid_token.c\
+				syntax/is_valid_token_utils.c\
 				syntax/syntax_validation.c\
 				signals/signals.c signals/signals-handlers.c
 SRCS		= $(addprefix $(SRC_PATH)/, $(SRC))
