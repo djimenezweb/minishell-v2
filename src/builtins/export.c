@@ -6,33 +6,52 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 12:47:48 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/30 17:57:35 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/30 19:15:18 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	check_name_chars(char *name, int *error_flag)
+static void	print_not_valid_identifier(char *input)
+{
+	ft_dprintf(2, "minishell: export: `%s': not a valid identifier\n",
+		input);
+}
+
+static int	check_name_chars(char *name, int *error_flag, char *input)
 {
 	int	i;
 
-	i  = 0;
+	i = 0;
 	if (!ft_isalpha(name[i]) && name[i] != '_')
 	{
 		if (*error_flag == 0)
 			*error_flag = 1;
+		print_not_valid_identifier(input);
 		return (0);
 	}
 	while (name[++i])
 	{
-		if (!ft_isalnum(name[i]) || name[i] != '_')
+		if (!ft_isalnum(name[i]) && name[i] != '_')
 		{
 			if (*error_flag == 0)
 				*error_flag = 1;
+			print_not_valid_identifier(input);
 			return (0);
 		}
 	}
 	return (1);
+}
+
+static t_env_var	*create_new_node(char *input)
+{
+	t_env_var	*new_node;
+
+	if (ft_strchr(input, '='))
+		new_node = ft_new_env(input, DECLARED_VALUE);
+	else
+		new_node = ft_new_env(input, NOT_DECLARED_VALUE);
+	return (new_node);
 }
 
 /*Export could have many values. If some of it are wrong, returns 1,
@@ -44,7 +63,7 @@ static void	create_new_env_vars(char *input, t_env_var *env_list, int *flag)
 
 	new_node = NULL;
 	new_node = ft_new_env(input);
-	if (!new_node || !check_name_chars(new_node->name, flag))
+	if (!new_node || !check_name_chars(new_node->name, flag, input))
 	{
 		if (!new_node)
 			*flag = 2;
