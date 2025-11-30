@@ -6,11 +6,18 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 11:58:50 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/16 16:29:40 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/30 15:59:56 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	word_is_quoted(char *word)
+{
+	if (ft_strchr(word, DOUBLE_QUOTE) || ft_strchr(word, SINGLE_QUOTE))
+		return (1);
+	return (0);
+}
 
 static void	update_command_status(int *cmd_status, int pipe_status)
 {
@@ -59,7 +66,8 @@ void	parse_word_types(t_lextoken *lst)
 		{
 			define_word(lst, &cmd_found);
 			if (lst->word_type != TOK_DELIMITER
-				&& ft_strchr(lst->value, DOUBLE_QUOTE))
+				&& word_is_quoted(lst->value))
+				//&& ft_strchr(lst->value, DOUBLE_QUOTE))
 				remove_quotes(lst->value);
 			quote_chars_in_expanded_vars(&lst->value, RESTORE);
 		}
