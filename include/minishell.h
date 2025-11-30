@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 11:28:48 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/30 18:08:00 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@
 // ioctl
 # include <sys/ioctl.h>
 
-//#include <string.h>
-//#include <ctype.h>
 
 extern volatile sig_atomic_t	g_heredoc_signal;
 
@@ -66,8 +64,6 @@ typedef struct s_shell
 }			t_shell;
 
 void	free_shell(t_shell *data, int exit_status);
-
-// DEBUG HELPERS (DELETE BEFORE EVALUATION)
 void	print_lex_list(t_lextoken *list);
 void	print_array_of_strings(char **arr);
 void	print_cmd_list(t_cmd *list);
