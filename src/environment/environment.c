@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:23:02 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/26 20:42:55 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/30 19:54:23 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ void	set_name_value(t_env_var *node, char *str)
 	node->value = ft_substr(str, start, len - start);
 }
 
-/* Set default variables `PATH` and `PWD` if they are missing.
-TODO: Add other variables */
+//Set default variables `PATH` and `PWD` if they are missing.
 int	set_default_env_vars(t_env_var **list)
 {
 	t_env_var	*node;
