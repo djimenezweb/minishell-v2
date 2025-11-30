@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/10 13:04:18 by danielji         ###   ########.fr       */
+/*   Updated: 2025/11/30 18:08:46 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,15 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-//#include <string.h>
-//#include <ctype.h>
-
 typedef struct s_shell
 {
 	char		*line;
 	t_lextoken	*lex_list;
 	t_env_var	*env_list;
-	//Should include here exit status, updated after every execution
 	t_cmd		*cmd_list;
 }			t_shell;
 
 void	free_shell(t_shell *data, int exit_status);
-
-// DEBUG HELPERS (DELETE BEFORE EVALUATION)
 void	print_lex_list(t_lextoken *list);
 void	print_array_of_strings(char **arr);
 void	print_cmd_list(t_cmd *list);
