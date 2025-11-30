@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 12:47:48 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/30 19:15:18 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/11/30 19:24:18 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,6 @@ static int	check_name_chars(char *name, int *error_flag, char *input)
 		}
 	}
 	return (1);
-}
-
-static t_env_var	*create_new_node(char *input)
-{
-	t_env_var	*new_node;
-
-	if (ft_strchr(input, '='))
-		new_node = ft_new_env(input, DECLARED_VALUE);
-	else
-		new_node = ft_new_env(input, NOT_DECLARED_VALUE);
-	return (new_node);
 }
 
 /*Export could have many values. If some of it are wrong, returns 1,
