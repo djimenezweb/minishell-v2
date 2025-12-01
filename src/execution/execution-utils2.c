@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 14:04:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/28 10:05:16 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/01 19:47:21 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ int	is_directory(const char *path)
 	struct stat	file_status;
 
 	if (stat(path, &file_status) < 0)
-	{
-		perror("minishell: stat");
 		return (-1);
-	}
 	if (S_ISDIR(file_status.st_mode))
 		return (1);
 	return (0);
