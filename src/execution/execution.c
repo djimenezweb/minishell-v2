@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/12/01 11:18:32 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/01 11:24:52 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	execute_cmd_list(t_cmd *cmd, t_shell *data)
 		}
 		if (cmd->is_heredoc && heredoc(cmd) < 0)
 			return (perror("minishell: heredoc"), -1);
-		if (g_heredoc_signal == 2)
+		if (g_heredoc_signal == SIGINT)
 			break ;
 		if (!is_last(cmd) && (pipe(pipefd) < 0))
 			return (perror("minishell: pipe"), -1);

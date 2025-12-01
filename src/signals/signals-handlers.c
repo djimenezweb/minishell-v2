@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 16:38:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/12/01 11:07:21 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/01 11:24:35 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	handle_hdoc_sigint(int sig)
 
 	if (sig == SIGINT)
 	{
-		g_heredoc_signal = 2;
+		g_heredoc_signal = SIGINT;
 		c = '\n';
 		ioctl(STDIN_FILENO, TIOCSTI, &c);
 		rl_on_new_line();

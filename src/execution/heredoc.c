@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 09:52:03 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/28 12:25:28 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/01 11:25:05 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	heredoc_loop(t_cmd *cmd, int i, int here_pipe[2])
 		is_quoted = 1;
 		remove_quotes(cmd->delimiters[i]);
 	}
-	while (g_heredoc_signal == 1)
+	while (g_heredoc_signal == NO_SIGNAL)
 	{
 		line = readline("> ");
 		if (!line)
@@ -101,7 +101,7 @@ int	heredoc(t_cmd *cmd)
 		i++;
 	}
 	safe_close(here_pipe[WRITE_END]);
-	if (g_heredoc_signal == 2)
+	if (g_heredoc_signal == SIGINT)
 		cmd->input = -1;
 	else
 		cmd->input = here_pipe[READ_END];

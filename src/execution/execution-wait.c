@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 14:13:32 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/28 10:20:58 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/01 11:24:45 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	wait_children(t_cmd *cmd)
 	int	last_status;
 
 	signal = 0;
-	if (g_heredoc_signal == 2)
+	if (g_heredoc_signal == SIGINT)
 		return (0);
 	while (cmd)
 	{

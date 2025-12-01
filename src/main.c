@@ -6,13 +6,13 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/12/01 10:50:15 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/01 11:24:15 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-volatile sig_atomic_t	g_heredoc_signal = 1;
+volatile sig_atomic_t	g_heredoc_signal = NO_SIGNAL;
 
 static void	init_shell(t_shell *data, int argc, char **argv, char **envp)
 {
@@ -73,7 +73,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		cleanup_line(&shell_data);
-		g_heredoc_signal = 1;
+		g_heredoc_signal = NO_SIGNAL;
 		parent_signals();
 		shell_data.line = readline("$ ");
 		if (!validate_line(&shell_data))
