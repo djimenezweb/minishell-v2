@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 11:06:43 by danielji          #+#    #+#             */
-/*   Updated: 2025/12/01 12:43:36 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/01 19:46:04 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	error_in_cd(char *message, int status, char **new_oldpwd)
 {
-	if (*new_oldpwd)
+	if (new_oldpwd)
 		free(*new_oldpwd);
 	if (message)
 		ft_putendl_fd(message, STDERR_FILENO);
@@ -47,6 +47,8 @@ static int	change_pwd(t_env_var *node, char **path_already_gotten)
 		free(new_path);
 		return (1);
 	}
+	if (path_already_gotten)
+		free(*path_already_gotten);
 	return (0);
 }
 
@@ -105,6 +107,6 @@ int	execute_cd(char **cmd, char *new_path, t_env_var *env_list, char **envp)
 	if (!env_list)
 		return (error_in_cd(NULL, 0, &new_oldpwd));
 	if (!change_pwd(old_pwd, &new_oldpwd) || !change_pwd(current_pwd, NULL))
-		return (error_in_cd(CD_GETCWD, 1, &new_oldpwd));
+		return (error_in_cd(CD_GETCWD, 1, NULL));
 	return (0);
 }
