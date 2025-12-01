@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/30 18:08:00 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/12/01 10:29:15 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@
 
 // ioctl
 # include <sys/ioctl.h>
-
 
 extern volatile sig_atomic_t	g_heredoc_signal;
 
