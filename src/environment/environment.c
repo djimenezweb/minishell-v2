@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/13 11:23:02 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/30 19:54:23 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/12/01 20:31:18 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	set_name_value(t_env_var *node, char *str)
 int	set_default_env_vars(t_env_var **list)
 {
 	t_env_var	*node;
+	char		*pwd_path;
 
 	node = ft_new_env_name_value("?", "0");
 	if (!node)
@@ -78,7 +79,9 @@ int	set_default_env_vars(t_env_var **list)
 	}
 	if (find_env_var(*list, "PWD") == NULL)
 	{
-		node = ft_new_env_name_value("PWD", getcwd(NULL, 0));
+		pwd_path = getcwd(NULL, 0);
+		node = ft_new_env_name_value("PWD", pwd_path);
+		free(pwd_path);
 		if (!node)
 			return (-1);
 		ft_env_addback(list, node);
