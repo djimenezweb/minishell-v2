@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 09:51:03 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 18:15:19 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/01 19:22:02 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_syntax_error(char *str)
 {
-	ft_dprintf(STDERR_FILENO, "Syntax error near `%s`\n", str);
+	ft_dprintf(STDERR_FILENO, "minishell: syntax error near `%s`\n", str);
 }
 
 /* Return `1` if list passes syntax validation, return `0` if it doesn't. */
