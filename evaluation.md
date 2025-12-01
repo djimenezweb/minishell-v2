@@ -5,17 +5,17 @@
 
 ### Compile
 
-- [ ] Use `make -n` to see if compilation use `-Wall -Wextra -Werror`. If not, select the "invalid compilation" flag.
-- [ ] minishell compiles without any errors. If not, select the flag.
-- [ ] The Makefile must not re-link. If not, select the flag.
+- [x] Use `make -n` to see if compilation use `-Wall -Wextra -Werror`. If not, select the "invalid compilation" flag.
+- [x] minishell compiles without any errors. If not, select the flag.
+- [x] The Makefile must not re-link. If not, select the flag.
 
 ### Simple Command & global variables
 
 If something crashes, select the "crash" flag. If something doesn't work, select the "incomplete work" flag.
 
-- [ ] Execute a simple command with an absolute path like `/bin/ls`, or any other command without any options.
-- [ ] How many global variables are used? Why? Ask the evaluated student to give you a concrete example of why it feels mandatory or logical.
-- [ ] Check the global variable. This global variable cannot provide any other information or data access than the number of a received signal.
+- [x] Execute a simple command with an absolute path like `/bin/ls`, or any other command without any options.
+- [x] How many global variables are used? Why? Ask the evaluated student to give you a concrete example of why it feels mandatory or logical.
+- [x] Check the global variable. This global variable cannot provide any other information or data access than the number of a received signal.
 - [ ] Test an empty command.
 - [ ] Test only spaces or tabs.
 
@@ -23,90 +23,90 @@ If something crashes, select the "crash" flag. If something doesn't work, select
 
 If something crashes, select the "crash" flag. If something doesn't work, select the "incomplete work" flag.
 
-- [ ] Execute a simple command with an absolute path like `/bin/ls`, or any other command with arguments but without any quotes or double quotes.
-- [ ] Repeat multiple times with different commands and arguments.
+- [x] Execute a simple command with an absolute path like `/bin/ls`, or any other command with arguments but without any quotes or double quotes.
+- [x] Repeat multiple times with different commands and arguments.
 
 ### echo
 
 If something crashes, select the "crash" flag. If something doesn't work, select the "incomplete work" flag.
 
-- [ ] Execute the `echo` command with or without arguments, or the `-n` option.
-- [ ] Repeat multiple times with different arguments.
+- [x] Execute the `echo` command with or without arguments, or the `-n` option.
+- [x] Repeat multiple times with different arguments.
 
 ### exit
 
 If something crashes, select the "crash" flag. If something doesn't work, select the "incomplete work" flag.
 
-- [ ] Execute `exit` command with or without arguments.
-- [ ] Repeat multiple times with different arguments.
-- [ ] Don't forget to relaunch the minishell
+- [x] Execute `exit` command with or without arguments.
+- [x] Repeat multiple times with different arguments.
+- [x] Don't forget to relaunch the minishell
 
 ### Return value of a process
 
 If something crashes, select the "crash" flag. If something doesn't work, select the "incomplete work" flag.
 
-- [ ] Execute a simple command with an absolute path like `/bin/ls`, or any other command with arguments but without any quotes and double quotes. Then execute `echo $?`
-- [ ] Check the printed value. You can do the same in bash in order to compare the results.
-- [ ] Repeat multiple times with different commands and arguments. Try some wrong commands like `/bin/ls filethatdoesntexist`
-- [ ] Try anything like `expr $? + $?`
+- [x] Execute a simple command with an absolute path like `/bin/ls`, or any other command with arguments but without any quotes and double quotes. Then execute `echo $?`
+- [x] Check the printed value. You can do the same in bash in order to compare the results.
+- [x] Repeat multiple times with different commands and arguments. Try some wrong commands like `/bin/ls filethatdoesntexist`
+- [x] Try anything like `expr $? + $?`
 
 ### Signals
 
 If something crashes, select the "crash" flag. If something doesn't work, select the "incomplete work" flag.
 
-- [ ] `Ctrl`+`C` in an empty prompt should display a new line with a new prompt.
-- [ ] `Ctrl`+`\` in an empty prompt should not do anything.
-- [ ] `Ctrl`+`D` in an empty prompt should quit minishell --> RELAUNCH!
-- [ ] `Ctrl`+`C` in a prompt after you wrote some stuff should display a new line with a new prompt.
-- [ ] The buffer should be clean too. Press "Enter" to make sure nothing from the previous line is executed.
-- [ ] `Ctrl`+`D` in a prompt after you wrote some stuff should not do anything.
-- [ ] `Ctrl`+`\` in a prompt after you wrote some stuff should not do anything.
-- [ ] Try `Ctrl`+`C` after running a blocking command like `cat` without arguments or `grep "something"`.
+- [x] `Ctrl`+`C` in an empty prompt should display a new line with a new prompt.
+- [x] `Ctrl`+`\` in an empty prompt should not do anything.
+- [x] `Ctrl`+`D` in an empty prompt should quit minishell --> RELAUNCH!
+- [x] `Ctrl`+`C` in a prompt after you wrote some stuff should display a new line with a new prompt.
+- [x] The buffer should be clean too. Press "Enter" to make sure nothing from the previous line is executed.
+- [x] `Ctrl`+`D` in a prompt after you wrote some stuff should not do anything.
+- [x] `Ctrl`+`\` in a prompt after you wrote some stuff should not do anything.
+- [x] Try `Ctrl`+`C` after running a blocking command like `cat` without arguments or `grep "something"`.
 - [ ] Try `Ctrl`+`\` after running a blocking command like `cat` without arguments or `grep "something"`.
-- [ ] Try `Ctrl`+`D` after running a blocking command like `cat` without arguments or `grep "something"`.
+- [x] Try `Ctrl`+`D` after running a blocking command like `cat` without arguments or `grep "something"`.
 - [ ] Repeat multiple times using different commands.
 
 ### Double Quotes
 
 If something crashes, select the "crash" flag. If something doesn't work, select the "incomplete work" flag.
 
-- [ ] Execute a simple command with arguments and, this time, use also double quotes (you should try to include whitespaces too).
-- [ ] Try a command like: `echo "cat lol.c | cat > lol.c"`
-- [ ] Try anything except `$`.
+- [x] Execute a simple command with arguments and, this time, use also double quotes (you should try to include whitespaces too).
+- [x] Try a command like: `echo "cat lol.c | cat > lol.c"`
+- [x] Try anything except `$`.
 
 ### Single Quotes
 
-- [ ] Execute commands with single quotes as arguments.
-- [ ] Try empty arguments.
-- [ ] Try environment variables, whitespaces, pipes, redirection in the single quotes.
-- [ ] `echo '$USER'` must print `$USER`.
-- [ ] Nothing should be interpreted.
+- [x] Execute commands with single quotes as arguments.
+- [x] Try empty arguments.
+- [x] Try environment variables, whitespaces, pipes, redirection in the single quotes.
+- [x] `echo '$USER'` must print `$USER`.
+- [x] Nothing should be interpreted.
 
 ### env
 
-- [ ] Check if `env` shows you the current environment variables.
+- [x] Check if `env` shows you the current environment variables.
 
 ### export
 
-- [ ] Export environment variables, create new ones and replace old ones.
-- [ ] Check the result with `env`.
+- [x] Export environment variables, create new ones and replace old ones.
+- [x] Check the result with `env`.
 
 ### unset
 
-- [ ] Export environment variables, create new ones and replace old ones.
-- [ ] Use `unset` to remove some of them.
-- [ ] Check the result with `env`.
+- [x] Export environment variables, create new ones and replace old ones.
+- [x] Use `unset` to remove some of them.
+- [x] Check the result with `env`.
 
 ### cd
 
-- [ ] Use the command `cd` to move the working directory and check if you are in the right directory with `/bin/ls`
+- [x] Use the command `cd` to move the working directory and check if you are in the right directory with `/bin/ls`
 - [ ] Repeat multiple times with working and not working `cd`
-- [ ] Also, try `.` and `..` as arguments.
+- [x] Also, try `.` and `..` as arguments.
 
 ### pwd
 
-- [ ] Use the command `pwd`.
-- [ ] Repeat multiple times in different directories.
+- [x] Use the command `pwd`.
+- [x] Repeat multiple times in different directories.
 
 ### Relative Path
 
