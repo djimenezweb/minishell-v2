@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 20:46:19 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/27 21:28:37 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/12/01 11:01:55 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ int	execute_echo(t_cmd *cmd)
 	join_len += count_chars_from(args);
 	if (!join_to_write(args, join_len, args_option_n, &joined_to_write))
 	{
-		perror("echo failed in malloc");
-		return (12);
+		ft_dprintf(STDERR_FILENO, "minishell: malloc: %s", strerror(ENOMEM));
+		return (1);
 	}
 	write(STDOUT_FILENO, joined_to_write, join_len - 1);
 	free(joined_to_write);
