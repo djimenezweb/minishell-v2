@@ -23,8 +23,6 @@ static int	malloc_cmd_and_args(t_cmd *node, t_parser_data *data)
 	return (1);
 }
 
-// TODO: On line `++data->current_cmd, Enrique commented:
-// Be careful if we use this later. In that case, reset to 0 after all
 static int	new_cmd(t_cmd **list, t_cmd **last, t_parser_data *data)
 {
 	t_cmd	*node;
@@ -44,7 +42,7 @@ static int	new_cmd(t_cmd **list, t_cmd **last, t_parser_data *data)
 /* Parse a `t_lextoken` list into a `t_cmd` list
 - Count processes and words.
 - A process without command is a valid one (e.g. `ls | <infile | echo Hi`)
-- Malloc process by process space to store (cmd || arg) in **cmd
+- Malloc every process to store in **cmd. First string will be cmd, next ones arg 
 - If a pipe is found, change to next process, create a new node and repeat */
 t_cmd	*parser(t_lextoken *lst)
 {
