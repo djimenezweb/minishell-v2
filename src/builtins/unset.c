@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 12:47:30 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/28 11:51:59 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/01 10:36:00 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_unset(t_cmd *cmd)
 	int	i;
 
 	if (!cmd->cmd[1])
-		return (0);
+		return (2);
 	i = 1;
 	while (cmd->cmd[i])
 	{
