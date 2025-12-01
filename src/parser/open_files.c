@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 18:20:47 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 18:46:07 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/01 12:56:41 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,27 @@ void	assign_fd(t_lextoken *lst, t_cmd *node)
 }
 
 /* Open file in read-only and return its `fd`.
-On error print a warning and return the `fd`.
-TODO: Check if path is file or directory, etc.?? */
+On error print a warning and return the `fd`.*/
 int	open_infile(char *path)
 {
 	int	fd;
+	int	err;
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		perror("minishell: open");
+	{
+		err = errno;
+		ft_dprintf(STDERR_FILENO, "minishell: %s: %s\n", path, strerror(err));
+	}
 	return (fd);
 }
 
 /* Open file for writing and return its `fd`.
-On error print a warning and return the `fd`. 
-TODO: Check if path is file or directory, etc.?? */
+On error print a warning and return the `fd`.*/
 int	open_outfile(char *path, enum e_lex_type type)
 {
 	int	fd;
+	int	err;
 	int	flag;
 
 	flag = O_WRONLY | O_CREAT | O_TRUNC;
@@ -62,6 +65,9 @@ int	open_outfile(char *path, enum e_lex_type type)
 		flag = O_WRONLY | O_CREAT | O_APPEND;
 	fd = open(path, flag, 0644);
 	if (fd < 0)
-		perror("minishell: open");
+	{
+		err = errno;
+		ft_dprintf(STDERR_FILENO, "minishell: %s: %s\n", path, strerror(err));
+	}
 	return (fd);
 }
