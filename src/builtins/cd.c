@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 11:06:43 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/28 17:32:01 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/12/01 12:43:36 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,11 @@ int	execute_cd(char **cmd, char *new_path, t_env_var *env_list, char **envp)
 
 	if (cmd[1] && cmd[2])
 		return (error_in_cd(CD_ARGS, 2, NULL));
+	if (cmd[1] && !is_directory(new_path))
+	{
+		ft_dprintf(2, "minishell: cd: %s: Not a directory\n", cmd[1]);
+		return (1);
+	}
 	current_pwd = find_env_var(env_list, "PWD");
 	old_pwd = find_env_var(env_list, "OLDPWD");
 	new_oldpwd = NULL;
