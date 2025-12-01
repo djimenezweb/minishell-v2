@@ -12,10 +12,6 @@
 
 #include "minishell.h"
 
-/* Another option: node->cmd[i] = lexer->value;
-	Enrique 2/11: "Why ft_strdup here?" Because after whole parse and
-	just before execution, lexer could be free. 
-	If we do strdup here, this option is possible*/
 int	add_to_cmd(t_lextoken *lexer, t_cmd *node, t_parser_data *data)
 {
 	int	i;
