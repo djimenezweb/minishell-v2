@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:01:58 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/21 12:56:00 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/01 13:04:08 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,10 @@ static int	new_cmd(t_cmd **list, t_cmd **last, t_parser_data *data)
 }
 
 /* Parse a `t_lextoken` list into a `t_cmd` list
-1) Count process by pipes, and counts how many words from `cmd` and `args`
-   have anyone. A process could have no cmd, and could be correct.
-   See the case: ls | <infile | echo "Hi"
-2) Malloc process by process space to store (cmd || arg) in **cmd
-3) If we find a pipe, we change to next process, creating a new node
-   and repeating the process
-
-"Above is antoher option to execute this function."
-For more information, go to add_to_cmd() scope
-We have to choose one of these, then remove the other */
-//! print_cmd_list(cmd_list); //debug
+- Count processes and words.
+- A process without command is a valid one (e.g. `ls | <infile | echo Hi`)
+- Malloc process by process space to store (cmd || arg) in **cmd
+- If a pipe is found, change to next process, create a new node and repeat */
 t_cmd	*parser(t_lextoken *lst)
 {
 	t_cmd			*last_node;
