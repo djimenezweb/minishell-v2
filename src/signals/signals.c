@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 10:07:15 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/26 17:08:18 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/01 11:06:02 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	child_signals(void)
 	signal(SIGQUIT, SIG_DFL);
 }
 
+/* - Call `handle_hdoc_sigint` if `SIGINT` (Ctrl+C)
+- Ignore `SIGQUIT` (Ctrl+\) */
 void	heredoc_signals(void)
 {
 	signal(SIGINT, handle_hdoc_sigint);

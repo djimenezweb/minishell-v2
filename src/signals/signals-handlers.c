@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/26 16:38:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 18:52:31 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/01 11:07:21 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,12 @@ void	handle_hdoc_sigint(int sig)
 {
 	char	c;
 
-	(void)sig;
-	g_heredoc_signal = 2;
-	c = '\n';
-	ioctl(STDIN_FILENO, TIOCSTI, &c);
-	rl_on_new_line();
-	rl_replace_line("", 0);
+	if (sig == SIGINT)
+	{
+		g_heredoc_signal = 2;
+		c = '\n';
+		ioctl(STDIN_FILENO, TIOCSTI, &c);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+	}
 }

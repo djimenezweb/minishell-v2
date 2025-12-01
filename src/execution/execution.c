@@ -6,16 +6,15 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:34:13 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/28 12:27:28 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/01 11:18:32 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* - Find paths
-- Call `execute_cmd_list` to run commands
+/* - Get array of env strings from `env_list`
 - Get exit status from `wait_children`
-- Set last exit status and free allocated memory*/
+- Set last exit status and free allocated memory */
 void	execution(t_shell *data)
 {
 	int	status;
@@ -29,8 +28,7 @@ void	execution(t_shell *data)
 	ft_cmdlist_clear(&(data->cmd_list));
 }
 
-/* For each command:
-- Assign reference to shell data
+/* - Assign array of path strings to each command
 - Find executable path (except builtins)
 - Assign `is_builtin` and `is_heredoc`*/
 void	preprocess_cmdlist(t_shell *data)
@@ -60,7 +58,10 @@ void	preprocess_cmdlist(t_shell *data)
 }
 
 /* Initialize everything to `-1` to prevent bad `close` or `dup2` calls.
-- Run builtin, Create pipe (if needed), Fork process
+- Run builtin if it's a single command and not forkable
+- Open heredoc if necessary
+- Create pipe (if needed)
+- Fork process
 - Return `-1` on error */
 int	execute_cmd_list(t_cmd *cmd, t_shell *data)
 {
@@ -90,6 +91,7 @@ int	execute_cmd_list(t_cmd *cmd, t_shell *data)
 	return (0);
 }
 
+/* Fork. Run child and parent processes */
 pid_t	fork_cmd(t_cmd *cmd, int *temp_fd, int pipefd[2], char **envp)
 {
 	pid_t	pid;
@@ -103,12 +105,11 @@ pid_t	fork_cmd(t_cmd *cmd, int *temp_fd, int pipefd[2], char **envp)
 	return (pid);
 }
 
-/* Parent process:
-- Close previous read end 
-- Save current read end for next child
-- Close current write end
-- Reset `temp_fd` to `-1`
-- If they were opened, close input & output files */
+/* PARENT PROCESS:
+- Ignore `SIGINT` signal
+- Close previous read end and save current read for next child
+- Close current write end and reset `temp_fd` to `-1`
+- Close input & output files if they were opened */
 void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2])
 {
 	parent_ignore_sigint();

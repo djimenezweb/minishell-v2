@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 11:01:15 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/30 17:13:28 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/12/01 11:11:27 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ static int	copy_next_char(char *first, char *next_char)
 	return (1);
 }
 
-/* Bash Reference Manual: 3.5.9 Quote Removal
-After the preceding expansions, all unquoted occurrences of the
-characters `\`, `'`, and '"' that did not result from one of the
-above expansions are removed.*/
+/* Remove unquoted `'` and '"' from a string */
 void	remove_quotes(char *str)
 {
 	int		i;

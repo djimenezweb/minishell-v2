@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/06 11:12:08 by danielji          #+#    #+#             */
-/*   Updated: 2025/10/09 18:49:23 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/01 11:09:03 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,9 @@ char	*parse_word(char *str, int *i)
 	while (str[*i])
 	{
 		if (!quote && (str[*i] == SINGLE_QUOTE || str[*i] == DOUBLE_QUOTE))
-		{
 			quote = str[*i];
-		}
 		else if (quote && (str[*i] == quote))
-		{
 			quote = 0;
-		}
 		else if (!quote && (is_in_set(str[*i], "<|>") || ft_isspace(str[*i])))
 			break ;
 		(*i)++;
