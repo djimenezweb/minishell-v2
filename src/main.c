@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/29 21:18:52 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/12/01 10:32:11 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ void	free_shell(t_shell *data, int exit_status)
 	exit(exit_status);
 }
 
-/* Add line to history, validate quotes. Exit if EOF (Ctrl+D) */
-// TODO: Validate pipes
+/* Add line to history, validate quotes and pipes. Exit if EOF (Ctrl+D) */
 int	validate_line(t_shell *shell_data)
 {
 	if (!shell_data->line)
@@ -73,12 +72,12 @@ int	validate_line(t_shell *shell_data)
 	if (*shell_data->line)
 		add_history(shell_data->line);
 	if (!pipes_and_quotes_validation(shell_data->line))
-		return (-1);
-	return (0);
+		return (0);
+	return (1);
 }
 
 /* Call lexer, validate syntax and call parser.
-Return `-1` to restart loop if syntax validation fails or if empty line.
+Return `0` to restart loop if syntax validation fails or if empty line.
 Exit program if list creation fails. */
 int	parse_line(t_shell *shell_data)
 {
@@ -86,13 +85,13 @@ int	parse_line(t_shell *shell_data)
 	if (!shell_data->lex_list)
 		free_shell(shell_data, EXIT_FAILURE);
 	if (shell_data->lex_list->type == TOK_EOF)
-		return (-1);
+		return (0);
 	if (!syntax_validation(shell_data->lex_list))
-		return (-1);
+		return (0);
 	shell_data->cmd_list = parser(shell_data->lex_list);
 	if (!shell_data->cmd_list)
 		free_shell(shell_data, EXIT_FAILURE);
-	return (0);
+	return (1);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -106,11 +105,11 @@ int	main(int argc, char **argv, char **envp)
 		g_heredoc_signal = 1;
 		parent_signals();
 		shell_data.line = readline("$ ");
-		if (validate_line(&shell_data) < 0)
+		if (!validate_line(&shell_data))
 			continue ;
 		if (!expander(&shell_data.line, shell_data.env_list))
 			free_shell(&shell_data, EXIT_FAILURE);
-		if (parse_line(&shell_data) < 0)
+		if (!parse_line(&shell_data))
 			continue ;
 		execution(&shell_data);
 	}
