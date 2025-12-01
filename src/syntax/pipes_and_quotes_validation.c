@@ -6,19 +6,19 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/03 10:38:27 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/29 21:41:30 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/12/01 10:40:54 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	is_valid_input(char pipe, int quote_count)
+static int	is_valid_input(char pipe, int quote_count, char quote)
 {
 	if (!pipe && quote_count % 2 == 0)
 		return (1);
 	if (quote_count % 2 != 0)
 	{
-		ft_putendl_fd("Minishell: unclosed quotes are forbidden", 2);
+		print_syntax_error((char []){quote, '\0'});
 		return (0);
 	}
 	return (print_syntax_error("|"), 0);
@@ -77,7 +77,7 @@ int	pipes_and_quotes_validation(char *str)
 			update_quote_count(&quote, &quote_count, str[i]);
 		++i;
 	}
-	if (is_valid_input(pipe, quote_count))
+	if (is_valid_input(pipe, quote_count, quote))
 		return (1);
 	return (0);
 }

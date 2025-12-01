@@ -6,14 +6,15 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 20:23:43 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/30 19:20:46 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/12/01 10:54:49 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//! Run in PARENT process (is_forkable == 0):	cd, unset, export, exit
-//! Run in CHILD process (is_forkable == 1):	pwd, echo, env
+/* Run builtin function and return its exit status
+- Run in PARENT process : `cd`, `unset`, `export`, `exit`
+- Run in CHILD process : `pwd`, `echo`, `env`  */
 int	call_to_builtins(t_cmd *cmd, char **envp, t_env_var *env_list)
 {
 	if (cmd->cmd[0][0] != 'e')
@@ -24,7 +25,7 @@ int	call_to_builtins(t_cmd *cmd, char **envp, t_env_var *env_list)
 		else if (cmd->cmd[0][0] == 'p')
 			return (ft_pwd());
 		else if (cmd->cmd[0][0] == 'u')
-			return (ft_unset(cmd));//Needs env_list
+			return (ft_unset(cmd));
 	}
 	else
 	{
@@ -33,7 +34,7 @@ int	call_to_builtins(t_cmd *cmd, char **envp, t_env_var *env_list)
 		else if (cmd->cmd[0][1] == 'n')
 			return (ft_env(cmd->cmd, envp, 0));
 		else if (cmd->cmd[0][2] == 'p')
-			return (ft_export(cmd->cmd, env_list, envp));//needs env_list
+			return (ft_export(cmd->cmd, env_list, envp));
 		else if (cmd->cmd[0][2] == 'i')
 			return (ft_exit(cmd));
 	}

@@ -3,7 +3,7 @@ CC			= cc
 CFLAGS		= -Wall -Werror -Wextra -ggdb
 SRC_PATH	= src
 OBJ_PATH	= build
-SRC			=	main.c debug_helpers.c\
+SRC			=	main.c cleanup.c\
 				builtins/cd.c builtins/echo.c builtins/env.c\
 				builtins/exit.c builtins/export.c\
 				builtins/pwd.c builtins/unset.c\

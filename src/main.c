@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/12/01 10:32:11 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/01 10:50:15 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,37 +32,8 @@ static void	init_shell(t_shell *data, int argc, char **argv, char **envp)
 		free_shell(data, EXIT_FAILURE);
 }
 
-/* Free all allocated memory relative to the last prompt line */
-static void	cleanup_line(t_shell *data)
-{
-	if (data->line)
-		free(data->line);
-	data->line = NULL;
-	if (data->envp)
-		free_strings_array(data->envp);
-	data->envp = NULL;
-	if (data->lex_list)
-		ft_lexlist_clear(&(data->lex_list));
-	data->lex_list = NULL;
-	if (data->cmd_list)
-		ft_cmdlist_clear(&data->cmd_list);
-	data->cmd_list = NULL;
-}
-
-/* Free all allocated memory, clear history and exit program */
-void	free_shell(t_shell *data, int exit_status)
-{
-	cleanup_line(data);
-	rl_clear_history();
-	if (data->env_list)
-		ft_envlist_clear(&(data->env_list));
-	data->env_list = NULL;
-	data = NULL;
-	exit(exit_status);
-}
-
 /* Add line to history, validate quotes and pipes. Exit if EOF (Ctrl+D) */
-int	validate_line(t_shell *shell_data)
+static int	validate_line(t_shell *shell_data)
 {
 	if (!shell_data->line)
 	{
@@ -79,7 +50,7 @@ int	validate_line(t_shell *shell_data)
 /* Call lexer, validate syntax and call parser.
 Return `0` to restart loop if syntax validation fails or if empty line.
 Exit program if list creation fails. */
-int	parse_line(t_shell *shell_data)
+static int	parse_line(t_shell *shell_data)
 {
 	shell_data->lex_list = lexer(shell_data->line);
 	if (!shell_data->lex_list)

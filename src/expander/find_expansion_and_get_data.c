@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_expansion_and_get_data.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enrgil-p <enrgil-p@student.42madrid.c      +#+  +:+       +#+        */
+/*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 19:53:52 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/28 16:49:31 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/12/01 10:52:06 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	find_expansion(char *str, t_expansion_data *exp_data)
 	index = 0;
 	while (str[index] != '\0')
 	{
-		//if (str[index] == SINGLE_QUOTE || str[index] == DOUBLE_QUOTE)
 		if (is_quote(str[index]))
 			update_quote_flag(exp_data, str[index]);
 		if (str[index] == DOLLAR
