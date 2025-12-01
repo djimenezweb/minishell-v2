@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/12/01 11:24:15 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/01 12:11:36 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,18 @@ static void	init_shell(t_shell *data, int argc, char **argv, char **envp)
 		free_shell(data, EXIT_FAILURE);
 }
 
+static int	ft_is_empty(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && ft_isspace(str[i]))
+		i++;
+	if (!str[i])
+		return (1);
+	return (0);
+}
+
 /* Add line to history, validate quotes and pipes. Exit if EOF (Ctrl+D) */
 static int	validate_line(t_shell *shell_data)
 {
@@ -40,8 +52,9 @@ static int	validate_line(t_shell *shell_data)
 		ft_putendl_fd("exit", STDOUT_FILENO);
 		free_shell(shell_data, EXIT_SUCCESS);
 	}
-	if (*shell_data->line)
-		add_history(shell_data->line);
+	if (ft_is_empty(shell_data->line))
+		return (0);
+	add_history(shell_data->line);
 	if (!pipes_and_quotes_validation(shell_data->line))
 		return (0);
 	return (1);
