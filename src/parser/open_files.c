@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 18:20:47 by danielji          #+#    #+#             */
-/*   Updated: 2025/12/01 12:56:41 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/02 17:27:14 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,25 @@ void	assign_hdoc(t_lextoken *lst, t_cmd *last_node)
 or `TOK_OUTFILE_APPEND` */
 void	assign_fd(t_lextoken *lst, t_cmd *node)
 {
+	int	file;
+
 	if (is_infile(lst))
 	{
-		if (node->input != STDIN_FILENO)
+		file = open_infile(lst->value);
+		if (node->input < 0)
+			return ;
+		else if (node->input != STDIN_FILENO)
 			close(node->input);
-		node->input = open_infile(lst->value);
+		node->input = file;
 	}
 	if (is_outfile(lst))
 	{
-		if (node->output != STDOUT_FILENO)
+		if (node->output < 0)
+			return ;
+		else if (node->output != STDOUT_FILENO)
 			close(node->output);
-		node->output = open_outfile(lst->value, lst->word_type);
+		file = open_outfile(lst->value, lst->word_type);
+		node->output = file;
 	}
 }
 
