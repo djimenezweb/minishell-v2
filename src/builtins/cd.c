@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 11:06:43 by danielji          #+#    #+#             */
-/*   Updated: 2025/12/01 19:46:04 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/12/02 19:29:04 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,6 @@ int	execute_cd(char **cmd, char *new_path, t_env_var *env_list, char **envp)
 	if (!env_list)
 		return (error_in_cd(NULL, 0, &new_oldpwd));
 	if (!change_pwd(old_pwd, &new_oldpwd) || !change_pwd(current_pwd, NULL))
-		return (error_in_cd(CD_GETCWD, 1, NULL));
+		return (error_in_cd(CD_UPDATE_ENV, 1, NULL));
 	return (0);
 }
