@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:01:58 by danielji          #+#    #+#             */
-/*   Updated: 2025/12/01 13:04:08 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/02 17:30:22 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ static int	new_cmd(t_cmd **list, t_cmd **last, t_parser_data *data)
 /* Parse a `t_lextoken` list into a `t_cmd` list
 - Count processes and words.
 - A process without command is a valid one (e.g. `ls | <infile | echo Hi`)
-- Malloc every process to store in **cmd. First string will be cmd, next ones arg 
-- If a pipe is found, change to next process, create a new node and repeat */
+- Malloc every process in **cmd. First string will be cmd, next ones arg 
+- If a pipe is found change to next process, create new node and repeat */
 t_cmd	*parser(t_lextoken *lst)
 {
 	t_cmd			*last_node;
