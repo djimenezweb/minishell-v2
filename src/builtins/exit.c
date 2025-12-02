@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 16:02:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/27 18:39:54 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/02 16:25:11 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static int	is_valid_number(char *str)
 	i = 0;
 	while (str[i])
 	{
+		if (str[i] == '-' || str[i] == '+')
+			i++;
 		if (ft_isdigit(str[i]) != 1)
 		{
 			ft_dprintf(STDERR_FILENO, "minishell: exit: %s: "
