@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/05 18:20:47 by danielji          #+#    #+#             */
-/*   Updated: 2025/12/02 18:52:13 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/12/03 09:40:33 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	assign_fd(t_lextoken *lst, t_cmd *node)
 		if (node->input < 0 || node->output < 0)
 			return ;
 		else if (node->input != STDIN_FILENO)
-			close(node->input);
+			safe_close(node->input);
 		node->input = file;
 	}
 	if (is_outfile(lst))
@@ -38,7 +38,7 @@ void	assign_fd(t_lextoken *lst, t_cmd *node)
 		if (node->output < 0 || node->input < 0)
 			return ;
 		else if (node->output != STDOUT_FILENO)
-			close(node->output);
+			safe_close(node->output);
 		file = open_outfile(lst->value, lst->word_type);
 		node->output = file;
 	}

@@ -1,6 +1,6 @@
 NAME		= minishell
 CC			= cc
-CFLAGS		= -Wall -Werror -Wextra -ggdb
+CFLAGS		= -Wall -Werror -Wextra
 SRC_PATH	= src
 OBJ_PATH	= build
 SRC			=	main.c cleanup.c\
@@ -65,6 +65,10 @@ run : all
 	./$(NAME)
 
 valgrind : all
-	valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-fds=yes ./$(NAME)
+	valgrind --suppressions=readline.supp\
+			 --leak-check=full\
+			 --show-leak-kinds=all\
+			 --track-fds=yes\
+			 ./$(NAME)
 
 .PHONY : all clean fclean re run valgrind
