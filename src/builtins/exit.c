@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/20 16:02:09 by danielji          #+#    #+#             */
-/*   Updated: 2025/12/02 16:46:45 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/03 10:03:53 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,14 @@ int	ft_exit(t_cmd *cmd)
 {
 	unsigned char	status;
 
+	if (cmd->cmd[1] && !is_valid_number(cmd->cmd[1]))
+		return (free_shell(cmd->shell, 2), 2);
 	if (arr_size(cmd->cmd) > 2)
 	{
 		ft_putendl_fd("minishell: exit: too many arguments", STDERR_FILENO);
-		return (1);
+		if (is_valid_number(cmd->cmd[1]))
+			return (1);
 	}
-	if (cmd->cmd[1] && is_valid_number(cmd->cmd[1]) == 0)
-		return (2);
 	status = (unsigned char)get_exit_status(cmd);
 	free_shell(cmd->shell, status);
 	return (0);
