@@ -6,14 +6,17 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 11:06:43 by danielji          #+#    #+#             */
-/*   Updated: 2025/12/02 19:29:04 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/12/03 22:20:52 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	error_in_cd(char *message, int status, char **new_oldpwd)
+static int	error_in_cd(char *message, int status, char **new_oldpwd,
+		t_env_var *oldpwd)
 {
+	if (status == 127 && (oldpwd && chdir(oldpwd->value) < 0))
+		chdir("/");
 	if (new_oldpwd)
 		free(*new_oldpwd);
 	if (message)
@@ -89,7 +92,7 @@ int	execute_cd(char **cmd, char *new_path, t_env_var *env_list, char **envp)
 	char		*new_oldpwd;
 
 	if (cmd[1] && cmd[2])
-		return (error_in_cd(CD_ARGS, 2, NULL));
+		return (error_in_cd(CD_ARGS, 2, NULL, NULL));
 	if (cmd[1] && !is_directory(new_path))
 	{
 		ft_dprintf(2, "minishell: cd: %s: Not a directory\n", cmd[1]);
@@ -99,14 +102,14 @@ int	execute_cd(char **cmd, char *new_path, t_env_var *env_list, char **envp)
 	old_pwd = find_env_var(env_list, "OLDPWD");
 	new_oldpwd = NULL;
 	if (!call_to_getcwd(&new_oldpwd))
-		return (error_in_cd(CD_GETCWD, 1, &new_oldpwd));
+		return (error_in_cd(CD_GETCWD, 127, &new_oldpwd, old_pwd));
 	if (!new_path && !set_home_as_path(env_list, &new_path, envp))
-		return (error_in_cd(CD_NO_HOME, 2, &new_oldpwd));
+		return (error_in_cd(CD_NO_HOME, 2, &new_oldpwd, NULL));
 	if (chdir(new_path) < 0)
-		return (error_in_cd(CD_NO_DIR, 2, &new_oldpwd));
+		return (error_in_cd(CD_NO_DIR, 2, &new_oldpwd, NULL));
 	if (!env_list)
-		return (error_in_cd(NULL, 0, &new_oldpwd));
+		return (error_in_cd(NULL, 0, &new_oldpwd, NULL));
 	if (!change_pwd(old_pwd, &new_oldpwd) || !change_pwd(current_pwd, NULL))
-		return (error_in_cd(CD_UPDATE_ENV, 1, NULL));
+		return (error_in_cd(CD_UPDATE_ENV, 1, NULL, NULL));
 	return (0);
 }
