@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 19:53:52 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/12/01 10:52:06 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/04 19:44:46 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,24 @@ static int	set_resize_data(t_expansion_data *exp_data, char *str)
  * from old token_word. Later we'll add expanded_var_len to resize*/
 int	find_expansion(char *str, t_expansion_data *exp_data)
 {
-	int	index;
+	int	i;
 
-	index = 0;
-	while (str[index] != '\0')
+	i = 0;
+	while (str[i] != '\0')
 	{
-		if (is_quote(str[index]))
-			update_quote_flag(exp_data, str[index]);
-		if (str[index] == DOLLAR
+		if (is_quote(str[i]))
+			update_quote_flag(exp_data, str[i]);
+		if (str[i] == DOLLAR
+			&& (str[i + 1] && !ft_isspace(str[i + 1]))
 			&& exp_data->env_quoted != SINGLE_QUOTE)
 		{
-			exp_data->dollar_position = index;
-			exp_data->var_name = get_variable_name(str + index);
+			exp_data->dollar_position = i;
+			exp_data->var_name = get_variable_name(str + i);
 			if (!exp_data->var_name)
 				exp_data->malloc_fail = 1;
 			return (set_resize_data(exp_data, str));
 		}
-		++index;
+		++i;
 	}
 	return (0);
 }
