@@ -39,7 +39,7 @@ int	find_expansion(char *str, t_expansion_data *exp_data)
 	{
 		if (is_quote(str[index]))
 			update_quote_flag(exp_data, str[index]);
-		if (str[index] == DOLLAR
+		if (str[index] == DOLLAR && !ft_isspace(str[index + 1])
 			&& exp_data->env_quoted != SINGLE_QUOTE)
 		{
 			exp_data->dollar_position = index;
