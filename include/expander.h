@@ -23,6 +23,7 @@ typedef enum e_protect_chars_status
 
 typedef struct s_expansion_data
 {
+	char	*iterator;
 	int		dollar_position;
 	int		resize_len;
 	int		var_name_len;
