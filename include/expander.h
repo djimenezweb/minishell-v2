@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 17:23:08 by enrgil-p          #+#    #+#             */
-/*   Updated: 2025/11/12 20:04:19 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/12/04 20:34:28 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_join
 }	t_join;
 
 int		expander(char **str, t_env_var *list);
-int		find_expansion(char *str, t_expansion_data *exp_data);
+int		find_expansion(t_expansion_data *exp_data);
 char	*get_variable_name(char *str);
 char	*resize_expansions(char *old_str, t_expansion_data *ed);
 void	update_quote_flag(t_expansion_data *expansion, int char_found);
