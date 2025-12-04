@@ -16,8 +16,8 @@ If something crashes, select the "crash" flag. If something doesn't work, select
 - [x] Execute a simple command with an absolute path like `/bin/ls`, or any other command without any options.
 - [x] How many global variables are used? Why? Ask the evaluated student to give you a concrete example of why it feels mandatory or logical.
 - [x] Check the global variable. This global variable cannot provide any other information or data access than the number of a received signal.
-- [ ] Test an empty command.
-- [ ] Test only spaces or tabs.
+- [x] Test an empty command.
+- [x] Test only spaces or tabs.
 
 ### Arguments
 
@@ -62,7 +62,7 @@ If something crashes, select the "crash" flag. If something doesn't work, select
 - [x] `Ctrl`+`D` in a prompt after you wrote some stuff should not do anything.
 - [x] `Ctrl`+`\` in a prompt after you wrote some stuff should not do anything.
 - [x] Try `Ctrl`+`C` after running a blocking command like `cat` without arguments or `grep "something"`.
-- [ ] Try `Ctrl`+`\` after running a blocking command like `cat` without arguments or `grep "something"`.
+- [x] Try `Ctrl`+`\` after running a blocking command like `cat` without arguments or `grep "something"`.
 - [x] Try `Ctrl`+`D` after running a blocking command like `cat` without arguments or `grep "something"`.
 - [ ] Repeat multiple times using different commands.
 
@@ -110,45 +110,45 @@ If something crashes, select the "crash" flag. If something doesn't work, select
 
 ### Relative Path
 
-- [ ] Execute commands but this time use a relative path.
-- [ ] Repeat multiple times in different directories with a complex relative path (lots of `..`).
+- [x] Execute commands but this time use a relative path.
+- [x] Repeat multiple times in different directories with a complex relative path (lots of `..`).
 
 ### Environment path
 
-- [ ] Execute commands but this time without any path (`ls`, `wc`, `awk` and so forth).
-- [ ] Unset the `$PATH` and ensure commands are not working anymore.
-- [ ] Set the `$PATH` to a multiple directory value (`directory1:directory2`) and ensure that directories are checked in order from left to right.
+- [x] Execute commands but this time without any path (`ls`, `wc`, `awk` and so forth).
+- [x] Unset the `$PATH` and ensure commands are not working anymore.
+- [x] Set the `$PATH` to a multiple directory value (`directory1:directory2`) and ensure that directories are checked in order from left to right.
 
 ### Redirection
 
-- [ ] Execute commands with redirections `<` and/or `>`
+- [x] Execute commands with redirections `<` and/or `>`
 - [ ] Repeat multiple times with different commands and arguments and sometimes change `>` with `>>`
-- [ ] Check if multiple tries of the same redirections fail.
-- [ ] Test `<<` redirection (it doesn't have to update the history).
+- [x] Check if multiple tries of the same redirections fail.
+- [x] Test `<<` redirection (it doesn't have to update the history).
 
 ### Pipes
 
-- [ ] Execute commands with pipes like `cat file | grep bla | more`
+- [x] Execute commands with pipes like `cat file | grep bla | more`
 - [ ] Repeat multiple times with different commands and arguments.
-- [ ] Try some wrong commands like `ls filethatdoesntexist | grep bla | more`
-- [ ] Try to mix pipes and redirections.
+- [x] Try some wrong commands like `ls filethatdoesntexist | grep bla | more`
+- [x] Try to mix pipes and redirections.
 
 ### Go Crazy and history
 
-- [ ] Type a command line, then use `Ctrl`+`C` and press "Enter". The buffer should be clean and there should be nothing left to execute.
-- [ ] Can we navigate through history using Up and Down? Can we retry some command?
-- [ ] Execute commands that should not work like `dsbksdgbksdghsd`. Ensure minishell doesn't crash and prints an error.
-- [ ] `cat | cat | ls` should behave in a "normal way".
+- [x] Type a command line, then use `Ctrl`+`C` and press "Enter". The buffer should be clean and there should be nothing left to execute.
+- [x] Can we navigate through history using Up and Down? Can we retry some command?
+- [x] Execute commands that should not work like `dsbksdgbksdghsd`. Ensure minishell doesn't crash and prints an error.
+- [x] `cat | cat | ls` should behave in a "normal way".
 - [ ] Try to execute a long command with a ton of arguments.
 - [ ] Have fun with that beautiful minishell and enjoy it!
 
 ### Environment variables
 
-- [ ] Execute `echo` with some environment variables (`$variable`) as arguments.
+- [x] Execute `echo` with some environment variables (`$variable`) as arguments.
 - [ ] Check that `$` is interpreted as an environment variable.
-- [ ] Check that double quotes interpolate `$`.
-- [ ] Check that `USER` exists. Otherwise, set it.
-- [ ] `echo "$USER"` should print the value of the `USER` variable.
+- [x] Check that double quotes interpolate `$`.
+- [x] Check that `USER` exists. Otherwise, set it.
+- [x] `echo "$USER"` should print the value of the `USER` variable.
 
 ## Bonus
 
@@ -164,6 +164,6 @@ Evaluate the bonus part if, and only if, the mandatory part has been entirely an
 
 ### Surprise! (or not...)
 
-- [ ] Set the `USER` environment variable.
-- [ ] `echo "'$USER'"` should print the value of the `USER` variable.
-- [ ] `echo '"$USER"'` should print `"$USER"`.
+- [x] Set the `USER` environment variable.
+- [x] `echo "'$USER'"` should print the value of the `USER` variable.
+- [x] `echo '"$USER"'` should print `"$USER"`.
