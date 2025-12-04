@@ -12,8 +12,9 @@
 
 #include "minishell.h"
 
-static void	init_expansion_data(t_expansion_data *exp_data)
+static void	init_expansion_data(t_expansion_data *exp_data, char *str)
 {
+	exp_data->iterator = str;
 	exp_data->dollar_position = 0;
 	exp_data->resize_len = 0;
 	exp_data->var_name_len = 0;
@@ -24,11 +25,11 @@ static void	init_expansion_data(t_expansion_data *exp_data)
 	exp_data->expanded = NULL;
 }
 
-static void	reset_expansion_data(t_expansion_data *exp_data)
+static void	reset_expansion_data(t_expansion_data *exp_data, char *str)
 {
 	if (exp_data->var_name)
 		free(exp_data->var_name);
-	init_expansion_data(exp_data);
+	init_expansion_data(exp_data, str);
 }
 
 void	quote_chars_in_expanded_vars(char **str, t_protect_chars_status status)
@@ -62,21 +63,22 @@ int	expander(char **str, t_env_var *list)
 	t_expansion_data	exp_data;
 	char				*new_str;
 
-	init_expansion_data(&exp_data);
+	init_expansion_data(&exp_data, *str);
 	protect_heredoc_delimiter(str, PROTECT, exp_data);
-	while (find_expansion(*str, &exp_data) && !exp_data.malloc_fail)
+	iterator = *str;
+	while (find_expansion(&exp_data) && !exp_data.malloc_fail)
 	{
 		exp_data.expanded = get_env_value(list, exp_data.var_name);
 		quote_chars_in_expanded_vars(&exp_data.expanded, PROTECT);
 		new_str = resize_expansions(*str, &exp_data);
 		if (!new_str)
 		{
-			reset_expansion_data(&exp_data);
+			reset_expansion_data(&exp_data, NULL);
 			return (0);
 		}
 		free(*str);
 		*str = new_str;
-		reset_expansion_data(&exp_data);
+		reset_expansion_data(&exp_data, str[exp_data->dollar_position]);
 	}
 	if (exp_data.malloc_fail)
 		return (0);
