@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 12:47:48 by danielji          #+#    #+#             */
-/*   Updated: 2025/12/01 10:54:35 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/04 19:53:08 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	ft_export(char **cmd, t_env_var *env_list, char **envp)
 
 	error_flag = 0;
 	if (!cmd[1])
-		return (ft_env(cmd, envp, 1));//debug. Here we should sort env vars
+		return (ft_env(cmd, envp, 1));
 	else if (env_list)
 	{
 		cmd += 1;
