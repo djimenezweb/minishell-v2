@@ -30,23 +30,24 @@ static int	set_resize_data(t_expansion_data *exp_data, char *str)
 /*Search $ that is not quoted. If finds it, gets data to know the var_name
  * and it's size. word_token_len - var_name = number of chars we'll maintain
  * from old token_word. Later we'll add expanded_var_len to resize*/
-int	find_expansion(char *str, t_expansion_data *exp_data)
+int	find_expansion(/*char *str, */t_expansion_data *exp_data)
 {
 	int	index;
 
 	index = 0;
-	while (str[index] != '\0')
+	while (exp_data->iterator[index] != '\0')
 	{
-		if (is_quote(str[index]))
-			update_quote_flag(exp_data, str[index]);
-		if (str[index] == DOLLAR && !ft_isspace(str[index + 1])
+		if (is_quote(exp_data->iterator[index]))
+			update_quote_flag(exp_data, exp_data->iterator[index]);
+		if (exp_data->iterator[index] == DOLLAR
+			&& !ft_isspace(exp_data->iterator[index + 1])
 			&& exp_data->env_quoted != SINGLE_QUOTE)
 		{
 			exp_data->dollar_position = index;
 			exp_data->var_name = get_variable_name(str + index);
 			if (!exp_data->var_name)
 				exp_data->malloc_fail = 1;
-			return (set_resize_data(exp_data, str));
+			return (set_resize_data(exp_data, exp_data->iterator));
 		}
 		++index;
 	}
