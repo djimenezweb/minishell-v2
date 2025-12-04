@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 14:13:32 by danielji          #+#    #+#             */
-/*   Updated: 2025/12/01 11:24:45 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/04 11:14:27 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,7 @@ int	wait_children(t_cmd *cmd)
 		last_status = cmd->status;
 		cmd = cmd->next;
 	}
-	if (signal == SIGINT || signal == SIGQUIT)
-	{
-		write(STDOUT_FILENO, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-	}
+	print_signal_line(signal);
 	return (last_status);
 }
 
@@ -53,4 +48,16 @@ int	get_status(int wstatus, int *signal)
 		return (128 + *signal);
 	}
 	return (1);
+}
+
+void	print_signal_line(int signal)
+{
+	if (signal == SIGQUIT)
+		ft_putstr_fd("Quit (core dumped)", STDERR_FILENO);
+	if (signal == SIGINT || signal == SIGQUIT)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+	}
 }

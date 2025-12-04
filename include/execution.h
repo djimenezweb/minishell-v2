@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 10:44:41 by danielji          #+#    #+#             */
-/*   Updated: 2025/12/01 12:42:34 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/04 10:56:58 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ pid_t	fork_cmd(t_cmd *cmd, int *temp_fd, int pipefd[2], char **envp);
 void	parent_process(t_cmd *cmd, int *temp_fd, int pipefd[2]);
 void	child_process(t_cmd *cmd, int temp_fd, int pipefd[2], char **envp);
 int		get_status(int wstatus, int *signal);
+void	print_signal_line(int signal);
 int		wait_children(t_cmd *cmd);
 char	**get_path_dirs(t_env_var *env_list);
 char	*get_exec_path(char *cmd, char **paths);
