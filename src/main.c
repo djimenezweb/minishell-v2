@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/12/05 12:21:56 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/05 14:17:29 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	main(int argc, char **argv, char **envp)
 		cleanup_line(&shell_data);
 		g_heredoc_signal = NO_SIGNAL;
 		parent_signals();
-		shell_data.line = readline("$ ");
+		shell_data.line = readline("shed$ ");
 		if (!validate_line(&shell_data))
 			continue ;
 		if (!expander(&shell_data.line, shell_data.env_list))
