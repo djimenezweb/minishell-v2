@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:33 by danielji          #+#    #+#             */
-/*   Updated: 2025/12/01 12:11:36 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/05 12:21:56 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ static int	validate_line(t_shell *shell_data)
 		return (0);
 	add_history(shell_data->line);
 	if (!pipes_and_quotes_validation(shell_data->line))
+	{
+		set_last_exit_status(shell_data->env_list, 2);
 		return (0);
+	}
 	return (1);
 }
 
@@ -71,7 +74,10 @@ static int	parse_line(t_shell *shell_data)
 	if (shell_data->lex_list->type == TOK_EOF)
 		return (0);
 	if (!syntax_validation(shell_data->lex_list))
+	{
+		set_last_exit_status(shell_data->env_list, 2);
 		return (0);
+	}
 	shell_data->cmd_list = parser(shell_data->lex_list);
 	if (!shell_data->cmd_list)
 		free_shell(shell_data, EXIT_FAILURE);
