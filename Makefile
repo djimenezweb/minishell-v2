@@ -45,19 +45,19 @@ all : $(NAME)
 
 $(NAME) : $(OBJS)
 	@$(MAKE) -sC libft libft.a
-	@$(CC) $(OBJS) $(LDFLAGS) -o $(NAME)
+	$(CC) $(OBJS) $(LDFLAGS) -o $(NAME)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean :
 	@rm -rf $(OBJ_PATH)
-	@$(MAKE) -sC libft clean
+	$(MAKE) -sC libft clean
 
 fclean : clean
 	@rm -f $(NAME)
-	@$(MAKE) -sC libft fclean
+	$(MAKE) -sC libft fclean
 
 re : fclean all
 
