@@ -12,9 +12,7 @@
 
 #include "minishell.h"
 
-/* Run builtin function and return its exit status
-- Run in PARENT process : `cd`, `unset`, `export`, `exit`
-- Run in CHILD process : `pwd`, `echo`, `env`  */
+/* Run builtin function and return its exit status*/
 int	call_to_builtins(t_cmd *cmd, char **envp, t_env_var *env_list)
 {
 	if (cmd->cmd[0][0] != 'e')

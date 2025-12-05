@@ -13,12 +13,7 @@
 #include "minishell.h"
 
 /* Variable names are made up of uppercase and lowercase letters,
-numbers, and `_`. All other characters are considered delimiters.
-
-Bash Reference Manual:
-- `name`: A `word` consisting solely of letters, numbers, and underscores, and
-beginning with a letter or underscore. Names are used as shell variable and
-function names. */
+numbers, and `_`. All other characters are considered delimiters.*/
 char	*get_variable_name(char *str)
 {
 	int		i;

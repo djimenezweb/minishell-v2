@@ -12,9 +12,7 @@
 
 #include "minishell.h"
 
-/* Take a node as parameter and free its content.
-Free the node but do NOT free the next node. 
-`node->delimiters` points to an array of strings. We only free the array
+/* Take a node as parameter and free its content. We only free the array
 because the strings are freed somewhere else */
 void	ft_cmdnode_free(t_cmd *node)
 {
