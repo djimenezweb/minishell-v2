@@ -14,8 +14,7 @@
 
 void	update_quote_flag(t_expansion_data *expansion, int char_found)
 {
-	if (!expansion->env_quoted
-		&& (char_found == SINGLE_QUOTE || char_found == DOUBLE_QUOTE))
+	if (!expansion->env_quoted && is_quote(char_found))
 		expansion->env_quoted = char_found;
 	else if (expansion->env_quoted == char_found)
 		expansion->env_quoted = 0;
