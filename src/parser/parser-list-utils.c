@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:03:00 by danielji          #+#    #+#             */
-/*   Updated: 2025/12/05 09:33:28 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/05 09:34:26 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,4 @@ t_cmd	*ft_new_cmdnode(void)
 	node->next = NULL;
 	node->prev = NULL;
 	return (node);
-}
-
-/* Return size of a command list */
-int	ft_cmdlist_size(t_cmd *lst)
-{
-	int	size;
-
-	size = 0;
-	while (lst)
-	{
-		size++;
-		lst = lst->next;
-	}
-	return (size);
 }
