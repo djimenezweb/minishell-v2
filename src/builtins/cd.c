@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 11:06:43 by danielji          #+#    #+#             */
-/*   Updated: 2025/12/03 22:20:52 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/12/05 12:29:25 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,22 @@ static int	error_in_cd(char *message, int status, char **new_oldpwd,
 		t_env_var *oldpwd)
 {
 	if (status == 127 && (oldpwd && chdir(oldpwd->value) < 0))
+	{
 		chdir("/");
+		status = 126;
+	}
 	if (new_oldpwd)
 		free(*new_oldpwd);
+	if (!message && status == 127)
+	{
+		message = CD_OLDPWD;
+		status = 2;//May change this status?
+	}
+	if (!message && status == 126)
+	{
+		message = CD_ROOT;
+		status = 2;//May change this status?
+	}
 	if (message)
 		ft_putendl_fd(message, STDERR_FILENO);
 	return (status);
@@ -102,7 +115,7 @@ int	execute_cd(char **cmd, char *new_path, t_env_var *env_list, char **envp)
 	old_pwd = find_env_var(env_list, "OLDPWD");
 	new_oldpwd = NULL;
 	if (!call_to_getcwd(&new_oldpwd))
-		return (error_in_cd(CD_GETCWD, 127, &new_oldpwd, old_pwd));
+		return (error_in_cd(NULL, 127, &new_oldpwd, old_pwd));
 	if (!new_path && !set_home_as_path(env_list, &new_path, envp))
 		return (error_in_cd(CD_NO_HOME, 2, &new_oldpwd, NULL));
 	if (chdir(new_path) < 0)
