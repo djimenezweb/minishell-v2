@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 10:53:51 by danielji          #+#    #+#             */
-/*   Updated: 2025/12/05 12:23:31 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/12/05 12:44:28 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 
 # define CD_NO_HOME "minishell: cd: HOME not set"
 # define CD_NO_DIR "minishell: cd: No such file or directory"
-# define CD_ROOT "minishell: cd: No such file or directory. Changed dir to '/'"
-# define CD_OLDPWD "minishell: cd: No such file or directory. Changed to OLDPWD"
 # define CD_UPDATE_ENV "minishell: cd: update PWD or OLDPWD failed"
 # define CD_ARGS "minishell: cd: too many arguments"
 

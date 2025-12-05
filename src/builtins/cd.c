@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 11:06:43 by danielji          #+#    #+#             */
-/*   Updated: 2025/12/05 12:29:25 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/12/05 12:44:59 by enrgil-p         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ static int	error_in_cd(char *message, int status, char **new_oldpwd,
 	}
 	if (new_oldpwd)
 		free(*new_oldpwd);
-	if (!message && status == 127)
+	if (!message && (status == 127 || status == 126))
 	{
-		message = CD_OLDPWD;
+		if (status == 127)
+			message = oldpwd->value;
+		else
+			message = '/';
+		ft_dprintf(STDERR, CD_NO_DIR"%s. Changed dir to'%s'\n",
+			message);
 		status = 2;//May change this status?
 	}
-	if (!message && status == 126)
-	{
-		message = CD_ROOT;
-		status = 2;//May change this status?
-	}
-	if (message)
+	else if (message)
 		ft_putendl_fd(message, STDERR_FILENO);
 	return (status);
 }
