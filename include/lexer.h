@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/21 11:26:17 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/16 16:28:36 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/12/05 09:29:58 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ t_lextoken	*ft_new_operator_token(char c, char next_c, int *i);
 t_lextoken	*ft_new_word_token(char *str, int *i);
 void		skip_spaces(char *str, int *i);
 t_lextoken	*lexer(char *str);
-void		ft_lexlist_insert(t_lextoken *prev, t_lextoken *new);
 void		ft_lexlist_add(t_lextoken **lst, t_lextoken *new);
 void		ft_lexnode_free(t_lextoken *node);
 void		ft_lexlist_clear(t_lextoken **lst);

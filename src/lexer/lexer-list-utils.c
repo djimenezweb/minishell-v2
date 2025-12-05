@@ -6,22 +6,11 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/26 11:24:38 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/09 22:23:03 by enrgil-p         ###   ########.fr       */
+/*   Updated: 2025/12/05 09:30:01 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/* Add the node `new` after the node `prev` */
-void	ft_lexlist_insert(t_lextoken *prev, t_lextoken *new)
-{
-	t_lextoken	*temp;
-
-	temp = prev->next;
-	prev->next = new;
-	new->next = temp;
-	new->next->prev = new;
-}
 
 /* Add the node `new` at the beginning of the list `lst`
 if it's empty or at the end of the list */
