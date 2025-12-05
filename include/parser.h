@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/23 10:04:19 by danielji          #+#    #+#             */
-/*   Updated: 2025/11/28 12:28:19 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/05 09:33:28 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_parser_data
 }	t_parser_data;
 
 t_cmd	*parser(t_lextoken *lst);
-void	ft_cmdlist_insert(t_cmd *prev, t_cmd *new);
 void	ft_cmdlist_add(t_cmd **lst, t_cmd *new);
 void	ft_cmdnode_free(t_cmd *node);
 void	ft_cmdlist_clear(t_cmd **lst);
