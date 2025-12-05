@@ -6,7 +6,7 @@
 /*   By: danielji <danielji@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 09:18:26 by danielji          #+#    #+#             */
-/*   Updated: 2025/12/01 10:47:53 by danielji         ###   ########.fr       */
+/*   Updated: 2025/12/05 10:35:16 by danielji         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,5 @@ typedef struct s_shell
 
 void	cleanup_line(t_shell *data);
 void	free_shell(t_shell *data, int exit_status);
-void	print_lex_list(t_lextoken *list);
-void	print_array_of_strings(char **arr);
-void	print_cmd_list(t_cmd *list);
-void	print_env_list(t_env_var *list);
 
 #endif
